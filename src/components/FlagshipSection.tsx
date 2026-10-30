@@ -13,6 +13,7 @@ import { useCart } from '../context/CartContext';
 import { PRODUCTS } from '../data/products';
 import { getWhatsAppFlagshipOrderUrl } from '../utils/whatsapp';
 import { SafeImage } from './SafeImage';
+import vermicompost1kgStarterImg from '../assets/images/vermicompost-1kg-starter.jpg';
 import vermicompostHandsPouchImg from '../assets/images/vermicompost-showcase-hands-pouch.jpg';
 import vermicompostSquareImg from '../assets/images/vermicompost-organic-square.jpg';
 import vermicompost5kgImg from '../assets/images/vermicompost-5kg-showcase.jpg';
@@ -24,20 +25,30 @@ export const FlagshipSection: React.FC = () => {
   const [selectedPackIndex, setSelectedPackIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  // High-performance, tailored lightweight showcase views (<90KB each)
+  // Exact 4 showcase views requested by user with synchronized pricing
   const showcaseViews = [
     {
-      id: 'hands-pouch',
-      label: '2kg Pack in Garden',
-      src: vermicompostHandsPouchImg,
-      alt: 'Green Leaves Organics 6-in-1 Enriched Vermicompost with hands holding fertile soil',
+      id: '1kg-starter',
+      label: '1 kg Starter Pack',
+      src: vermicompost1kgStarterImg,
+      alt: 'Green Leaves Organics 1 kg Starter Pack Vermicompost',
+      packIdx: 0,
+      title: '6-in-1 Enriched Vermicompost',
+      subtitle: '1 kg Starter Pack',
+      price: 149,
+      mrp: 249,
       fitContain: false
     },
     {
-      id: 'organic-pouch',
-      label: 'Signature Pouch',
-      src: vermicompostSquareImg,
-      alt: 'Green Leaves Organics Enriched Vermicompost standing in garden soil',
+      id: '2kg-garden',
+      label: '2kg Pack in Garden',
+      src: vermicompostHandsPouchImg,
+      alt: 'Green Leaves Organics 2kg Pack in Garden with rich soil and seedling',
+      packIdx: 1,
+      title: '6-in-1 Enriched Vermicompost',
+      subtitle: '2kg Pack in Garden',
+      price: 249,
+      mrp: 399,
       fitContain: false
     },
     {
@@ -45,20 +56,45 @@ export const FlagshipSection: React.FC = () => {
       label: '5kg Value Pack',
       src: vermicompost5kgImg,
       alt: 'Green Leaves Organics 5 KG Enriched Vermicompost Value Pack with sapling',
+      packIdx: 2,
+      title: '6-in-1 Enriched Vermicompost',
+      subtitle: '5kg Value Pack',
+      price: 549,
+      mrp: 850,
       fitContain: false
     },
     {
-      id: 'black-soil',
-      label: 'Black Soil Castings',
-      src: deodapVermicompostSoilImg,
-      alt: 'Organic Vermicompost rich black soil manure',
+      id: 'garden-results',
+      label: 'Garden pic after using compost',
+      src: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80',
+      alt: 'Lush blooming garden nurtured with 6-in-1 Vermicompost Mix',
+      packIdx: 1,
+      title: 'Lush Garden Results',
+      subtitle: 'Results After Using Compost',
+      price: 249,
+      mrp: 399,
       fitContain: false
     }
   ];
   const [activeViewIdx, setActiveViewIdx] = useState(0);
 
-  const selectedPack = flagship.packSizes ? flagship.packSizes[selectedPackIndex] : { size: '2kg Pack', price: 249, mrp: 399 };
+  const selectedPack = flagship.packSizes ? flagship.packSizes[selectedPackIndex] : { size: '1 kg Starter Pack', price: 149, mrp: 249 };
   const discountPct = Math.round(((selectedPack.mrp - selectedPack.price) / selectedPack.mrp) * 100);
+
+  const handleShowcaseTabClick = (idx: number) => {
+    setActiveViewIdx(idx);
+    const view = showcaseViews[idx];
+    if (view && view.packIdx !== undefined && flagship.packSizes && flagship.packSizes[view.packIdx]) {
+      setSelectedPackIndex(view.packIdx);
+    }
+  };
+
+  const handlePackSizeSelect = (idx: number) => {
+    setSelectedPackIndex(idx);
+    if (idx === 0) setActiveViewIdx(0);
+    else if (idx === 1) setActiveViewIdx(1);
+    else if (idx === 2) setActiveViewIdx(2);
+  };
 
   const formulaItems = [
     {
@@ -149,8 +185,12 @@ export const FlagshipSection: React.FC = () => {
             <div className="rounded-3xl frame-dubai-gold p-5 sm:p-7 text-white relative overflow-hidden">
               <div className="flex justify-between items-start mb-3">
                 <div>
-                  <span className="text-[10px] font-black uppercase tracking-wider text-gold-metallic-shiny">2kg Signature Pouch</span>
-                  <h3 className="text-lg sm:text-xl font-black text-white mt-0.5">Enriched Vermi Compost Mix</h3>
+                  <span className="text-[10px] font-black uppercase tracking-wider text-gold-metallic-shiny">
+                    {showcaseViews[activeViewIdx].subtitle || selectedPack.size}
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-black text-white mt-0.5">
+                    {showcaseViews[activeViewIdx].title || 'Enriched Vermi Compost Mix'}
+                  </h3>
                 </div>
                 <div className="flex items-center gap-1 bg-black/60 border border-gold/40 px-2.5 py-1 rounded-full text-xs font-bold text-gold shadow-gold-dubai-sm">
                   <Star className="w-3.5 h-3.5 fill-[#FFD700] text-[#FFD700]" />
@@ -159,18 +199,18 @@ export const FlagshipSection: React.FC = () => {
               </div>
 
               {/* Image Switcher Tabs */}
-              <div className="flex items-center gap-1.5 mb-2.5 bg-black/70 p-1 rounded-xl border border-gold/30">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mb-2.5 bg-black/70 p-1.5 rounded-xl border border-gold/30">
                 {showcaseViews.map((view, idx) => (
                   <button
                     key={view.id}
-                    onClick={() => setActiveViewIdx(idx)}
-                    className={`flex-1 py-1 px-1.5 text-[10px] sm:text-[11px] font-bold rounded-lg transition-all text-center cursor-pointer ${
+                    onClick={() => handleShowcaseTabClick(idx)}
+                    className={`py-1.5 px-1.5 text-[10px] sm:text-[11px] font-bold rounded-lg transition-all text-center cursor-pointer leading-tight flex items-center justify-center min-h-[34px] ${
                       activeViewIdx === idx
                         ? 'badge-dubai-gold font-black shadow-gold-dubai-sm'
                         : 'text-gray-300 hover:text-white hover:bg-white/10'
                     }`}
                   >
-                    {view.label}
+                    <span>{view.label}</span>
                   </button>
                 ))}
               </div>
@@ -194,24 +234,27 @@ export const FlagshipSection: React.FC = () => {
 
               {/* Pack Size Selector */}
               <div className="space-y-2 pt-1">
-                <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider">
-                  Select Pack Size:
-                </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="flex justify-between items-center text-xs">
+                  <label className="block font-bold text-gray-300 uppercase tracking-wider">
+                    Select Pack Size:
+                  </label>
+                  <span className="text-gold font-bold">{selectedPack.perks}</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {flagship.packSizes?.map((pack, idx) => {
                     const isSelected = selectedPackIndex === idx;
                     return (
                       <button
                         key={idx}
-                        onClick={() => setSelectedPackIndex(idx)}
+                        onClick={() => handlePackSizeSelect(idx)}
                         className={`p-2.5 rounded-2xl text-center transition-all border cursor-pointer ${
                           isSelected
-                            ? 'bg-emerald border-gold text-white font-bold shadow-md scale-102'
+                            ? 'bg-emerald border-gold text-white font-bold shadow-gold-dubai-sm scale-102'
                             : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10'
                         }`}
                       >
-                        <div className="text-[11px] font-bold">{pack.size.split(' ')[0]} Pack</div>
-                        <div className="text-sm sm:text-base font-extrabold mt-0.5">₹{pack.price}</div>
+                        <div className="text-[11px] font-bold">{pack.size}</div>
+                        <div className="text-sm sm:text-base font-extrabold mt-0.5 text-gold-metallic-shiny">₹{pack.price}</div>
                         <div className="text-[10px] text-gray-400 line-through">₹{pack.mrp}</div>
                       </button>
                     );

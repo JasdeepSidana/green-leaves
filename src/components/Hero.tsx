@@ -16,6 +16,7 @@ import { useCart } from '../context/CartContext';
 import { PRODUCTS } from '../data/products';
 import { getWhatsAppFlagshipOrderUrl } from '../utils/whatsapp';
 import { SafeImage } from './SafeImage';
+import vermicompost1kgStarterImg from '../assets/images/vermicompost-1kg-starter.jpg';
 import vermicompostHandsPouchImg from '../assets/images/vermicompost-showcase-hands-pouch.jpg';
 import vermicompostSquareImg from '../assets/images/vermicompost-organic-square.jpg';
 import vermicompost5kgImg from '../assets/images/vermicompost-5kg-showcase.jpg';
@@ -25,23 +26,33 @@ export const Hero: React.FC = () => {
   const { addItem, openMaaliBooking } = useCart();
   const flagship = PRODUCTS.find(p => p.isFlagship) || PRODUCTS[0];
   const [selectedPackIndex, setSelectedPackIndex] = useState(0);
-  const selectedPack = flagship.packSizes ? flagship.packSizes[selectedPackIndex] : { size: '2kg Pack', price: 249, mrp: 399 };
+  const selectedPack = flagship.packSizes ? flagship.packSizes[selectedPackIndex] : { size: '1 kg Starter Pack', price: 149, mrp: 249 };
   const [activeIngredientIndex, setActiveIngredientIndex] = useState<number | null>(null);
 
-  // High-performance, tailored lightweight showcase views (<90KB each)
+  // Exact 4 showcase views requested by user with synchronized pricing
   const showcaseViews = [
     {
-      id: 'hands-pouch',
-      label: '2kg Pack in Garden',
-      src: vermicompostHandsPouchImg,
-      alt: 'Green Leaves Organics 6-in-1 Enriched Vermicompost with hands holding fertile soil',
+      id: '1kg-starter',
+      label: '1 kg Starter Pack',
+      src: vermicompost1kgStarterImg,
+      alt: 'Green Leaves Organics 1 kg Starter Pack Vermicompost',
+      packIdx: 0,
+      title: '6-in-1 Enriched Vermicompost',
+      subtitle: '1 kg Starter Pack',
+      price: 149,
+      mrp: 249,
       fitContain: false
     },
     {
-      id: 'organic-pouch',
-      label: 'Signature Pouch',
-      src: vermicompostSquareImg,
-      alt: 'Green Leaves Organics Enriched Vermicompost standing in garden soil',
+      id: '2kg-garden',
+      label: '2kg Pack in Garden',
+      src: vermicompostHandsPouchImg,
+      alt: 'Green Leaves Organics 2kg Pack in Garden with rich soil and seedling',
+      packIdx: 1,
+      title: '6-in-1 Enriched Vermicompost',
+      subtitle: '2kg Pack in Garden',
+      price: 249,
+      mrp: 399,
       fitContain: false
     },
     {
@@ -49,17 +60,42 @@ export const Hero: React.FC = () => {
       label: '5kg Value Pack',
       src: vermicompost5kgImg,
       alt: 'Green Leaves Organics 5 KG Enriched Vermicompost Value Pack with sapling',
+      packIdx: 2,
+      title: '6-in-1 Enriched Vermicompost',
+      subtitle: '5kg Value Pack',
+      price: 549,
+      mrp: 850,
       fitContain: false
     },
     {
-      id: 'black-soil',
-      label: 'Black Soil Castings',
-      src: deodapVermicompostSoilImg,
-      alt: 'Organic Vermicompost rich black soil manure',
+      id: 'garden-results',
+      label: 'Garden pic after using compost',
+      src: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80',
+      alt: 'Lush blooming garden nurtured with 6-in-1 Vermicompost Mix',
+      packIdx: 1,
+      title: 'Lush Garden Results',
+      subtitle: 'Results After Using Compost',
+      price: 249,
+      mrp: 399,
       fitContain: false
     }
   ];
   const [activeViewIdx, setActiveViewIdx] = useState(0);
+
+  const handleShowcaseTabClick = (idx: number) => {
+    setActiveViewIdx(idx);
+    const view = showcaseViews[idx];
+    if (view && view.packIdx !== undefined && flagship.packSizes && flagship.packSizes[view.packIdx]) {
+      setSelectedPackIndex(view.packIdx);
+    }
+  };
+
+  const handlePackSizeSelect = (idx: number) => {
+    setSelectedPackIndex(idx);
+    if (idx === 0) setActiveViewIdx(0);
+    else if (idx === 1) setActiveViewIdx(1);
+    else if (idx === 2) setActiveViewIdx(2);
+  };
 
   const ingredientDetails = [
     { name: 'Pure Vermicompost', role: 'Aged 90-days Eisenia foetida earthworm castings for rich humus' },
@@ -217,18 +253,18 @@ export const Hero: React.FC = () => {
               </div>
 
               {/* Image Showcase View Switcher Tabs */}
-              <div className="flex items-center gap-1.5 mb-2.5 bg-black/70 p-1 rounded-xl border border-gold/30">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mb-2.5 bg-black/70 p-1.5 rounded-xl border border-gold/30">
                 {showcaseViews.map((view, idx) => (
                   <button
                     key={view.id}
-                    onClick={() => setActiveViewIdx(idx)}
-                    className={`flex-1 py-1 px-1.5 text-[10px] sm:text-[11px] font-bold rounded-lg transition-all text-center cursor-pointer ${
+                    onClick={() => handleShowcaseTabClick(idx)}
+                    className={`py-1.5 px-1.5 text-[10px] sm:text-[11px] font-bold rounded-lg transition-all text-center cursor-pointer leading-tight flex items-center justify-center min-h-[34px] ${
                       activeViewIdx === idx
                         ? 'badge-dubai-gold font-black shadow-gold-dubai-sm'
                         : 'text-gray-300 hover:text-white hover:bg-white/10'
                     }`}
                   >
-                    {view.label}
+                    <span>{view.label}</span>
                   </button>
                 ))}
               </div>
@@ -244,13 +280,22 @@ export const Hero: React.FC = () => {
                   
                   {/* Floating Black & Gold Packaging Label Overlay */}
                   <div className="absolute bottom-1.5 left-1.5 right-1.5 bg-black/95 backdrop-blur-md rounded-xl p-2 border border-gold/50 flex items-center justify-between shadow-gold-dubai-sm">
-                    <div className="text-left">
-                      <p className="text-[9px] text-gold-metallic-shiny font-black uppercase tracking-wider">Signature 2kg Black Pouch</p>
-                      <p className="text-xs font-black text-white">6-in-1 Enriched Vermicompost</p>
+                    <div className="text-left truncate mr-2">
+                      <p className="text-[9px] text-gold-metallic-shiny font-black uppercase tracking-wider truncate">
+                        {showcaseViews[activeViewIdx].subtitle || selectedPack.size}
+                      </p>
+                      <p className="text-xs font-black text-white truncate">
+                        {showcaseViews[activeViewIdx].title || '6-in-1 Enriched Vermicompost'}
+                      </p>
                     </div>
-                    <span className="text-xs font-black badge-dubai-gold px-2.5 py-0.5 rounded-full shadow-xs">
-                      ₹{selectedPack.price}
-                    </span>
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
+                      <span className="text-[10px] text-gray-400 line-through">
+                        ₹{showcaseViews[activeViewIdx].mrp ?? selectedPack.mrp}
+                      </span>
+                      <span className="text-xs font-black badge-dubai-gold px-2.5 py-0.5 rounded-full shadow-xs">
+                        ₹{showcaseViews[activeViewIdx].price ?? selectedPack.price}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -313,22 +358,26 @@ export const Hero: React.FC = () => {
                   <span className="text-gold font-bold">{selectedPack.perks || 'Special Price'}</span>
                 </div>
                 
-                <div className="grid grid-cols-3 gap-1.5">
-                  {flagship.packSizes?.map((pack, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setSelectedPackIndex(idx)}
-                      className={`py-1.5 px-1 rounded-xl text-center transition border cursor-pointer ${
-                        selectedPackIndex === idx
-                          ? 'bg-emerald text-white border-gold font-bold shadow-sm'
-                          : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10'
-                      }`}
-                    >
-                      <div className="text-[10px] font-bold">{pack.size.replace(' Signature Pack', '').replace(' Family Garden Pack', '').replace(' Value Pack', '')}</div>
-                      <div className="text-xs font-extrabold mt-0.5">₹{pack.price}</div>
-                      <div className="text-[9px] text-gray-300 line-through">₹{pack.mrp}</div>
-                    </button>
-                  ))}
+                <div className="grid grid-cols-4 gap-1 sm:gap-1.5">
+                  {flagship.packSizes?.map((pack, idx) => {
+                    const isSelected = selectedPackIndex === idx;
+                    const displayLabel = pack.weightKg ? `${pack.weightKg}kg` : pack.size.split(' ')[0];
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => handlePackSizeSelect(idx)}
+                        className={`py-1.5 px-1 rounded-xl text-center transition border cursor-pointer ${
+                          isSelected
+                            ? 'bg-emerald text-white border-gold font-bold shadow-gold-dubai-sm'
+                            : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10'
+                        }`}
+                      >
+                        <div className="text-[10px] font-bold truncate">{displayLabel}</div>
+                        <div className="text-xs font-extrabold mt-0.5 text-gold-metallic-shiny">₹{pack.price}</div>
+                        <div className="text-[9px] text-gray-400 line-through">₹{pack.mrp}</div>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 

@@ -2,6 +2,7 @@ import { Product } from '../types';
 import vermicompostHandsPouchImg from '../assets/images/vermicompost-showcase-hands-pouch.jpg';
 import vermicompostSquareImg from '../assets/images/vermicompost-organic-square.jpg';
 import vermicompost5kgImg from '../assets/images/vermicompost-5kg-showcase.jpg';
+import vermicompost1kgStarterImg from '../assets/images/vermicompost-1kg-starter.jpg';
 import vermicompostPouchImg from '../assets/images/vermicompost-pouch.jpg';
 import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-grass.jpg';
 import brandPosterImg from '../assets/images/brand-promotional-poster.jpg';
@@ -149,15 +150,16 @@ export const PRODUCTS: Product[] = [
     category: 'manures',
     shortDescription: 'Our flagship 6-in-1 supercharged formula blending aged vermicompost, cold-pressed neem khali, processed banana leaves, Trichoderma viride, steamed bone meal, and rock phosphate.',
     fullDescription: 'Crafted specifically for urban Indian balconies, terrace gardens, and potted plants. Green Leaves Organics 6-in-1 Enriched Vermicompost Mix is aged for 90 days with Eisenia foetida earthworms and enriched with high microbial flora. It delivers slow-release nitrogen, soluble phosphorus, humic acid, and natural bio-fungicide protection that revitalizes tired pot soil and triggers lush vegetative growth and blooming.',
-    price: 249,
-    mrp: 399,
+    price: 149,
+    mrp: 249,
     image: vermicompostSquareImg,
     gallery: [
       vermicompostSquareImg,
       vermicompostHandsPouchImg,
+      vermicompost1kgStarterImg,
       vermicompost5kgImg,
+      'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80',
       deodapVermicompostSoilImg,
-      brandPosterImg,
     ],
     rating: 4.95,
     reviewCount: 348,
@@ -167,9 +169,10 @@ export const PRODUCTS: Product[] = [
     organicCertified: true,
     inStock: true,
     packSizes: [
-      { size: '2kg Signature Pack', weightKg: 2, price: 249, mrp: 399, perks: 'Free Plant + Maali Advice' },
-      { size: '5kg Family Garden Pack', weightKg: 5, price: 549, mrp: 850, perks: 'Save ₹301 + Free Delivery' },
-      { size: '10kg Terrace Value Pack', weightKg: 10, price: 999, mrp: 1600, perks: 'Mega Saver + Free 250ml Neem Spray' },
+      { size: '1 kg Starter Pack', weightKg: 1, price: 149, mrp: 249, perks: 'Organic Trial Pack' },
+      { size: '2kg Pack in Garden', weightKg: 2, price: 249, mrp: 399, perks: 'Free Plant + Maali Advice' },
+      { size: '5kg Value Pack', weightKg: 5, price: 549, mrp: 850, perks: 'Save ₹301 + Free Delivery' },
+      { size: '10kg Terrace Pack', weightKg: 10, price: 999, mrp: 1600, perks: 'Mega Saver + Free 250ml Neem Spray' },
     ],
     ingredients: [
       'Pure Eisenia Foetida Vermicompost (Aged 90 Days)',
