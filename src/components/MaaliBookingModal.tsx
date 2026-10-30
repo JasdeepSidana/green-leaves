@@ -15,7 +15,7 @@ import { useCart } from '../context/CartContext';
 import { MAALI_SERVICES } from '../data/services';
 import { MaaliBookingFormData } from '../types';
 import { sanitizeInput, isValidIndianPhone } from '../utils/security';
-import { getWhatsAppMaaliBookingUrl, PRIMARY_DISPLAY_PHONE } from '../utils/whatsapp';
+import { getWhatsAppMaaliBookingUrl } from '../utils/whatsapp';
 
 export const MaaliBookingModal: React.FC = () => {
   const { isMaaliModalOpen, closeMaaliBooking, selectedMaaliServiceId } = useCart();
@@ -41,7 +41,6 @@ export const MaaliBookingModal: React.FC = () => {
     if (selectedMaaliServiceId) {
       setFormData(prev => ({ ...prev, serviceId: selectedMaaliServiceId }));
     }
-    // Set default tomorrow date
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const dateStr = tomorrow.toISOString().split('T')[0];
@@ -58,7 +57,6 @@ export const MaaliBookingModal: React.FC = () => {
       ...prev,
       [name]: value
     }));
-    // Clear error
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -91,7 +89,6 @@ export const MaaliBookingModal: React.FC = () => {
     e.preventDefault();
     if (!validate()) return;
 
-    // Sanitize all inputs
     const sanitizedData: MaaliBookingFormData = {
       fullName: sanitizeInput(formData.fullName),
       phone: sanitizeInput(formData.phone),
@@ -115,16 +112,16 @@ export const MaaliBookingModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 my-8 animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 my-4 sm:my-8 animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-charcoal-pure via-[#132019] to-charcoal-pure text-white p-6 sm:p-8 relative">
+        <div className="bg-gradient-to-r from-charcoal-pure via-[#132019] to-charcoal-pure text-white p-5 sm:p-8 relative flex-shrink-0">
           <button
             onClick={handleResetAndClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition"
+            className="absolute top-4 right-4 text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -134,7 +131,7 @@ export const MaaliBookingModal: React.FC = () => {
             <Sparkles className="w-4 h-4" />
             <span>Green Leaves Verified Gardening Experts</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+          <h2 className="text-xl sm:text-3xl font-extrabold tracking-tight">
             Book a Professional Maali Visit
           </h2>
           <p className="text-xs sm:text-sm text-gray-300 mt-1">
@@ -143,19 +140,19 @@ export const MaaliBookingModal: React.FC = () => {
         </div>
 
         {/* Content Body */}
-        <div className="p-6 sm:p-8 max-h-[75vh] overflow-y-auto">
+        <div className="p-5 sm:p-8 overflow-y-auto flex-1">
           {isSubmitted ? (
             /* Confirmation State */
-            <div className="text-center py-6 space-y-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald flex items-center justify-center mx-auto shadow-inner">
-                <CheckCircle className="w-10 h-10" />
+            <div className="text-center py-4 sm:py-6 space-y-4">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-100 text-emerald flex items-center justify-center mx-auto shadow-inner">
+                <CheckCircle className="w-8 h-8 sm:w-10 sm:h-10" />
               </div>
               
-              <h3 className="text-2xl font-black text-charcoal">
+              <h3 className="text-xl sm:text-2xl font-black text-charcoal">
                 Appointment Request Received!
               </h3>
               
-              <p className="text-sm text-gray-600 max-w-md mx-auto leading-relaxed">
+              <p className="text-xs sm:text-sm text-gray-600 max-w-md mx-auto leading-relaxed">
                 Thank you, <strong className="text-charcoal">{formData.fullName}</strong>. Our supervisor has logged your appointment for{' '}
                 <span className="font-semibold text-emerald">{formData.preferredDate}</span> ({formData.preferredTimeSlot}) at{' '}
                 <span className="font-semibold text-charcoal">{formData.societyCity}</span>.
@@ -177,23 +174,23 @@ export const MaaliBookingModal: React.FC = () => {
               </div>
 
               {/* Instant WhatsApp Dispatch CTA */}
-              <div className="pt-4 space-y-3 max-w-md mx-auto">
+              <div className="pt-3 space-y-2.5 max-w-md mx-auto">
                 <a
                   href={submittedWhatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-charcoal-pure font-black py-3.5 px-6 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer text-sm"
+                  className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-charcoal-pure font-black py-3.5 px-6 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm"
                 >
                   <span>Dispatch via WhatsApp to +91 8826078720</span>
                   <ExternalLink className="w-4 h-4" />
                 </a>
                 <p className="text-[11px] text-gray-400">
-                  Clicking the button opens pre-filled booking details directly with our lead coordinator for instant slot locking.
+                  Clicking opens pre-filled booking details directly with our lead coordinator for instant slot confirmation.
                 </p>
 
                 <button
                   onClick={handleResetAndClose}
-                  className="text-xs text-gray-500 hover:text-gray-800 font-bold underline pt-2"
+                  className="text-xs text-gray-500 hover:text-gray-800 font-bold underline pt-2 cursor-pointer"
                 >
                   Close & Return to Store
                 </button>
@@ -205,14 +202,14 @@ export const MaaliBookingModal: React.FC = () => {
               
               {/* Select Service Dropdown */}
               <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
                   Choose Service Type:
                 </label>
                 <select
                   name="serviceId"
                   value={formData.serviceId}
                   onChange={handleInputChange}
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm font-semibold text-gray-800 focus:outline-none focus:border-emerald focus:bg-white"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:border-emerald focus:bg-white"
                 >
                   {MAALI_SERVICES.map(s => (
                     <option key={s.id} value={s.id}>
@@ -223,9 +220,9 @@ export const MaaliBookingModal: React.FC = () => {
               </div>
 
               {/* Name & Phone Number */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                  <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
                     Your Full Name *
                   </label>
                   <div className="relative">
@@ -236,7 +233,7 @@ export const MaaliBookingModal: React.FC = () => {
                       placeholder="e.g. Ananya Sharma"
                       value={formData.fullName}
                       onChange={handleInputChange}
-                      className={`w-full bg-gray-50 border rounded-xl pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:bg-white ${
+                      className={`w-full bg-gray-50 border rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:bg-white ${
                         errors.fullName ? 'border-red-500 bg-red-50/50' : 'border-gray-200 focus:border-emerald'
                       }`}
                     />
@@ -249,7 +246,7 @@ export const MaaliBookingModal: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                  <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
                     WhatsApp / Mobile Number *
                   </label>
                   <div className="relative">
@@ -260,7 +257,7 @@ export const MaaliBookingModal: React.FC = () => {
                       placeholder="e.g. 9811223344"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className={`w-full bg-gray-50 border rounded-xl pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:bg-white ${
+                      className={`w-full bg-gray-50 border rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:bg-white ${
                         errors.phone ? 'border-red-500 bg-red-50/50' : 'border-gray-200 focus:border-emerald'
                       }`}
                     />
@@ -274,9 +271,9 @@ export const MaaliBookingModal: React.FC = () => {
               </div>
 
               {/* Society / Sector / City & Garden Type */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                  <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
                     Society, Sector & City *
                   </label>
                   <div className="relative">
@@ -284,10 +281,10 @@ export const MaaliBookingModal: React.FC = () => {
                     <input
                       type="text"
                       name="societyCity"
-                      placeholder="e.g. The Magnolias, Golf Course Rd, GGN"
+                      placeholder="e.g. DLF Phase 5, Gurgaon"
                       value={formData.societyCity}
                       onChange={handleInputChange}
-                      className={`w-full bg-gray-50 border rounded-xl pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:bg-white ${
+                      className={`w-full bg-gray-50 border rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:bg-white ${
                         errors.societyCity ? 'border-red-500 bg-red-50/50' : 'border-gray-200 focus:border-emerald'
                       }`}
                     />
@@ -300,14 +297,14 @@ export const MaaliBookingModal: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                  <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
                     Garden Type
                   </label>
                   <select
                     name="gardenType"
                     value={formData.gardenType}
                     onChange={handleInputChange}
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-emerald focus:bg-white"
+                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-emerald focus:bg-white"
                   >
                     <option value="Balcony">Apartment Balcony</option>
                     <option value="Terrace">Terrace / Rooftop Garden</option>
@@ -319,9 +316,9 @@ export const MaaliBookingModal: React.FC = () => {
               </div>
 
               {/* Preferred Date & Time Slot */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                  <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
                     Preferred Visit Date *
                   </label>
                   <div className="relative">
@@ -331,7 +328,7 @@ export const MaaliBookingModal: React.FC = () => {
                       name="preferredDate"
                       value={formData.preferredDate}
                       onChange={handleInputChange}
-                      className={`w-full bg-gray-50 border rounded-xl pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:bg-white ${
+                      className={`w-full bg-gray-50 border rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:bg-white ${
                         errors.preferredDate ? 'border-red-500 bg-red-50/50' : 'border-gray-200 focus:border-emerald'
                       }`}
                     />
@@ -344,7 +341,7 @@ export const MaaliBookingModal: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                  <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
                     Preferred Time Window
                   </label>
                   <div className="relative">
@@ -353,7 +350,7 @@ export const MaaliBookingModal: React.FC = () => {
                       name="preferredTimeSlot"
                       value={formData.preferredTimeSlot}
                       onChange={handleInputChange}
-                      className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:border-emerald focus:bg-white"
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-emerald focus:bg-white"
                     >
                       <option value="Morning (8:30 AM - 11:30 AM)">Morning (8:30 AM - 11:30 AM)</option>
                       <option value="Afternoon (12:00 PM - 3:00 PM)">Afternoon (12:00 PM - 3:00 PM)</option>
@@ -365,7 +362,7 @@ export const MaaliBookingModal: React.FC = () => {
 
               {/* Optional Notes */}
               <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
                   Special Notes or Plant Concerns (Optional)
                 </label>
                 <textarea
@@ -382,7 +379,7 @@ export const MaaliBookingModal: React.FC = () => {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full bg-emerald hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer text-sm"
+                  className="w-full bg-emerald hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm"
                 >
                   <Sparkles className="w-4 h-4 text-gold" />
                   <span>Confirm Booking & Send to Coordinator</span>

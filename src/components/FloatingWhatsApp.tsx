@@ -2,19 +2,13 @@ import React, { useState } from 'react';
 import { 
   MessageCircle, 
   X, 
-  Sparkles, 
   Send, 
-  PhoneCall, 
-  CheckCircle2,
-  ExternalLink,
   ChevronRight
 } from 'lucide-react';
 import { 
-  PRIMARY_WHATSAPP_NUMBER, 
   PRIMARY_DISPLAY_PHONE, 
   SECONDARY_DISPLAY_PHONE,
-  getWhatsAppInquiryUrl,
-  SECONDARY_WHATSAPP_NUMBER
+  getWhatsAppInquiryUrl
 } from '../utils/whatsapp';
 
 export const FloatingWhatsApp: React.FC = () => {
@@ -37,17 +31,17 @@ export const FloatingWhatsApp: React.FC = () => {
   ];
 
   return (
-    <div className="fixed bottom-5 right-5 z-40">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40">
       
       {/* Popover Chat Card */}
       {isOpen && (
-        <div className="absolute bottom-16 right-0 w-80 sm:w-96 bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden animate-in zoom-in-95 duration-200">
+        <div className="absolute bottom-16 right-0 w-[calc(100vw-2rem)] max-w-sm sm:w-96 bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden animate-in zoom-in-95 duration-200">
           
           {/* Header */}
           <div className="bg-gradient-to-r from-charcoal-pure via-[#122218] to-charcoal-pure text-white p-4 relative">
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-3.5 right-3.5 text-gray-400 hover:text-white p-1 rounded-full transition"
+              className="absolute top-3.5 right-3.5 text-gray-400 hover:text-white p-1 rounded-full hover:bg-white/10 transition cursor-pointer"
               aria-label="Close chat card"
             >
               <X className="w-4 h-4" />
@@ -90,7 +84,7 @@ export const FloatingWhatsApp: React.FC = () => {
                   href={getWhatsAppInquiryUrl(item.prompt)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full text-left bg-white hover:bg-emerald-50 border border-gray-200/80 hover:border-emerald/40 p-2 rounded-xl text-xs font-semibold text-gray-800 transition flex items-center justify-between group shadow-2xs"
+                  className="w-full text-left bg-white hover:bg-emerald-50 border border-gray-200/80 hover:border-emerald/40 p-2 rounded-xl text-xs font-semibold text-gray-800 transition flex items-center justify-between group shadow-2xs cursor-pointer"
                 >
                   <span className="truncate">{item.text}</span>
                   <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-emerald group-hover:translate-x-0.5 transition-transform flex-shrink-0" />
@@ -110,7 +104,7 @@ export const FloatingWhatsApp: React.FC = () => {
                 />
                 <button
                   type="submit"
-                  className="bg-[#25D366] hover:bg-[#20ba5a] text-charcoal-pure p-1.5 rounded-lg transition"
+                  className="bg-[#25D366] hover:bg-[#20ba5a] text-charcoal-pure p-1.5 rounded-lg transition cursor-pointer"
                   aria-label="Send WhatsApp message"
                 >
                   <Send className="w-3.5 h-3.5 text-white" />
@@ -131,20 +125,20 @@ export const FloatingWhatsApp: React.FC = () => {
       {/* Floating Action Bubble */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 relative group cursor-pointer border-2 border-white ring-4 ring-[#25D366]/30"
+        className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-110 relative group cursor-pointer border-2 border-white ring-4 ring-[#25D366]/30"
         aria-label="Chat on WhatsApp"
       >
-        <MessageCircle className="w-7 h-7 text-white" />
+        <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
         
         {/* Pulsing indicator */}
         <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gold flex items-center justify-center text-[10px] font-black text-charcoal-pure shadow-sm animate-pulse">
           1
         </span>
 
-        {/* Hover Tooltip */}
+        {/* Hover Tooltip (Desktop only) */}
         {!isOpen && (
-          <span className="absolute right-16 top-1/2 -translate-y-1/2 bg-charcoal-pure text-white text-xs font-bold py-1.5 px-3 rounded-xl whitespace-nowrap shadow-lg border border-gold/30 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-            Chat on WhatsApp (+91 8826078720)
+          <span className="hidden md:block absolute right-16 top-1/2 -translate-y-1/2 bg-charcoal-pure text-white text-xs font-bold py-1.5 px-3 rounded-xl whitespace-nowrap shadow-lg border border-gold/30 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            Chat on WhatsApp ({PRIMARY_DISPLAY_PHONE})
           </span>
         )}
       </button>

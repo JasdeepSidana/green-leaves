@@ -6,13 +6,10 @@ import {
   CreditCard, 
   CheckCircle2, 
   ExternalLink, 
-  AlertCircle,
-  Truck,
-  Sparkles,
-  QrCode,
-  Banknote,
-  Copy,
-  Check
+  QrCode, 
+  Banknote, 
+  Copy, 
+  Check 
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useCart } from '../context/CartContext';
@@ -23,7 +20,7 @@ import {
   isValidEmail, 
   isValidPincode 
 } from '../utils/security';
-import { getWhatsAppOrderReceiptUrl, PRIMARY_DISPLAY_PHONE } from '../utils/whatsapp';
+import { getWhatsAppOrderReceiptUrl } from '../utils/whatsapp';
 
 export const CheckoutModal: React.FC = () => {
   const { 
@@ -106,7 +103,6 @@ export const CheckoutModal: React.FC = () => {
 
     setIsProcessing(true);
 
-    // Simulated secure gateway authorization delay
     setTimeout(() => {
       const sanitizedCustomer: CheckoutFormData = {
         fullName: sanitizeInput(formData.fullName),
@@ -130,7 +126,6 @@ export const CheckoutModal: React.FC = () => {
 
       setIsProcessing(false);
 
-      // Trigger celebratory confetti
       try {
         confetti({
           particleCount: 80,
@@ -138,10 +133,9 @@ export const CheckoutModal: React.FC = () => {
           origin: { y: 0.6 }
         });
       } catch (err) {
-        // ignore fallback
+        // ignore
       }
 
-      // Clear the cart
       clearCart();
     }, 1200);
   };
@@ -164,26 +158,26 @@ export const CheckoutModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 my-8 animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 my-4 sm:my-8 animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header */}
-        <div className="bg-gradient-to-r from-charcoal-pure via-[#112419] to-charcoal-pure text-white p-5 sm:p-6 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-emerald flex items-center justify-center text-white">
+        <div className="bg-gradient-to-r from-charcoal-pure via-[#112419] to-charcoal-pure text-white p-4 sm:p-6 flex items-center justify-between flex-shrink-0">
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-emerald flex items-center justify-center text-white flex-shrink-0">
               <Lock className="w-4 h-4" />
             </div>
             <div>
               <h3 className="font-extrabold text-base sm:text-lg">Secure Web Checkout</h3>
-              <p className="text-[11px] text-gray-300">256-Bit SSL Encrypted Mock Gateway</p>
+              <p className="text-[10px] sm:text-[11px] text-gray-300">256-Bit SSL Encrypted Mock Gateway</p>
             </div>
           </div>
 
           <button
             onClick={handleClose}
-            className="text-gray-400 hover:text-white p-1.5 rounded-lg transition"
+            className="text-gray-400 hover:text-white p-1.5 rounded-lg transition cursor-pointer"
             aria-label="Close checkout"
           >
             <X className="w-5 h-5" />
@@ -191,19 +185,19 @@ export const CheckoutModal: React.FC = () => {
         </div>
 
         {/* Content Body */}
-        <div className="p-6 sm:p-8 max-h-[75vh] overflow-y-auto">
+        <div className="p-4 sm:p-8 overflow-y-auto flex-1">
           {completedOrder ? (
             /* Order Success Receipt Screen */
-            <div className="text-center py-6 space-y-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald flex items-center justify-center mx-auto shadow-inner">
-                <CheckCircle2 className="w-10 h-10" />
+            <div className="text-center py-4 sm:py-6 space-y-4">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-100 text-emerald flex items-center justify-center mx-auto shadow-inner">
+                <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
               </div>
 
               <span className="text-xs font-bold text-gold-dark uppercase tracking-wider bg-gold/15 px-3 py-1 rounded-full">
                 Payment Authorized & Confirmed
               </span>
 
-              <h2 className="text-2xl sm:text-3xl font-black text-charcoal">
+              <h2 className="text-xl sm:text-3xl font-black text-charcoal">
                 Thank You For Your Order!
               </h2>
 
@@ -227,7 +221,7 @@ export const CheckoutModal: React.FC = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500">Shipping Address:</span>
-                  <span className="font-medium text-gray-800 text-right max-w-[200px]">
+                  <span className="font-medium text-gray-800 text-right max-w-[180px] sm:max-w-[220px] truncate">
                     {completedOrder.customer.addressLine}, {completedOrder.customer.city} - {completedOrder.customer.pincode}
                   </span>
                 </div>
@@ -242,7 +236,7 @@ export const CheckoutModal: React.FC = () => {
               </div>
 
               {/* Action Buttons: WhatsApp Sync & Copy */}
-              <div className="pt-4 space-y-2.5 max-w-md mx-auto">
+              <div className="pt-3 space-y-2.5 max-w-md mx-auto">
                 <a
                   href={receiptWhatsAppUrl}
                   target="_blank"
@@ -255,7 +249,7 @@ export const CheckoutModal: React.FC = () => {
 
                 <button
                   onClick={copyReceiptToClipboard}
-                  className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2.5 px-4 rounded-xl transition flex items-center justify-center gap-1.5 text-xs"
+                  className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2.5 px-4 rounded-xl transition flex items-center justify-center gap-1.5 text-xs cursor-pointer"
                 >
                   {copied ? <Check className="w-4 h-4 text-emerald" /> : <Copy className="w-4 h-4" />}
                   <span>{copied ? 'Receipt Copied to Clipboard!' : 'Copy Order Summary'}</span>
@@ -263,7 +257,7 @@ export const CheckoutModal: React.FC = () => {
 
                 <button
                   onClick={handleClose}
-                  className="w-full text-xs text-gray-500 hover:text-charcoal font-bold underline pt-2"
+                  className="w-full text-xs text-gray-500 hover:text-charcoal font-bold underline pt-2 cursor-pointer"
                 >
                   Back to Green Leaves Organics
                 </button>
@@ -271,16 +265,16 @@ export const CheckoutModal: React.FC = () => {
             </div>
           ) : (
             /* Checkout Form */
-            <form onSubmit={handlePlaceOrder} className="space-y-6">
+            <form onSubmit={handlePlaceOrder} className="space-y-5 sm:space-y-6">
               
               {/* Step 1: Customer Info */}
               <div>
-                <h4 className="text-xs font-black uppercase tracking-wider text-charcoal mb-3 flex items-center gap-1.5">
+                <h4 className="text-xs font-black uppercase tracking-wider text-charcoal mb-2.5 flex items-center gap-1.5">
                   <span className="w-5 h-5 rounded-full bg-emerald text-white text-[10px] font-bold flex items-center justify-center">1</span>
                   Contact Information
                 </h4>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-[11px] font-bold text-gray-700 uppercase mb-1">
                       Full Name *
@@ -333,12 +327,12 @@ export const CheckoutModal: React.FC = () => {
 
               {/* Step 2: Shipping Address */}
               <div>
-                <h4 className="text-xs font-black uppercase tracking-wider text-charcoal mb-3 flex items-center gap-1.5">
+                <h4 className="text-xs font-black uppercase tracking-wider text-charcoal mb-2.5 flex items-center gap-1.5">
                   <span className="w-5 h-5 rounded-full bg-emerald text-white text-[10px] font-bold flex items-center justify-center">2</span>
                   Delivery Address
                 </h4>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="sm:col-span-2">
                     <label className="block text-[11px] font-bold text-gray-700 uppercase mb-1">
                       House / Flat / Tower & Street Name *
@@ -395,59 +389,65 @@ export const CheckoutModal: React.FC = () => {
 
               {/* Step 3: Payment Method */}
               <div>
-                <h4 className="text-xs font-black uppercase tracking-wider text-charcoal mb-3 flex items-center gap-1.5">
+                <h4 className="text-xs font-black uppercase tracking-wider text-charcoal mb-2.5 flex items-center gap-1.5">
                   <span className="w-5 h-5 rounded-full bg-emerald text-white text-[10px] font-bold flex items-center justify-center">3</span>
                   Select Payment Method
                 </h4>
 
-                <div className="grid grid-cols-3 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5">
                   <button
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, paymentMethod: 'upi' }))}
-                    className={`p-3 rounded-2xl text-left border transition cursor-pointer flex flex-col justify-between ${
+                    className={`p-3 rounded-2xl text-left border transition cursor-pointer flex items-center sm:flex-col sm:items-start justify-between gap-2 ${
                       formData.paymentMethod === 'upi'
                         ? 'bg-emerald-50 border-emerald text-emerald-950 font-bold ring-1 ring-emerald'
                         : 'bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100'
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2 sm:w-full sm:justify-between">
                       <QrCode className="w-4 h-4 text-emerald" />
                       <span className="text-[9px] bg-emerald-200 text-emerald-900 px-1.5 py-0.2 rounded font-black">Fastest</span>
                     </div>
-                    <span className="text-xs font-bold">UPI / QR Code</span>
-                    <span className="text-[10px] text-gray-500">GPay, PhonePe, Paytm</span>
+                    <div>
+                      <span className="text-xs font-bold block">UPI / QR Code</span>
+                      <span className="text-[10px] text-gray-500 block">GPay, PhonePe, Paytm</span>
+                    </div>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, paymentMethod: 'card' }))}
-                    className={`p-3 rounded-2xl text-left border transition cursor-pointer flex flex-col justify-between ${
+                    className={`p-3 rounded-2xl text-left border transition cursor-pointer flex items-center sm:flex-col sm:items-start justify-between gap-2 ${
                       formData.paymentMethod === 'card'
                         ? 'bg-emerald-50 border-emerald text-emerald-950 font-bold ring-1 ring-emerald'
                         : 'bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100'
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
                       <CreditCard className="w-4 h-4 text-emerald" />
                     </div>
-                    <span className="text-xs font-bold">Card / NetBanking</span>
-                    <span className="text-[10px] text-gray-500">Debit, Credit & RuPay</span>
+                    <div>
+                      <span className="text-xs font-bold block">Card / NetBanking</span>
+                      <span className="text-[10px] text-gray-500 block">Debit, Credit & RuPay</span>
+                    </div>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, paymentMethod: 'cod' }))}
-                    className={`p-3 rounded-2xl text-left border transition cursor-pointer flex flex-col justify-between ${
+                    className={`p-3 rounded-2xl text-left border transition cursor-pointer flex items-center sm:flex-col sm:items-start justify-between gap-2 ${
                       formData.paymentMethod === 'cod'
                         ? 'bg-emerald-50 border-emerald text-emerald-950 font-bold ring-1 ring-emerald'
                         : 'bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100'
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
                       <Banknote className="w-4 h-4 text-emerald" />
                     </div>
-                    <span className="text-xs font-bold">Cash on Delivery</span>
-                    <span className="text-[10px] text-gray-500">Pay on arrival</span>
+                    <div>
+                      <span className="text-xs font-bold block">Cash on Delivery</span>
+                      <span className="text-[10px] text-gray-500 block">Pay on arrival</span>
+                    </div>
                   </button>
                 </div>
               </div>
@@ -471,7 +471,7 @@ export const CheckoutModal: React.FC = () => {
               <button
                 type="submit"
                 disabled={isProcessing}
-                className="w-full bg-emerald hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer text-sm disabled:opacity-75"
+                className="w-full bg-emerald hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm disabled:opacity-75"
               >
                 {isProcessing ? (
                   <span className="flex items-center gap-2">
