@@ -13,10 +13,10 @@ import { useCart } from '../context/CartContext';
 import { PRODUCTS } from '../data/products';
 import { getWhatsAppFlagshipOrderUrl } from '../utils/whatsapp';
 import { SafeImage } from './SafeImage';
-import vermicompostPouchImg from '../assets/images/vermicompost-pouch.jpg';
-import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-grass.jpg';
+import vermicompostHandsPouchImg from '../assets/images/vermicompost-showcase-hands-pouch.jpg';
+import vermicompostSquareImg from '../assets/images/vermicompost-organic-square.jpg';
+import vermicompost5kgImg from '../assets/images/vermicompost-5kg-showcase.jpg';
 import deodapVermicompostSoilImg from '../assets/images/deodap-vermicompost-soil.jpg';
-import deodapVermicompostPackImg from '../assets/images/deodap-vermicompost-pack.jpg';
 
 export const FlagshipSection: React.FC = () => {
   const { addItem } = useCart();
@@ -24,34 +24,34 @@ export const FlagshipSection: React.FC = () => {
   const [selectedPackIndex, setSelectedPackIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  // Authentic showcase gallery featuring organic black soil vermicompost manure from deodap
+  // High-performance, tailored lightweight showcase views (<90KB each)
   const showcaseViews = [
     {
-      id: 'black-soil',
-      label: 'Black Soil Compost',
-      src: deodapVermicompostSoilImg,
-      alt: 'Organic Vermicompost rich black soil manure for plants',
+      id: 'hands-pouch',
+      label: '2kg Pack in Garden',
+      src: vermicompostHandsPouchImg,
+      alt: 'Green Leaves Organics 6-in-1 Enriched Vermicompost with hands holding fertile soil',
       fitContain: false
     },
     {
-      id: 'vermicompost-pack',
-      label: 'Manure Pack',
-      src: deodapVermicompostPackImg,
-      alt: 'Organic Vermicompost Black Soil Manure Pack',
-      fitContain: true
+      id: 'organic-pouch',
+      label: 'Signature Pouch',
+      src: vermicompostSquareImg,
+      alt: 'Green Leaves Organics Enriched Vermicompost standing in garden soil',
+      fitContain: false
     },
     {
-      id: 'official-pouch',
-      label: '2kg Official Pouch',
-      src: vermicompostPouchImg,
-      alt: 'Official Green Leaves Organics 2kg Enriched Vermicompost Mix Pouch',
-      fitContain: true
+      id: '5kg-value',
+      label: '5kg Value Pack',
+      src: vermicompost5kgImg,
+      alt: 'Green Leaves Organics 5 KG Enriched Vermicompost Value Pack with sapling',
+      fitContain: false
     },
     {
-      id: 'garden-stock',
-      label: 'Stock on Grass',
-      src: vermicompostPouchesGrassImg,
-      alt: 'Green Leaves Organics Vermicompost pouches on outdoor lawn',
+      id: 'black-soil',
+      label: 'Black Soil Castings',
+      src: deodapVermicompostSoilImg,
+      alt: 'Organic Vermicompost rich black soil manure',
       fitContain: false
     }
   ];
@@ -181,9 +181,7 @@ export const FlagshipSection: React.FC = () => {
                   <SafeImage
                     src={showcaseViews[activeViewIdx].src}
                     alt={showcaseViews[activeViewIdx].alt}
-                    className={`h-full w-full transition-transform duration-500 hover:scale-105 ${
-                      showcaseViews[activeViewIdx].fitContain ? 'object-contain p-2' : 'object-cover'
-                    }`}
+                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                   <div className="absolute top-3 left-3 badge-dubai-gold font-black text-xs px-2.5 py-0.5 rounded-full shadow-md">
                     {discountPct}% OFF

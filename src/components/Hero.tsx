@@ -16,10 +16,10 @@ import { useCart } from '../context/CartContext';
 import { PRODUCTS } from '../data/products';
 import { getWhatsAppFlagshipOrderUrl } from '../utils/whatsapp';
 import { SafeImage } from './SafeImage';
-import vermicompostPouchImg from '../assets/images/vermicompost-pouch.jpg';
-import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-grass.jpg';
+import vermicompostHandsPouchImg from '../assets/images/vermicompost-showcase-hands-pouch.jpg';
+import vermicompostSquareImg from '../assets/images/vermicompost-organic-square.jpg';
+import vermicompost5kgImg from '../assets/images/vermicompost-5kg-showcase.jpg';
 import deodapVermicompostSoilImg from '../assets/images/deodap-vermicompost-soil.jpg';
-import deodapVermicompostPackImg from '../assets/images/deodap-vermicompost-pack.jpg';
 
 export const Hero: React.FC = () => {
   const { addItem, openMaaliBooking } = useCart();
@@ -28,34 +28,34 @@ export const Hero: React.FC = () => {
   const selectedPack = flagship.packSizes ? flagship.packSizes[selectedPackIndex] : { size: '2kg Pack', price: 249, mrp: 399 };
   const [activeIngredientIndex, setActiveIngredientIndex] = useState<number | null>(null);
 
-  // Authentic showcase gallery featuring the organic black soil vermicompost from deodap + signature stock
+  // High-performance, tailored lightweight showcase views (<90KB each)
   const showcaseViews = [
     {
-      id: 'black-soil',
-      label: 'Black Soil Compost',
-      src: deodapVermicompostSoilImg,
-      alt: 'Organic Vermicompost rich black soil manure for plants',
+      id: 'hands-pouch',
+      label: '2kg Pack in Garden',
+      src: vermicompostHandsPouchImg,
+      alt: 'Green Leaves Organics 6-in-1 Enriched Vermicompost with hands holding fertile soil',
       fitContain: false
     },
     {
-      id: 'vermicompost-pack',
-      label: 'Manure Pack',
-      src: deodapVermicompostPackImg,
-      alt: 'Organic Vermicompost Black Soil Manure Pack',
-      fitContain: true
+      id: 'organic-pouch',
+      label: 'Signature Pouch',
+      src: vermicompostSquareImg,
+      alt: 'Green Leaves Organics Enriched Vermicompost standing in garden soil',
+      fitContain: false
     },
     {
-      id: 'official-pouch',
-      label: '2kg Official Pouch',
-      src: vermicompostPouchImg,
-      alt: 'Official Green Leaves Organics 2kg Enriched Vermicompost Mix Pouch',
-      fitContain: true
+      id: '5kg-value',
+      label: '5kg Value Pack',
+      src: vermicompost5kgImg,
+      alt: 'Green Leaves Organics 5 KG Enriched Vermicompost Value Pack with sapling',
+      fitContain: false
     },
     {
-      id: 'garden-stock',
-      label: 'Stock on Grass',
-      src: vermicompostPouchesGrassImg,
-      alt: 'Green Leaves Organics Vermicompost pouches on outdoor lawn',
+      id: 'black-soil',
+      label: 'Black Soil Castings',
+      src: deodapVermicompostSoilImg,
+      alt: 'Organic Vermicompost rich black soil manure',
       fitContain: false
     }
   ];
@@ -235,13 +235,11 @@ export const Hero: React.FC = () => {
 
               {/* Product Packaging Image Showcase */}
               <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#121c17] via-charcoal to-[#080d0b] border-2 border-gold/40 mb-3.5 p-2 sm:p-2.5 text-center shadow-gold-dubai-sm">
-                <div className="relative mx-auto h-40 sm:h-48 w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/50">
+                <div className="relative mx-auto h-44 sm:h-52 w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/50">
                   <SafeImage
                     src={showcaseViews[activeViewIdx].src}
                     alt={showcaseViews[activeViewIdx].alt}
-                    className={`h-full w-full transition-transform duration-500 hover:scale-105 ${
-                      showcaseViews[activeViewIdx].fitContain ? 'object-contain p-1' : 'object-cover'
-                    }`}
+                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                   
                   {/* Floating Black & Gold Packaging Label Overlay */}
