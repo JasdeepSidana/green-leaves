@@ -106,7 +106,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
       </div>
 
       {/* Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
           
           {/* Brand Logo */}
@@ -129,68 +129,68 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-4 2xl:gap-6 text-xs lg:text-sm font-semibold text-gray-300 flex-shrink">
+          {/* Desktop Navigation Links (Responsive, Space-Optimized) */}
+          <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2.5 2xl:gap-3.5 text-xs font-semibold text-gray-300 min-w-0">
             <button 
               onClick={() => handleNavClick('products-catalog', 'diwali')}
-              className="text-gold bg-gold/15 hover:bg-gold/25 border border-gold/40 px-2.5 py-1 rounded-full font-bold transition flex items-center gap-1 cursor-pointer flex-shrink-0"
+              className="text-gold bg-gold/15 hover:bg-gold/25 border border-gold/40 px-2.5 py-1 rounded-full font-bold transition flex items-center gap-1 cursor-pointer whitespace-nowrap flex-shrink-0"
             >
               <span>🪔</span>
               <span>Diwali Gifts</span>
             </button>
             <button 
               onClick={() => handleNavClick('products-catalog', 'manures')}
-              className="hover:text-gold transition py-1 flex items-center gap-1 cursor-pointer flex-shrink-0"
+              className="hover:text-gold transition py-1 px-1 flex items-center gap-1 cursor-pointer whitespace-nowrap flex-shrink-0"
             >
-              <span>Organic Fertilizers</span>
-              <span className="text-[9px] bg-emerald-950 text-emerald-light border border-emerald-500/30 px-1.5 py-0.2 rounded-full font-bold uppercase">
+              <span>Fertilizers</span>
+              <span className="text-[9px] bg-emerald-950 text-emerald-light border border-emerald-500/30 px-1 py-0.2 rounded-full font-bold uppercase">
                 6-in-1
               </span>
             </button>
             <button 
               onClick={() => handleNavClick('products-catalog', 'plants')}
-              className="hover:text-gold transition py-1 cursor-pointer flex-shrink-0"
+              className="hover:text-gold transition py-1 px-1 cursor-pointer whitespace-nowrap flex-shrink-0"
             >
-              Shop Plants
+              Plants
             </button>
             <button 
               onClick={() => handleNavClick('products-catalog', 'medicines')}
-              className="hover:text-gold transition py-1 cursor-pointer flex-shrink-0"
+              className="hover:text-gold transition py-1 px-1 cursor-pointer whitespace-nowrap flex-shrink-0"
             >
-              Bio-Medicines
+              Medicines
             </button>
             <button 
               onClick={() => handleNavClick('products-catalog', 'kits')}
-              className="hover:text-gold transition py-1 cursor-pointer flex-shrink-0"
+              className="hover:text-gold transition py-1 px-1 cursor-pointer whitespace-nowrap hidden xl:inline-block flex-shrink-0"
             >
               Combos
             </button>
             <button 
               onClick={() => handleNavClick('maali-services')}
-              className="text-white bg-black hover:bg-emerald-950/60 border border-gold/40 hover:border-gold hover:shadow-gold-dubai-sm px-3 py-1 rounded-full font-bold transition flex items-center gap-1.5 cursor-pointer flex-shrink-0"
+              className="text-white bg-black hover:bg-emerald-950/60 border border-gold/40 hover:border-gold hover:shadow-gold-dubai-sm px-2.5 py-1 rounded-full font-bold transition flex items-center gap-1 cursor-pointer whitespace-nowrap flex-shrink-0"
             >
               <Sparkles className="w-3.5 h-3.5 text-gold" />
               <span>Maali Services</span>
             </button>
             <button 
               onClick={() => handleNavClick('gardeners-handbook')}
-              className="hover:text-gold transition py-1 cursor-pointer flex-shrink-0"
+              className="hover:text-gold transition py-1 px-1 cursor-pointer whitespace-nowrap hidden 2xl:inline-block flex-shrink-0"
             >
               Handbook
             </button>
           </nav>
 
-          {/* Right Action Cluster: Search, Contact Pill, Cart Button */}
+          {/* Right Action Cluster: Search, Cart Button (Firmly Inset within Max-Width Container) */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             
-            {/* Live Search Bar (Desktop & Laptops) */}
+            {/* Live Search Bar (Adaptive Width) */}
             <div className="relative hidden md:block" ref={searchContainerRef}>
-              <div className="flex items-center bg-[#141F1A] border border-emerald-500/30 rounded-full px-3 py-1.5 focus-within:border-gold focus-within:bg-[#182620] focus-within:ring-2 focus-within:ring-gold/20 transition-all w-36 lg:w-48 xl:w-56">
-                <Search className="w-4 h-4 text-gray-400 mr-1.5 flex-shrink-0" />
+              <div className="flex items-center bg-[#141F1A] border border-emerald-500/30 rounded-full px-3 py-1.5 focus-within:border-gold focus-within:bg-[#182620] focus-within:ring-2 focus-within:ring-gold/20 transition-all w-28 sm:w-36 lg:w-40 xl:w-44 focus-within:w-48 lg:focus-within:w-56">
+                <Search className="w-3.5 h-3.5 text-gray-400 mr-1.5 flex-shrink-0" />
                 <input
                   ref={searchInputRef}
                   type="text"
-                  placeholder="Search vermicompost..."
+                  placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
@@ -249,22 +249,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
               )}
             </div>
 
-            {/* Call Expert Button (Desktop) */}
-            <a
-              href={`tel:${PRIMARY_WHATSAPP_NUMBER}`}
-              className="hidden 2xl:inline-flex items-center gap-1.5 text-xs font-bold text-gray-200 hover:text-gold border border-gold/30 hover:border-gold px-3 py-1.5 rounded-full transition shadow-2xs bg-black/50 cursor-pointer"
-            >
-              <PhoneCall className="w-3.5 h-3.5 text-emerald-light" />
-              <span>Call Expert</span>
-            </a>
-
-            {/* Cart Button */}
+            {/* Cart Button (Strictly Anchored Within Boundary) */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative flex items-center gap-1.5 sm:gap-2 bg-charcoal-pure hover:bg-black text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-full transition shadow-md border-2 border-gold/50 hover:border-gold hover:shadow-gold-dubai group cursor-pointer"
+              className="relative flex items-center gap-1.5 sm:gap-2 bg-charcoal-pure hover:bg-black text-white px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full transition shadow-md border-2 border-gold/50 hover:border-gold hover:shadow-gold-dubai group cursor-pointer flex-shrink-0"
               aria-label="View shopping cart"
             >
-              <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-light group-hover:scale-110 transition-transform" />
+              <ShoppingBag className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-emerald-light group-hover:scale-110 transition-transform" />
               <span className="hidden sm:inline text-xs font-bold tracking-wide">Cart</span>
               
               <span className="flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-gold-gradient text-charcoal-pure text-[11px] font-black shadow-gold-dubai-sm group-hover:brightness-110 transition-all">
@@ -275,7 +266,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
             {/* Mobile / Tablet Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-2 text-gray-300 hover:text-gold rounded-lg hover:bg-white/10 transition cursor-pointer"
+              className="lg:hidden p-2 text-gray-300 hover:text-gold rounded-lg hover:bg-white/10 transition cursor-pointer"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
