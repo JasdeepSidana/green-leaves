@@ -30,6 +30,8 @@ export const CheckoutModal: React.FC = () => {
     subtotal, 
     shippingFee, 
     grandTotal, 
+    appliedPromoCode,
+    promoDiscount,
     orderNotes,
     clearCart 
   } = useCart();
@@ -458,6 +460,12 @@ export const CheckoutModal: React.FC = () => {
                   <span>Cart Items ({items.length}):</span>
                   <span className="font-semibold text-gray-800">₹{subtotal}</span>
                 </div>
+                {promoDiscount > 0 && (
+                  <div className="flex justify-between text-emerald font-bold">
+                    <span>Diwali Discount ({appliedPromoCode}):</span>
+                    <span>-₹{promoDiscount}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-gray-600">
                   <span>Shipping:</span>
                   <span className="font-semibold text-emerald">{shippingFee === 0 ? 'FREE' : `₹${shippingFee}`}</span>

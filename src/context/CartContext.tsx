@@ -2,9 +2,17 @@ import React, { createContext, useContext, useState, useEffect, useMemo, ReactNo
 import { Product, PackSize, CartItem } from '../types';
 import { safeGetStorage, safeSetStorage, sanitizeInput } from '../utils/security';
 
-const CART_STORAGE_KEY = 'green_leaves_cart_v1';
+const CART_STORAGE_KEY = 'green_leaves_cart_v2';
+const PROMO_STORAGE_KEY = 'green_leaves_promo_v1';
 const FREE_DELIVERY_THRESHOLD = 499;
 const DEFAULT_SHIPPING_FEE = 49;
+
+export const VALID_PROMO_CODES: Record<string, { discountPercent: number; label: string }> = {
+  DIWALIGREEN: { discountPercent: 15, label: '🪔 Diwali Utsav 15% OFF + Free Diya' },
+  DIWALI2026: { discountPercent: 15, label: '🪔 Diwali Special 15% OFF' },
+  DIWALI: { discountPercent: 15, label: '🪔 Festive Gift 15% OFF' },
+  GREEN10: { discountPercent: 10, label: '🌱 Welcome 10% OFF' },
+};
 
 interface CartContextType {
   items: CartItem[];
@@ -32,6 +40,13 @@ interface CartContextType {
   // Notes
   orderNotes: string;
   setOrderNotes: (notes: string) => void;
+
+  // Promo Code
+  appliedPromoCode: string | null;
+  promoDiscount: number;
+  promoLabel: string | null;
+  applyPromoCode: (code: string) => { success: boolean; message: string };
+  removePromoCode: () => void;
   
   // Computations
   totalItems: number;
@@ -48,11 +63,14 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>(() => {
     const saved = safeGetStorage<CartItem[]>(CART_STORAGE_KEY, []);
-    // Validate schema
     if (Array.isArray(saved)) {
       return saved.filter(item => item && item.product && item.selectedPack && typeof item.quantity === 'number');
     }
     return [];
+  });
+
+  const [appliedPromoCode, setAppliedPromoCode] = useState<string | null>(() => {
+    return safeGetStorage<string | null>(PROMO_STORAGE_KEY, 'DIWALIGREEN'); // Auto-apply Diwali special!
   });
 
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
@@ -62,10 +80,13 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [orderNotes, setOrderNotesState] = useState<string>('');
 
-  // Persist to safe storage whenever cart changes
   useEffect(() => {
     safeSetStorage(CART_STORAGE_KEY, items);
   }, [items]);
+
+  useEffect(() => {
+    safeSetStorage(PROMO_STORAGE_KEY, appliedPromoCode);
+  }, [appliedPromoCode]);
 
   const setOrderNotes = (notes: string) => {
     setOrderNotesState(sanitizeInput(notes));
@@ -147,6 +168,39 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     return items.some(item => item.product.isFlagship);
   }, [items]);
 
+  // Promo Code calculations
+  const promoInfo = useMemo(() => {
+    if (!appliedPromoCode) return null;
+    const cleanCode = appliedPromoCode.trim().toUpperCase();
+    return VALID_PROMO_CODES[cleanCode] || null;
+  }, [appliedPromoCode]);
+
+  const promoDiscount = useMemo(() => {
+    if (!promoInfo || subtotal === 0) return 0;
+    return Math.round((subtotal * promoInfo.discountPercent) / 100);
+  }, [subtotal, promoInfo]);
+
+  const promoLabel = promoInfo ? promoInfo.label : null;
+
+  const applyPromoCode = (code: string): { success: boolean; message: string } => {
+    const clean = code.trim().toUpperCase();
+    if (!clean) {
+      return { success: false, message: 'Please enter a coupon code.' };
+    }
+    if (VALID_PROMO_CODES[clean]) {
+      setAppliedPromoCode(clean);
+      return { 
+        success: true, 
+        message: `🎉 Coupon '${clean}' applied! Extra ${VALID_PROMO_CODES[clean].discountPercent}% festive discount unlocked.` 
+      };
+    }
+    return { success: false, message: `Coupon '${code}' is invalid or expired. Try 'DIWALIGREEN'.` };
+  };
+
+  const removePromoCode = () => {
+    setAppliedPromoCode(null);
+  };
+
   const shippingFee = useMemo(() => {
     if (items.length === 0) return 0;
     if (subtotal >= FREE_DELIVERY_THRESHOLD || hasFlagship) return 0;
@@ -154,8 +208,9 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [items.length, subtotal, hasFlagship]);
 
   const grandTotal = useMemo(() => {
-    return subtotal + shippingFee;
-  }, [subtotal, shippingFee]);
+    const discountedSubtotal = Math.max(0, subtotal - promoDiscount);
+    return discountedSubtotal + shippingFee;
+  }, [subtotal, promoDiscount, shippingFee]);
 
   const freeDeliveryRemaining = useMemo(() => {
     if (hasFlagship) return 0;
@@ -184,6 +239,11 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         closeQuickView,
         orderNotes,
         setOrderNotes,
+        appliedPromoCode,
+        promoDiscount,
+        promoLabel,
+        applyPromoCode,
+        removePromoCode,
         totalItems,
         subtotal,
         shippingFee,

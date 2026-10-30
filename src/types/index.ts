@@ -1,12 +1,13 @@
 export type ProductCategory = 
   | 'all'
+  | 'diwali'
   | 'manures'
   | 'plants'
   | 'medicines'
   | 'kits';
 
 export interface PackSize {
-  size: string; // e.g. "2kg Pack", "5kg Pack", "10kg Value Pack"
+  size: string;
   weightKg?: number;
   price: number;
   mrp: number;
@@ -18,7 +19,7 @@ export interface Product {
   name: string;
   subtitle: string;
   slug: string;
-  category: 'manures' | 'plants' | 'medicines' | 'kits';
+  category: 'diwali' | 'manures' | 'plants' | 'medicines' | 'kits';
   shortDescription: string;
   fullDescription: string;
   price: number;
@@ -36,6 +37,7 @@ export interface Product {
   inStock: boolean;
   bestSeller?: boolean;
   organicCertified?: boolean;
+  isDiwaliSpecial?: boolean;
 }
 
 export interface CartItem {
@@ -82,6 +84,7 @@ export interface CheckoutFormData {
   pincode: string;
   paymentMethod: 'upi' | 'cod' | 'card';
   orderNotes?: string;
+  promoCode?: string;
 }
 
 export interface Testimonial {

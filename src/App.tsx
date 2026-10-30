@@ -3,6 +3,7 @@ import { CartProvider } from './context/CartContext';
 import { AnnouncementBar } from './components/AnnouncementBar';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { DiwaliCampaignSection } from './components/DiwaliCampaignSection';
 import { FlagshipSection } from './components/FlagshipSection';
 import { ProductCatalog } from './components/ProductCatalog';
 import { MaaliServicesSection } from './components/MaaliServicesSection';
@@ -24,30 +25,34 @@ const MainApp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-gray-900 font-sans">
-      {/* 1. Announcement Bar with Live Countdown */}
+    <div className="min-h-screen flex flex-col bg-white text-gray-900 font-sans max-w-full overflow-x-hidden">
+      {/* 1. Announcement Bar with Live Countdown & Diwali Offer Ticker */}
       <AnnouncementBar />
 
       {/* 2. Sticky Glass Navigation Header */}
       <Navbar onSelectCategory={handleSelectCategory} />
 
-      {/* 3. Hero Section with 3D/Floating Showcase & Glowing Formula Chips */}
-      <main className="flex-1">
+      {/* Main Content Area */}
+      <main className="flex-1 max-w-full overflow-x-hidden">
+        {/* 3. Hero Section with 3D/Floating Showcase & Glowing Formula Chips */}
         <Hero />
 
-        {/* 4. Flagship Product Highlight ("6-in-1 Enriched Vermicompost Mix") */}
+        {/* 4. 🪔 Ugaoo-Inspired Diwali Campaign: "The Gift That Keeps Growing" */}
+        <DiwaliCampaignSection />
+
+        {/* 5. Flagship Product Highlight ("6-in-1 Enriched Vermicompost Mix") */}
         <FlagshipSection />
 
-        {/* 5. Product Catalog & Collections (Grid with category filters & sort) */}
+        {/* 6. Product Catalog & Collections (Grid with category filters & sort) */}
         <ProductCatalog initialCategory={activeCatalogCategory} />
 
-        {/* 6. "Maali Services" On-Demand Booking Module */}
+        {/* 7. "Maali Services" On-Demand Booking Module */}
         <MaaliServicesSection />
 
-        {/* 7. Educational Section ("Gardener's Handbook" & Plant Doctor SOS) */}
+        {/* 8. Educational Section ("Gardener's Handbook" & Plant Doctor SOS) */}
         <GardenersHandbook />
 
-        {/* 8. Customer Testimonials & Trust Badges */}
+        {/* 9. Customer Testimonials & Trust Badges */}
         <TestimonialsTrust />
       </main>
 

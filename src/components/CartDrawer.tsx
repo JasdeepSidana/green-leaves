@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   X, 
   Trash2, 
@@ -10,10 +10,13 @@ import {
   ExternalLink, 
   CreditCard, 
   ArrowRight,
-  ShieldCheck
+  ShieldCheck,
+  Tag,
+  Check
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { getWhatsAppCartCheckoutUrl } from '../utils/whatsapp';
+import { SafeImage } from './SafeImage';
 
 export const CartDrawer: React.FC = () => {
   const { 
@@ -28,12 +31,19 @@ export const CartDrawer: React.FC = () => {
     freeDeliveryThreshold, 
     freeDeliveryRemaining, 
     hasFlagship,
+    appliedPromoCode,
+    promoDiscount,
+    promoLabel,
+    applyPromoCode,
+    removePromoCode,
     orderNotes,
     setOrderNotes,
     setIsCheckoutModalOpen
   } = useCart();
 
-  // Close on Escape key
+  const [couponInput, setCouponInput] = useState('');
+  const [couponMsg, setCouponMsg] = useState<{ text: string; isError: boolean } | null>(null);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setIsCartOpen(false);
@@ -44,12 +54,27 @@ export const CartDrawer: React.FC = () => {
 
   if (!isCartOpen) return null;
 
-  // Free delivery progress calculation
   const progressPercent = hasFlagship 
     ? 100 
     : Math.min(100, Math.round((subtotal / freeDeliveryThreshold) * 100));
 
-  const whatsappCheckoutUrl = getWhatsAppCartCheckoutUrl(items, subtotal, shippingFee, orderNotes);
+  const whatsappCheckoutUrl = getWhatsAppCartCheckoutUrl(
+    items, 
+    subtotal, 
+    shippingFee, 
+    promoDiscount, 
+    appliedPromoCode, 
+    orderNotes
+  );
+
+  const handleApplyCoupon = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!couponInput.trim()) return;
+    const res = applyPromoCode(couponInput.trim());
+    setCouponMsg({ text: res.message, isError: !res.success });
+    if (res.success) setCouponInput('');
+    setTimeout(() => setCouponMsg(null), 4000);
+  };
 
   const handleOpenWebCheckout = () => {
     setIsCartOpen(false);
@@ -87,12 +112,12 @@ export const CartDrawer: React.FC = () => {
           </div>
 
           {/* Free Shipping Progress Meter */}
-          <div className="px-4 sm:px-5 py-3.5 bg-botanical-50 border-b border-botanical-100">
+          <div className="px-4 sm:px-5 py-3 bg-botanical-50 border-b border-botanical-100">
             <div className="flex items-center justify-between text-xs mb-1.5">
               <span className="font-bold text-gray-700 flex items-center gap-1.5">
                 <Truck className="w-4 h-4 text-emerald flex-shrink-0" />
                 {hasFlagship ? (
-                  <span className="text-emerald-800 truncate">🎉 FREE Shipping Unlocked via Flagship Pack!</span>
+                  <span className="text-emerald-800 truncate">🎉 FREE Shipping via Flagship / Diwali Bundle!</span>
                 ) : freeDeliveryRemaining === 0 ? (
                   <span className="text-emerald-800 truncate">🎉 Congratulations! You unlocked FREE Delivery!</span>
                 ) : (
@@ -109,16 +134,14 @@ export const CartDrawer: React.FC = () => {
               />
             </div>
 
-            {hasFlagship && (
-              <div className="mt-2 text-[11px] text-gold-dark font-bold flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5 flex-shrink-0" />
-                <span>Bonus: FREE Plant + FREE Maali Consult active in cart!</span>
-              </div>
-            )}
+            <div className="mt-2 text-[11px] text-amber-800 font-bold flex items-center gap-1">
+              <span>🪔</span>
+              <span>Diwali Perks: FREE Diya + FREE Plant + FREE Maali Advice included!</span>
+            </div>
           </div>
 
           {/* Cart Items List */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3.5">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3">
             {items.length === 0 ? (
               <div className="text-center py-16 space-y-3">
                 <div className="w-16 h-16 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center mx-auto">
@@ -126,7 +149,7 @@ export const CartDrawer: React.FC = () => {
                 </div>
                 <h3 className="font-bold text-gray-700">Your cart is currently empty</h3>
                 <p className="text-xs text-gray-500 max-w-xs mx-auto">
-                  Add our 6-in-1 Enriched Vermicompost Mix or fresh indoor plants to get growing.
+                  Explore our Diwali Green Gifting Hampers or 6-in-1 Enriched Vermicompost Mix.
                 </p>
                 <button
                   onClick={() => setIsCartOpen(false)}
@@ -141,10 +164,10 @@ export const CartDrawer: React.FC = () => {
                   key={`${item.product.id}-${item.selectedPack.size}`}
                   className="flex gap-3 p-3 bg-warmWhite rounded-2xl border border-gray-100"
                 >
-                  <img
+                  <SafeImage
                     src={item.product.image}
                     alt={item.product.name}
-                    className="w-16 h-16 rounded-xl object-cover border border-gray-200 flex-shrink-0"
+                    className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover border border-gray-200 flex-shrink-0"
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-start">
@@ -193,9 +216,61 @@ export const CartDrawer: React.FC = () => {
               ))
             )}
 
-            {/* Special Instructions / Notes */}
+            {/* Festive Coupon Input Box */}
             {items.length > 0 && (
               <div className="pt-2">
+                <div className="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-3">
+                  <div className="flex items-center justify-between mb-1.5 text-xs">
+                    <span className="font-bold text-amber-950 flex items-center gap-1">
+                      <Tag className="w-3.5 h-3.5 text-amber-600" />
+                      Festive Coupon Code
+                    </span>
+                    <span className="text-[10px] text-amber-700 font-bold">Use 'DIWALIGREEN'</span>
+                  </div>
+
+                  {appliedPromoCode ? (
+                    <div className="flex items-center justify-between bg-white border border-emerald-300 rounded-xl p-2 text-xs">
+                      <div className="flex items-center gap-1.5 text-emerald-800 font-bold">
+                        <Check className="w-4 h-4 text-emerald" />
+                        <span>{promoLabel || `${appliedPromoCode} (15% OFF)`}</span>
+                      </div>
+                      <button
+                        onClick={removePromoCode}
+                        className="text-xs text-red-500 hover:text-red-700 font-bold underline cursor-pointer"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleApplyCoupon} className="flex gap-2">
+                      <input
+                        type="text"
+                        placeholder="Enter DIWALIGREEN"
+                        value={couponInput}
+                        onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                        className="bg-white border border-gray-300 rounded-xl px-3 py-1.5 text-xs text-gray-800 font-mono font-bold uppercase focus:outline-none focus:border-amber-500 flex-1"
+                      />
+                      <button
+                        type="submit"
+                        className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition shadow-2xs"
+                      >
+                        Apply
+                      </button>
+                    </form>
+                  )}
+
+                  {couponMsg && (
+                    <p className={`text-[11px] mt-1.5 font-medium ${couponMsg.isError ? 'text-red-600' : 'text-emerald-700'}`}>
+                      {couponMsg.text}
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Special Instructions / Notes */}
+            {items.length > 0 && (
+              <div className="pt-1">
                 <label className="block text-[11px] font-bold text-gray-600 uppercase tracking-wider mb-1">
                   Delivery Notes / Gate Code (Optional):
                 </label>
@@ -219,6 +294,12 @@ export const CartDrawer: React.FC = () => {
                   <span>Subtotal:</span>
                   <span className="font-semibold text-gray-800">₹{subtotal}</span>
                 </div>
+                {promoDiscount > 0 && (
+                  <div className="flex justify-between text-emerald font-bold">
+                    <span>Diwali Discount ({appliedPromoCode}):</span>
+                    <span>-₹{promoDiscount}</span>
+                  </div>
+                )}
                 <div className="flex justify-between items-center">
                   <span>Shipping Fee:</span>
                   {shippingFee === 0 ? (

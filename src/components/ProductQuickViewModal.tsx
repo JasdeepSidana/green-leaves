@@ -14,6 +14,7 @@ import {
 import { useCart } from '../context/CartContext';
 import { PackSize } from '../types';
 import { getWhatsAppProductOrderUrl } from '../utils/whatsapp';
+import { SafeImage } from './SafeImage';
 
 export const ProductQuickViewModal: React.FC = () => {
   const { quickViewProduct, closeQuickView, addItem } = useCart();
@@ -69,7 +70,7 @@ export const ProductQuickViewModal: React.FC = () => {
         {/* Left Side: Product Imagery & Badges */}
         <div className="md:w-1/2 bg-gray-50 p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden">
           <div className="relative h-48 sm:h-64 md:h-full md:aspect-square w-full rounded-2xl overflow-hidden bg-white shadow-inner border border-gray-100 flex items-center justify-center">
-            <img
+            <SafeImage
               src={product.image}
               alt={product.name}
               className="w-full h-full object-cover"

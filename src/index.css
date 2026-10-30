@@ -3,15 +3,31 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  html, body {
     @apply bg-white text-gray-900;
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+    position: relative;
+  }
+  
+  #root {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+    position: relative;
+  }
+
+  /* Prevent iOS momentum bounce from revealing horizontal white gutters */
+  * {
+    box-sizing: border-box;
   }
 }
 
 /* Custom smooth scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -29,13 +45,13 @@
 
 /* Glassmorphism helpers */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
 .glass-dark {
-  background: rgba(17, 24, 39, 0.85);
+  background: rgba(17, 24, 39, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -48,4 +64,18 @@
 
 .animate-shimmer {
   animation: shimmer 2.5s infinite;
+}
+
+/* Festive Diwali Diya Glow */
+@keyframes festive-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(234, 179, 8, 0.45));
+  }
+  50% {
+    filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.75));
+  }
+}
+
+.animate-diya-glow {
+  animation: festive-glow 3s ease-in-out infinite;
 }
