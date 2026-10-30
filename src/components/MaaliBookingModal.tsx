@@ -9,13 +9,14 @@ import {
   Phone, 
   CheckCircle, 
   ExternalLink,
+  ShieldCheck,
   AlertCircle
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { MAALI_SERVICES } from '../data/services';
 import { MaaliBookingFormData } from '../types';
-import { sanitizeInput, isValidIndianPhone } from '../utils/security';
 import { getWhatsAppMaaliBookingUrl } from '../utils/whatsapp';
+import { sanitizeInput, isValidIndianPhone } from '../utils/security';
 
 export const MaaliBookingModal: React.FC = () => {
   const { isMaaliModalOpen, closeMaaliBooking, selectedMaaliServiceId } = useCart();
@@ -36,16 +37,19 @@ export const MaaliBookingModal: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submittedWhatsAppUrl, setSubmittedWhatsAppUrl] = useState('');
 
-  // Sync serviceId when modal opens with selected service
   useEffect(() => {
     if (selectedMaaliServiceId) {
       setFormData(prev => ({ ...prev, serviceId: selectedMaaliServiceId }));
     }
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const dateStr = tomorrow.toISOString().split('T')[0];
-    setFormData(prev => ({ ...prev, preferredDate: prev.preferredDate || dateStr }));
-  }, [selectedMaaliServiceId, isMaaliModalOpen]);
+  }, [selectedMaaliServiceId]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeMaaliBooking();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [closeMaaliBooking]);
 
   if (!isMaaliModalOpen) return null;
 
@@ -53,10 +57,7 @@ export const MaaliBookingModal: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -112,13 +113,13 @@ export const MaaliBookingModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 my-4 sm:my-8 animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col"
+        className="relative w-full max-w-2xl bg-[#0E1512] text-white rounded-3xl shadow-luxury-dark overflow-hidden border-2 border-gold/40 my-4 sm:my-8 animate-in zoom-in-95 duration-200 max-h-[92vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-charcoal-pure via-[#132019] to-charcoal-pure text-white p-5 sm:p-8 relative flex-shrink-0">
+        <div className="bg-gradient-to-r from-black via-[#132019] to-black text-white p-5 sm:p-8 relative flex-shrink-0 border-b border-white/10">
           <button
             onClick={handleResetAndClose}
             className="absolute top-4 right-4 text-gray-400 hover:text-white p-2 rounded-full hover:bg-white/10 transition cursor-pointer"
@@ -131,7 +132,7 @@ export const MaaliBookingModal: React.FC = () => {
             <Sparkles className="w-4 h-4" />
             <span>Green Leaves Verified Gardening Experts</span>
           </div>
-          <h2 className="text-xl sm:text-3xl font-extrabold tracking-tight">
+          <h2 className="text-xl sm:text-3xl font-extrabold tracking-tight text-white">
             Book a Professional Maali Visit
           </h2>
           <p className="text-xs sm:text-sm text-gray-300 mt-1">
@@ -144,32 +145,32 @@ export const MaaliBookingModal: React.FC = () => {
           {isSubmitted ? (
             /* Confirmation State */
             <div className="text-center py-4 sm:py-6 space-y-4">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-100 text-emerald flex items-center justify-center mx-auto shadow-inner">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-950 text-emerald-light border border-emerald-500/40 flex items-center justify-center mx-auto shadow-inner">
                 <CheckCircle className="w-8 h-8 sm:w-10 sm:h-10" />
               </div>
               
-              <h3 className="text-xl sm:text-2xl font-black text-charcoal">
+              <h3 className="text-xl sm:text-2xl font-black text-white">
                 Appointment Request Received!
               </h3>
               
-              <p className="text-xs sm:text-sm text-gray-600 max-w-md mx-auto leading-relaxed">
-                Thank you, <strong className="text-charcoal">{formData.fullName}</strong>. Our supervisor has logged your appointment for{' '}
-                <span className="font-semibold text-emerald">{formData.preferredDate}</span> ({formData.preferredTimeSlot}) at{' '}
-                <span className="font-semibold text-charcoal">{formData.societyCity}</span>.
+              <p className="text-xs sm:text-sm text-gray-300 max-w-md mx-auto leading-relaxed">
+                Thank you, <strong className="text-gold">{formData.fullName}</strong>. Our supervisor has logged your appointment for{' '}
+                <span className="font-semibold text-emerald-light">{formData.preferredDate}</span> ({formData.preferredTimeSlot}) at{' '}
+                <span className="font-semibold text-white">{formData.societyCity}</span>.
               </p>
 
-              <div className="bg-botanical-50 border border-botanical-200/80 rounded-2xl p-4 text-left max-w-md mx-auto text-xs space-y-2">
+              <div className="bg-black/50 border border-gold/30 rounded-2xl p-4 text-left max-w-md mx-auto text-xs space-y-2 text-gray-300">
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Service:</span>
-                  <span className="font-bold text-gray-800">{currentService.title}</span>
+                  <span className="text-gray-400">Service:</span>
+                  <span className="font-bold text-white">{currentService.title}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Estimated Cost:</span>
-                  <span className="font-bold text-emerald">{currentService.priceDisplay}</span>
+                  <span className="text-gray-400">Estimated Cost:</span>
+                  <span className="font-bold text-gold">{currentService.priceDisplay}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Phone:</span>
-                  <span className="font-bold text-gray-800">{formData.phone}</span>
+                  <span className="text-gray-400">Phone:</span>
+                  <span className="font-bold text-white">{formData.phone}</span>
                 </div>
               </div>
 
@@ -190,7 +191,7 @@ export const MaaliBookingModal: React.FC = () => {
 
                 <button
                   onClick={handleResetAndClose}
-                  className="text-xs text-gray-500 hover:text-gray-800 font-bold underline pt-2 cursor-pointer"
+                  className="text-xs text-gold hover:underline pt-2 cursor-pointer"
                 >
                   Close & Return to Store
                 </button>
@@ -202,14 +203,14 @@ export const MaaliBookingModal: React.FC = () => {
               
               {/* Select Service Dropdown */}
               <div>
-                <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+                <label className="block text-[11px] sm:text-xs font-bold text-gray-300 uppercase tracking-wider mb-1.5">
                   Choose Service Type:
                 </label>
                 <select
                   name="serviceId"
                   value={formData.serviceId}
                   onChange={handleInputChange}
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:border-emerald focus:bg-white"
+                  className="w-full bg-[#141F1A] border border-white/20 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-white focus:outline-none focus:border-gold"
                 >
                   {MAALI_SERVICES.map(s => (
                     <option key={s.id} value={s.id}>
@@ -222,7 +223,7 @@ export const MaaliBookingModal: React.FC = () => {
               {/* Name & Phone Number */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] sm:text-xs font-bold text-gray-300 uppercase tracking-wider mb-1">
                     Your Full Name *
                   </label>
                   <div className="relative">
@@ -233,20 +234,20 @@ export const MaaliBookingModal: React.FC = () => {
                       placeholder="e.g. Ananya Sharma"
                       value={formData.fullName}
                       onChange={handleInputChange}
-                      className={`w-full bg-gray-50 border rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:bg-white ${
-                        errors.fullName ? 'border-red-500 bg-red-50/50' : 'border-gray-200 focus:border-emerald'
+                      className={`w-full bg-[#141F1A] border rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none ${
+                        errors.fullName ? 'border-red-500' : 'border-white/20 focus:border-gold'
                       }`}
                     />
                   </div>
                   {errors.fullName && (
-                    <p className="text-red-500 text-[11px] mt-1 flex items-center gap-1">
+                    <p className="text-red-400 text-[11px] mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" /> {errors.fullName}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] sm:text-xs font-bold text-gray-300 uppercase tracking-wider mb-1">
                     WhatsApp / Mobile Number *
                   </label>
                   <div className="relative">
@@ -257,13 +258,13 @@ export const MaaliBookingModal: React.FC = () => {
                       placeholder="e.g. 9811223344"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className={`w-full bg-gray-50 border rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:bg-white ${
-                        errors.phone ? 'border-red-500 bg-red-50/50' : 'border-gray-200 focus:border-emerald'
+                      className={`w-full bg-[#141F1A] border rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none ${
+                        errors.phone ? 'border-red-500' : 'border-white/20 focus:border-gold'
                       }`}
                     />
                   </div>
                   {errors.phone && (
-                    <p className="text-red-500 text-[11px] mt-1 flex items-center gap-1">
+                    <p className="text-red-400 text-[11px] mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" /> {errors.phone}
                     </p>
                   )}
@@ -273,7 +274,7 @@ export const MaaliBookingModal: React.FC = () => {
               {/* Society / Sector / City & Garden Type */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] sm:text-xs font-bold text-gray-300 uppercase tracking-wider mb-1">
                     Society, Sector & City *
                   </label>
                   <div className="relative">
@@ -284,27 +285,27 @@ export const MaaliBookingModal: React.FC = () => {
                       placeholder="e.g. DLF Phase 5, Gurgaon"
                       value={formData.societyCity}
                       onChange={handleInputChange}
-                      className={`w-full bg-gray-50 border rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:bg-white ${
-                        errors.societyCity ? 'border-red-500 bg-red-50/50' : 'border-gray-200 focus:border-emerald'
+                      className={`w-full bg-[#141F1A] border rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none ${
+                        errors.societyCity ? 'border-red-500' : 'border-white/20 focus:border-gold'
                       }`}
                     />
                   </div>
                   {errors.societyCity && (
-                    <p className="text-red-500 text-[11px] mt-1 flex items-center gap-1">
+                    <p className="text-red-400 text-[11px] mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" /> {errors.societyCity}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] sm:text-xs font-bold text-gray-300 uppercase tracking-wider mb-1">
                     Garden Type
                   </label>
                   <select
                     name="gardenType"
                     value={formData.gardenType}
                     onChange={handleInputChange}
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-emerald focus:bg-white"
+                    className="w-full bg-[#141F1A] border border-white/20 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-gold"
                   >
                     <option value="Balcony">Apartment Balcony</option>
                     <option value="Terrace">Terrace / Rooftop Garden</option>
@@ -318,7 +319,7 @@ export const MaaliBookingModal: React.FC = () => {
               {/* Preferred Date & Time Slot */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] sm:text-xs font-bold text-gray-300 uppercase tracking-wider mb-1">
                     Preferred Visit Date *
                   </label>
                   <div className="relative">
@@ -328,20 +329,20 @@ export const MaaliBookingModal: React.FC = () => {
                       name="preferredDate"
                       value={formData.preferredDate}
                       onChange={handleInputChange}
-                      className={`w-full bg-gray-50 border rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:bg-white ${
-                        errors.preferredDate ? 'border-red-500 bg-red-50/50' : 'border-gray-200 focus:border-emerald'
+                      className={`w-full bg-[#141F1A] border rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none ${
+                        errors.preferredDate ? 'border-red-500' : 'border-white/20 focus:border-gold'
                       }`}
                     />
                   </div>
                   {errors.preferredDate && (
-                    <p className="text-red-500 text-[11px] mt-1 flex items-center gap-1">
+                    <p className="text-red-400 text-[11px] mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3 h-3" /> {errors.preferredDate}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] sm:text-xs font-bold text-gray-300 uppercase tracking-wider mb-1">
                     Preferred Time Window
                   </label>
                   <div className="relative">
@@ -350,7 +351,7 @@ export const MaaliBookingModal: React.FC = () => {
                       name="preferredTimeSlot"
                       value={formData.preferredTimeSlot}
                       onChange={handleInputChange}
-                      className="w-full bg-gray-50 border border-gray-200 rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-emerald focus:bg-white"
+                      className="w-full bg-[#141F1A] border border-white/20 rounded-xl pl-10 pr-3.5 py-2.5 text-xs sm:text-sm text-white focus:outline-none focus:border-gold"
                     >
                       <option value="Morning (8:30 AM - 11:30 AM)">Morning (8:30 AM - 11:30 AM)</option>
                       <option value="Afternoon (12:00 PM - 3:00 PM)">Afternoon (12:00 PM - 3:00 PM)</option>
@@ -362,7 +363,7 @@ export const MaaliBookingModal: React.FC = () => {
 
               {/* Optional Notes */}
               <div>
-                <label className="block text-[11px] sm:text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                <label className="block text-[11px] sm:text-xs font-bold text-gray-300 uppercase tracking-wider mb-1">
                   Special Notes or Plant Concerns (Optional)
                 </label>
                 <textarea
@@ -371,7 +372,7 @@ export const MaaliBookingModal: React.FC = () => {
                   placeholder="e.g. 15 balcony pots need soil refresh; hibiscus has white mealybugs..."
                   value={formData.notes}
                   onChange={handleInputChange}
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 text-xs focus:outline-none focus:border-emerald focus:bg-white"
+                  className="w-full bg-[#141F1A] border border-white/20 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-gold"
                 ></textarea>
               </div>
 
@@ -379,13 +380,13 @@ export const MaaliBookingModal: React.FC = () => {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full bg-emerald hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm"
+                  className="w-full bg-gold hover:bg-gold-light text-charcoal-pure font-black py-3.5 px-6 rounded-xl shadow-gold-glow transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm"
                 >
-                  <Sparkles className="w-4 h-4 text-gold" />
+                  <Sparkles className="w-4 h-4" />
                   <span>Confirm Booking & Send to Coordinator</span>
                 </button>
 
-                <p className="text-center text-[11px] text-gray-500 mt-2">
+                <p className="text-center text-[11px] text-gray-400 mt-2">
                   🔒 Zero advance fee required. Pay post-service inspection via UPI or Cash.
                 </p>
               </div>

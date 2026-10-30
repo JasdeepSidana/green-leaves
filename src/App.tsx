@@ -25,7 +25,7 @@ const MainApp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-gray-900 font-sans max-w-full overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-[#0B0F0E] text-white font-sans max-w-full overflow-x-hidden selection:bg-gold selection:text-black">
       {/* 1. Announcement Bar with Live Countdown & Diwali Offer Ticker */}
       <AnnouncementBar />
 

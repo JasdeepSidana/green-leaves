@@ -85,126 +85,135 @@ export const CartDrawer: React.FC = () => {
     <div className="fixed inset-0 z-50 overflow-hidden">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300 cursor-pointer"
+        className="absolute inset-0 bg-black/80 backdrop-blur-xs transition-opacity duration-300 cursor-pointer"
         onClick={() => setIsCartOpen(false)}
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-8">
-        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between border-l border-gray-100 animate-in slide-in-from-right duration-300">
+        <div className="w-screen max-w-md bg-[#0D1411] text-white shadow-2xl flex flex-col justify-between border-l border-gold/30 animate-in slide-in-from-right duration-300">
           
           {/* Header */}
-          <div className="p-4 sm:p-5 border-b border-gray-100 bg-warmWhite flex items-center justify-between">
+          <div className="p-4 sm:p-5 border-b border-white/10 bg-[#080D0B] flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5 text-emerald" />
-              <h2 className="font-extrabold text-base sm:text-lg text-charcoal">Your Garden Cart</h2>
-              <span className="bg-emerald-100 text-emerald-900 text-xs font-bold px-2 py-0.5 rounded-full">
-                {items.length} {items.length === 1 ? 'item' : 'items'}
+              <ShoppingBag className="w-5 h-5 text-emerald-light" />
+              <h2 className="font-extrabold text-base sm:text-lg text-white">Your Garden Cart</h2>
+              <span className="bg-gold text-charcoal-pure text-xs font-black px-2 py-0.5 rounded-full">
+                {items.reduce((acc, i) => acc + i.quantity, 0)}
               </span>
             </div>
 
             <button
               onClick={() => setIsCartOpen(false)}
-              className="p-1.5 text-gray-400 hover:text-gray-700 rounded-lg hover:bg-gray-100 transition cursor-pointer"
+              className="p-1.5 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition cursor-pointer"
               aria-label="Close cart"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Free Shipping Progress Meter */}
-          <div className="px-4 sm:px-5 py-3 bg-botanical-50 border-b border-botanical-100">
-            <div className="flex items-center justify-between text-xs mb-1.5">
-              <span className="font-bold text-gray-700 flex items-center gap-1.5">
-                <Truck className="w-4 h-4 text-emerald flex-shrink-0" />
+          {/* Free Delivery Meter */}
+          <div className="bg-[#14231b] border-b border-emerald-500/30 p-3 sm:p-4 text-xs">
+            <div className="flex items-center justify-between mb-1.5">
+              <div className="flex items-center gap-1.5 font-bold text-white">
+                <Truck className="w-4 h-4 text-emerald-light" />
                 {hasFlagship ? (
-                  <span className="text-emerald-800 truncate">🎉 FREE Shipping via Flagship / Diwali Bundle!</span>
-                ) : freeDeliveryRemaining === 0 ? (
-                  <span className="text-emerald-800 truncate">🎉 Congratulations! You unlocked FREE Delivery!</span>
+                  <span className="text-gold font-black">🎉 Free Delivery Unlocked (Flagship Vermicompost in cart!)</span>
+                ) : freeDeliveryRemaining <= 0 ? (
+                  <span className="text-emerald-light font-black">🎉 You've unlocked FREE Doorstep Delivery!</span>
                 ) : (
-                  <span className="truncate">Add <strong className="text-emerald">₹{freeDeliveryRemaining}</strong> more for FREE Delivery</span>
+                  <span>
+                    Add <strong className="text-gold">₹{freeDeliveryRemaining}</strong> more for <strong>FREE Delivery</strong>
+                  </span>
                 )}
-              </span>
-              <span className="font-extrabold text-emerald ml-1 flex-shrink-0">{progressPercent}%</span>
+              </div>
+              <span className="font-bold text-gold">{progressPercent}%</span>
             </div>
 
-            <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+            {/* Progress Bar */}
+            <div className="w-full h-2 bg-black/60 rounded-full overflow-hidden border border-white/10">
               <div 
-                className="bg-emerald h-full transition-all duration-500 rounded-full"
+                className="h-full bg-gradient-to-r from-emerald-500 to-gold rounded-full transition-all duration-500"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
-
-            <div className="mt-2 text-[11px] text-amber-800 font-bold flex items-center gap-1">
-              <span>🪔</span>
-              <span>Diwali Perks: FREE Diya + FREE Plant + FREE Maali Advice included!</span>
-            </div>
           </div>
 
-          {/* Cart Items List */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3">
+          {/* Items List */}
+          <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
             {items.length === 0 ? (
-              <div className="text-center py-16 space-y-3">
-                <div className="w-16 h-16 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center mx-auto">
-                  <ShoppingBag className="w-8 h-8" />
+              <div className="text-center py-16 space-y-4">
+                <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-gray-400">
+                  <ShoppingBag className="w-8 h-8 text-gold" />
                 </div>
-                <h3 className="font-bold text-gray-700">Your cart is currently empty</h3>
-                <p className="text-xs text-gray-500 max-w-xs mx-auto">
-                  Explore our Diwali Green Gifting Hampers or 6-in-1 Enriched Vermicompost Mix.
-                </p>
+                <div>
+                  <h3 className="font-bold text-base text-white">Your garden cart is empty</h3>
+                  <p className="text-xs text-gray-400 mt-1 max-w-xs mx-auto">
+                    Bring life to your home. Explore our 6-in-1 Vermicompost, pure Neem Khali, or auspicious Diwali gifts.
+                  </p>
+                </div>
                 <button
                   onClick={() => setIsCartOpen(false)}
-                  className="bg-emerald text-white text-xs font-bold px-4 py-2 rounded-xl shadow-xs hover:bg-emerald-700 transition cursor-pointer"
+                  className="inline-flex items-center gap-2 bg-emerald hover:bg-emerald-600 text-white font-bold text-xs px-5 py-2.5 rounded-full shadow-md transition cursor-pointer"
                 >
-                  Start Shopping
+                  <span>Start Shopping</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             ) : (
               items.map((item) => (
                 <div 
                   key={`${item.product.id}-${item.selectedPack.size}`}
-                  className="flex gap-3 p-3 bg-warmWhite rounded-2xl border border-gray-100"
+                  className="flex gap-3.5 p-3 rounded-2xl bg-[#121A16] border border-white/10 hover:border-gold/40 transition"
                 >
                   <SafeImage
                     src={item.product.image}
                     alt={item.product.name}
-                    className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover border border-gray-200 flex-shrink-0"
+                    className="w-16 h-16 rounded-xl object-cover flex-shrink-0 border border-white/10"
                   />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start">
-                      <h4 className="text-xs font-bold text-charcoal truncate pr-2">
-                        {item.product.name}
-                      </h4>
-                      <button
-                        onClick={() => removeItem(item.product.id, item.selectedPack.size)}
-                        className="text-gray-400 hover:text-red-500 transition p-0.5 cursor-pointer"
-                        aria-label="Remove item"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+
+                  <div className="flex-1 min-w-0 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-start justify-between gap-1">
+                        <h4 className="text-xs font-bold text-white truncate leading-tight">
+                          {item.product.name}
+                        </h4>
+                        <button
+                          onClick={() => removeItem(item.product.id, item.selectedPack.size)}
+                          className="text-gray-400 hover:text-red-400 transition cursor-pointer p-0.5"
+                          title="Remove item"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+
+                      <p className="text-[11px] text-gray-400 mt-0.5 font-medium">
+                        {item.selectedPack.size}
+                      </p>
                     </div>
 
-                    <p className="text-[11px] text-gray-500 font-medium">
-                      Size: {item.selectedPack.size}
-                    </p>
+                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/10">
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-xs font-black text-gold">₹{item.selectedPack.price * item.quantity}</span>
+                        {item.quantity > 1 && (
+                          <span className="text-[10px] text-gray-400">
+                            (₹{item.selectedPack.price} each)
+                          </span>
+                        )}
+                      </div>
 
-                    <div className="flex items-center justify-between mt-2">
-                      <span className="text-xs font-black text-charcoal">
-                        ₹{item.selectedPack.price * item.quantity}
-                      </span>
-
-                      {/* Quantity Toggles */}
-                      <div className="flex items-center border border-gray-200 rounded-lg bg-white overflow-hidden">
+                      {/* Quantity Modifiers */}
+                      <div className="flex items-center border border-white/20 rounded-lg overflow-hidden bg-black/40">
                         <button
                           onClick={() => updateQuantity(item.product.id, item.selectedPack.size, item.quantity - 1)}
-                          className="px-2 py-0.5 text-gray-500 hover:bg-gray-100 cursor-pointer"
+                          className="px-2 py-0.5 text-gray-300 hover:bg-white/10 cursor-pointer"
                           aria-label="Decrease quantity"
                         >
                           <Minus className="w-3 h-3" />
                         </button>
-                        <span className="px-2 text-xs font-bold text-gray-800">{item.quantity}</span>
+                        <span className="px-2 text-xs font-bold text-white">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.product.id, item.selectedPack.size, item.quantity + 1)}
-                          className="px-2 py-0.5 text-gray-500 hover:bg-gray-100 cursor-pointer"
+                          className="px-2 py-0.5 text-gray-300 hover:bg-white/10 cursor-pointer"
                           aria-label="Increase quantity"
                         >
                           <Plus className="w-3 h-3" />
@@ -219,24 +228,24 @@ export const CartDrawer: React.FC = () => {
             {/* Festive Coupon Input Box */}
             {items.length > 0 && (
               <div className="pt-2">
-                <div className="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-3">
+                <div className="bg-[#141F1A] border border-gold/40 rounded-2xl p-3">
                   <div className="flex items-center justify-between mb-1.5 text-xs">
-                    <span className="font-bold text-amber-950 flex items-center gap-1">
-                      <Tag className="w-3.5 h-3.5 text-amber-600" />
+                    <span className="font-bold text-gold flex items-center gap-1">
+                      <Tag className="w-3.5 h-3.5 text-gold" />
                       Festive Coupon Code
                     </span>
-                    <span className="text-[10px] text-amber-700 font-bold">Use 'DIWALIGREEN'</span>
+                    <span className="text-[10px] text-amber-300 font-bold">Use 'DIWALIGREEN'</span>
                   </div>
 
                   {appliedPromoCode ? (
-                    <div className="flex items-center justify-between bg-white border border-emerald-300 rounded-xl p-2 text-xs">
-                      <div className="flex items-center gap-1.5 text-emerald-800 font-bold">
-                        <Check className="w-4 h-4 text-emerald" />
+                    <div className="flex items-center justify-between bg-black/60 border border-emerald-500/40 rounded-xl p-2 text-xs">
+                      <div className="flex items-center gap-1.5 text-emerald-light font-bold">
+                        <Check className="w-4 h-4 text-emerald-light" />
                         <span>{promoLabel || `${appliedPromoCode} (15% OFF)`}</span>
                       </div>
                       <button
                         onClick={removePromoCode}
-                        className="text-xs text-red-500 hover:text-red-700 font-bold underline cursor-pointer"
+                        className="text-xs text-red-400 hover:text-red-300 font-bold underline cursor-pointer"
                       >
                         Remove
                       </button>
@@ -248,11 +257,11 @@ export const CartDrawer: React.FC = () => {
                         placeholder="Enter DIWALIGREEN"
                         value={couponInput}
                         onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
-                        className="bg-white border border-gray-300 rounded-xl px-3 py-1.5 text-xs text-gray-800 font-mono font-bold uppercase focus:outline-none focus:border-amber-500 flex-1"
+                        className="bg-black/60 border border-white/20 rounded-xl px-3 py-1.5 text-xs text-white font-mono font-bold uppercase focus:outline-none focus:border-gold flex-1"
                       />
                       <button
                         type="submit"
-                        className="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition shadow-2xs"
+                        className="bg-gold hover:bg-gold-light text-charcoal-pure px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition shadow-gold-glow"
                       >
                         Apply
                       </button>
@@ -260,7 +269,7 @@ export const CartDrawer: React.FC = () => {
                   )}
 
                   {couponMsg && (
-                    <p className={`text-[11px] mt-1.5 font-medium ${couponMsg.isError ? 'text-red-600' : 'text-emerald-700'}`}>
+                    <p className={`text-[11px] mt-1.5 font-medium ${couponMsg.isError ? 'text-red-400' : 'text-emerald-light'}`}>
                       {couponMsg.text}
                     </p>
                   )}
@@ -271,7 +280,7 @@ export const CartDrawer: React.FC = () => {
             {/* Special Instructions / Notes */}
             {items.length > 0 && (
               <div className="pt-1">
-                <label className="block text-[11px] font-bold text-gray-600 uppercase tracking-wider mb-1">
+                <label className="block text-[11px] font-bold text-gray-300 uppercase tracking-wider mb-1">
                   Delivery Notes / Gate Code (Optional):
                 </label>
                 <textarea
@@ -279,7 +288,7 @@ export const CartDrawer: React.FC = () => {
                   onChange={(e) => setOrderNotes(e.target.value)}
                   placeholder="e.g. Please leave with security guard; Call on arrival..."
                   rows={2}
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 text-xs focus:outline-none focus:border-emerald focus:bg-white"
+                  className="w-full bg-[#141F1A] border border-white/10 text-white rounded-xl p-2.5 text-xs focus:outline-none focus:border-gold"
                 ></textarea>
               </div>
             )}
@@ -287,15 +296,15 @@ export const CartDrawer: React.FC = () => {
 
           {/* Footer Calculations & Dual Checkout CTAs */}
           {items.length > 0 && (
-            <div className="p-4 sm:p-5 border-t border-gray-100 bg-white space-y-3">
+            <div className="p-4 sm:p-5 border-t border-white/10 bg-[#080D0B] space-y-3">
               {/* Financial Breakdown */}
-              <div className="space-y-1.5 text-xs text-gray-600">
+              <div className="space-y-1.5 text-xs text-gray-300">
                 <div className="flex justify-between">
                   <span>Subtotal:</span>
-                  <span className="font-semibold text-gray-800">₹{subtotal}</span>
+                  <span className="font-semibold text-white">₹{subtotal}</span>
                 </div>
                 {promoDiscount > 0 && (
-                  <div className="flex justify-between text-emerald font-bold">
+                  <div className="flex justify-between text-emerald-light font-bold">
                     <span>Diwali Discount ({appliedPromoCode}):</span>
                     <span>-₹{promoDiscount}</span>
                   </div>
@@ -303,14 +312,14 @@ export const CartDrawer: React.FC = () => {
                 <div className="flex justify-between items-center">
                   <span>Shipping Fee:</span>
                   {shippingFee === 0 ? (
-                    <span className="font-bold text-emerald">FREE</span>
+                    <span className="font-bold text-emerald-light">FREE</span>
                   ) : (
-                    <span className="font-semibold text-gray-800">₹{shippingFee}</span>
+                    <span className="font-semibold text-white">₹{shippingFee}</span>
                   )}
                 </div>
-                <div className="flex justify-between text-sm font-black text-charcoal pt-1.5 border-t border-gray-100">
+                <div className="flex justify-between text-sm font-black text-white pt-1.5 border-t border-white/10">
                   <span>Total Amount:</span>
-                  <span className="text-emerald text-base">₹{grandTotal}</span>
+                  <span className="text-gold text-base">₹{grandTotal}</span>
                 </div>
               </div>
 
@@ -330,7 +339,7 @@ export const CartDrawer: React.FC = () => {
                 {/* 2. Secure Web Checkout Modal */}
                 <button
                   onClick={handleOpenWebCheckout}
-                  className="w-full bg-emerald hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm"
+                  className="w-full bg-emerald hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm"
                 >
                   <CreditCard className="w-4 h-4" />
                   <span>2. Secure Web Checkout</span>
@@ -339,7 +348,7 @@ export const CartDrawer: React.FC = () => {
               </div>
 
               <div className="flex items-center justify-center gap-2 text-[10px] text-gray-400 pt-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald" />
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-light" />
                 <span>256-Bit SSL Encrypted | Safe & Sanitized Packing</span>
               </div>
             </div>

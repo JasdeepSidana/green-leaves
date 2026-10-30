@@ -6,9 +6,9 @@ import {
   Stethoscope, 
   CheckCircle2, 
   Sparkles, 
-  ArrowRight,
-  ShieldCheck,
-  AlertTriangle
+  ArrowRight, 
+  ShieldCheck, 
+  AlertTriangle 
 } from 'lucide-react';
 import { GARDENER_GUIDES, PLANT_DOCTOR_SYMPTOMS } from '../data/educational';
 import { useCart } from '../context/CartContext';
@@ -27,19 +27,19 @@ export const GardenersHandbook: React.FC = () => {
   const matchedProduct = PRODUCTS.find(p => p.slug === currentSymptom.recommendedProductSlug) || PRODUCTS[0];
 
   return (
-    <section id="gardeners-handbook" className="py-16 sm:py-24 bg-softBg/60 border-b border-gray-100">
+    <section id="gardeners-handbook" className="py-16 sm:py-24 bg-[#0B0F0E] text-white border-b border-gold/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold uppercase tracking-wider mb-3">
-            <BookOpen className="w-3.5 h-3.5 text-emerald" />
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-950 border border-emerald-500/30 text-emerald-light text-xs font-bold uppercase tracking-wider mb-3">
+            <BookOpen className="w-3.5 h-3.5 text-gold" />
             Agronomist Knowledge Hub
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-charcoal tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             The Urban Gardener's Handbook
           </h2>
-          <p className="mt-3 text-base sm:text-lg text-gray-600">
+          <p className="mt-3 text-base sm:text-lg text-gray-300">
             Backed by biological science and organic field trials. Master plant parenting in apartments, balconies, and terrace gardens.
           </p>
         </div>
@@ -49,8 +49,8 @@ export const GardenersHandbook: React.FC = () => {
           
           {/* Left Column: Accordion Articles */}
           <div className="lg:col-span-7 space-y-4">
-            <h3 className="text-xl font-extrabold text-charcoal flex items-center gap-2 mb-4">
-              <span>Step-by-Step Care Protocols</span>
+            <h3 className="text-xl font-extrabold text-white flex items-center gap-2 mb-4">
+              <span className="text-gold">Step-by-Step Care Protocols</span>
             </h3>
 
             {GARDENER_GUIDES.map((guide) => {
@@ -60,8 +60,8 @@ export const GardenersHandbook: React.FC = () => {
                   key={guide.id}
                   className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                     isOpen 
-                      ? 'bg-white border-emerald/50 shadow-md ring-1 ring-emerald/20' 
-                      : 'bg-white/80 border-gray-200/80 hover:border-gray-300'
+                      ? 'bg-[#121A16] border-gold/50 shadow-gold-glow' 
+                      : 'bg-[#121A16]/70 border-emerald-500/20 hover:border-gold/40'
                   }`}
                 >
                   <button
@@ -70,35 +70,35 @@ export const GardenersHandbook: React.FC = () => {
                   >
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[10px] font-black uppercase tracking-wider bg-botanical-100 text-emerald-900 px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] font-black uppercase tracking-wider bg-emerald-950 text-emerald-light border border-emerald-500/30 px-2 py-0.5 rounded-full">
                           {guide.category}
                         </span>
                         <span className="text-xs text-gray-400">{guide.readTime}</span>
                       </div>
-                      <h4 className="text-base sm:text-lg font-bold text-charcoal">
+                      <h4 className="text-base sm:text-lg font-bold text-white">
                         {guide.title}
                       </h4>
                     </div>
 
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${
-                      isOpen ? 'bg-emerald text-white rotate-180' : 'bg-gray-100 text-gray-600'
+                      isOpen ? 'bg-gold text-charcoal-pure rotate-180' : 'bg-white/10 text-gray-300'
                     }`}>
                       <ChevronDown className="w-4 h-4" />
                     </div>
                   </button>
 
                   {isOpen && (
-                    <div className="px-5 sm:px-6 pb-6 pt-1 text-sm text-gray-600 border-t border-gray-100 animate-in fade-in duration-200">
-                      <p className="mb-4 text-xs sm:text-sm leading-relaxed text-gray-700">
+                    <div className="px-5 sm:px-6 pb-6 pt-1 text-sm text-gray-300 border-t border-white/10 animate-in fade-in duration-200">
+                      <p className="mb-4 text-xs sm:text-sm leading-relaxed text-gray-300">
                         {guide.summary}
                       </p>
 
-                      <div className="space-y-2.5 mb-5 bg-botanical-50/60 p-4 rounded-xl border border-botanical-100">
-                        <span className="text-xs font-bold uppercase tracking-wider text-charcoal block mb-1">
+                      <div className="space-y-2.5 mb-5 bg-black/50 p-4 rounded-xl border border-white/10">
+                        <span className="text-xs font-bold uppercase tracking-wider text-gold block mb-1">
                           Execution Steps:
                         </span>
                         {guide.steps.map((step, idx) => (
-                          <div key={idx} className="flex items-start gap-2.5 text-xs text-gray-700">
+                          <div key={idx} className="flex items-start gap-2.5 text-xs text-gray-200">
                             <span className="w-5 h-5 rounded-full bg-emerald text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
                               {idx + 1}
                             </span>
@@ -107,10 +107,10 @@ export const GardenersHandbook: React.FC = () => {
                         ))}
                       </div>
 
-                      <div className="bg-amber-50 border border-amber-200/70 rounded-xl p-3 flex items-start gap-2.5 text-xs text-amber-900">
-                        <Lightbulb className="w-4 h-4 text-gold-dark flex-shrink-0 mt-0.5" />
+                      <div className="bg-gold/15 border border-gold/30 rounded-xl p-3 flex items-start gap-2.5 text-xs text-gold">
+                        <Lightbulb className="w-4 h-4 text-gold flex-shrink-0 mt-0.5" />
                         <div>
-                          <strong className="font-bold">Pro Grower Tip:</strong> {guide.proTip}
+                          <strong className="font-bold text-white">Pro Grower Tip:</strong> {guide.proTip}
                         </div>
                       </div>
                     </div>
@@ -122,7 +122,7 @@ export const GardenersHandbook: React.FC = () => {
 
           {/* Right Column: Interactive Plant Doctor SOS Diagnostic Tool */}
           <div className="lg:col-span-5">
-            <div className="bg-gradient-to-b from-charcoal-pure via-[#15221b] to-charcoal-pure rounded-3xl p-6 sm:p-8 text-white border-2 border-gold/40 shadow-luxury-dark relative overflow-hidden">
+            <div className="bg-gradient-to-b from-[#14231b] via-[#0e1713] to-charcoal-pure rounded-3xl p-6 sm:p-8 text-white border-2 border-gold/50 shadow-gold-glow relative overflow-hidden">
               <div className="flex items-center gap-2 text-gold text-xs font-black uppercase tracking-wider mb-2">
                 <Stethoscope className="w-4 h-4 text-emerald-light" />
                 <span>Interactive Plant Doctor SOS</span>
@@ -161,7 +161,7 @@ export const GardenersHandbook: React.FC = () => {
               </div>
 
               {/* Diagnosis Output Card */}
-              <div className="bg-black/40 border border-white/10 rounded-2xl p-4 space-y-3">
+              <div className="bg-black/60 border border-white/10 rounded-2xl p-4 space-y-3">
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block mb-0.5 flex items-center gap-1">
                     <AlertTriangle className="w-3 h-3 text-amber-400" />

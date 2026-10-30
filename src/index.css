@@ -4,7 +4,7 @@
 
 @layer base {
   html, body {
-    @apply bg-white text-gray-900;
+    @apply bg-[#0B0F0E] text-white;
     overflow-x: hidden;
     max-width: 100vw;
     width: 100%;
@@ -12,6 +12,7 @@
   }
   
   #root {
+    @apply bg-[#0B0F0E] text-white;
     overflow-x: hidden;
     max-width: 100vw;
     width: 100%;
@@ -31,16 +32,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #F3F6F2;
+  background: #070B09;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #A6C49E;
+  background: #1B2B23;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #166534;
+  background: #EAB308;
 }
 
 /* Glassmorphism helpers */

@@ -5,8 +5,8 @@ import {
   Truck, 
   Leaf, 
   CheckCircle2, 
-  Quote,
-  Award
+  Quote, 
+  Award 
 } from 'lucide-react';
 import { TESTIMONIALS, TRUST_BADGES } from '../data/testimonials';
 import { SafeImage } from './SafeImage';
@@ -14,16 +14,16 @@ import { SafeImage } from './SafeImage';
 export const TestimonialsTrust: React.FC = () => {
   const getBadgeIcon = (iconName: string) => {
     switch (iconName) {
-      case 'Leaf': return <Leaf className="w-6 h-6 text-emerald" />;
-      case 'ShieldCheck': return <ShieldCheck className="w-6 h-6 text-emerald" />;
-      case 'Truck': return <Truck className="w-6 h-6 text-emerald" />;
+      case 'Leaf': return <Leaf className="w-6 h-6 text-emerald-light" />;
+      case 'ShieldCheck': return <ShieldCheck className="w-6 h-6 text-emerald-light" />;
+      case 'Truck': return <Truck className="w-6 h-6 text-emerald-light" />;
       case 'Award': return <Award className="w-6 h-6 text-gold" />;
-      default: return <ShieldCheck className="w-6 h-6 text-emerald" />;
+      default: return <ShieldCheck className="w-6 h-6 text-emerald-light" />;
     }
   };
 
   return (
-    <section className="py-12 sm:py-20 bg-white relative max-w-full overflow-hidden">
+    <section className="py-12 sm:py-20 bg-[#070B09] text-white relative max-w-full overflow-hidden border-b border-gold/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Trust Badges Strip (4 Pillars) */}
@@ -31,15 +31,15 @@ export const TestimonialsTrust: React.FC = () => {
           {TRUST_BADGES.map((badge) => (
             <div
               key={badge.id}
-              className="bg-botanical-50/70 border border-botanical-200/60 rounded-2xl p-5 text-center hover:bg-white hover:border-emerald/40 transition duration-300 shadow-2xs hover:shadow-md flex flex-col items-center"
+              className="bg-[#121B16] border border-emerald-500/20 rounded-2xl p-5 text-center hover:border-gold/50 transition duration-300 shadow-luxury-dark flex flex-col items-center"
             >
-              <div className="w-12 h-12 rounded-2xl bg-white shadow-2xs flex items-center justify-center mb-3 border border-gray-100">
+              <div className="w-12 h-12 rounded-2xl bg-black/60 shadow-2xs flex items-center justify-center mb-3 border border-gold/30">
                 {getBadgeIcon(badge.iconName)}
               </div>
-              <h4 className="text-sm sm:text-base font-extrabold text-charcoal mb-1">
+              <h4 className="text-sm sm:text-base font-extrabold text-white mb-1">
                 {badge.title}
               </h4>
-              <p className="text-xs text-gray-600 leading-relaxed">
+              <p className="text-xs text-gray-300 leading-relaxed">
                 {badge.description}
               </p>
             </div>
@@ -48,14 +48,14 @@ export const TestimonialsTrust: React.FC = () => {
 
         {/* Testimonials Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-botanical-100 text-emerald-900 text-xs font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-950 border border-emerald-500/30 text-emerald-light text-xs font-bold uppercase tracking-wider mb-2">
             <Star className="w-3.5 h-3.5 fill-gold text-gold" />
             Loved By 1,250+ Urban Plant Parents
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-charcoal tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
             Real Stories, Thriving Balconies
           </h2>
-          <p className="mt-2 text-xs sm:text-sm text-gray-600">
+          <p className="mt-2 text-xs sm:text-sm text-gray-300">
             Hear from apartment plant lovers, villa garden owners, and terrace green thumbs across Delhi NCR, Bangalore, Mumbai, and Chandigarh.
           </p>
         </div>
@@ -65,7 +65,7 @@ export const TestimonialsTrust: React.FC = () => {
           {TESTIMONIALS.map((review) => (
             <div
               key={review.id}
-              className="bg-warmWhite border border-gray-200/80 rounded-3xl p-5 sm:p-7 shadow-2xs hover:shadow-luxury transition-all duration-300 flex flex-col justify-between"
+              className="bg-[#121A16] border border-emerald-500/20 hover:border-gold/50 rounded-3xl p-5 sm:p-7 shadow-luxury-dark transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 {/* Stars & Verified Badge */}
@@ -76,42 +76,37 @@ export const TestimonialsTrust: React.FC = () => {
                     ))}
                   </div>
 
-                  <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                    <CheckCircle2 className="w-3 h-3 text-emerald" />
+                  <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-emerald-light bg-emerald-950 px-2.5 py-0.5 rounded-full border border-emerald-500/40">
+                    <CheckCircle2 className="w-3 h-3 text-emerald-light" />
                     Verified Customer
                   </span>
                 </div>
 
                 {/* Comment */}
                 <div className="relative mb-5">
-                  <Quote className="w-7 h-7 text-emerald/10 absolute -top-3 -left-2 -z-0" />
-                  <p className="text-xs sm:text-sm text-gray-700 leading-relaxed italic relative z-10">
+                  <Quote className="w-7 h-7 text-white/5 absolute -top-3 -left-2 -z-0" />
+                  <p className="text-xs sm:text-sm text-gray-200 leading-relaxed italic relative z-10">
                     "{review.comment}"
                   </p>
                 </div>
               </div>
 
               {/* Author Info & Plant Thumbnail */}
-              <div className="pt-3.5 border-t border-gray-200/60 flex items-center justify-between gap-3">
+              <div className="pt-3.5 border-t border-white/10 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2.5 sm:gap-3">
-                  <div className={`w-10 h-10 rounded-full ${review.avatarBg} text-white font-bold text-xs sm:text-sm flex items-center justify-center flex-shrink-0 shadow-xs`}>
+                  <div className={`w-10 h-10 rounded-full ${review.avatarBg} text-white font-bold text-xs sm:text-sm flex items-center justify-center flex-shrink-0 shadow-xs border border-white/20`}>
                     {review.avatarText}
                   </div>
                   <div>
-                    <h4 className="text-xs sm:text-sm font-extrabold text-charcoal">{review.name}</h4>
-                    <p className="text-[11px] text-gray-500">{review.location}</p>
-                    <p className="text-[10px] font-semibold text-emerald mt-0.5">
-                      Used: {review.productMentioned}
-                    </p>
+                    <h5 className="text-xs sm:text-sm font-bold text-white">{review.name}</h5>
+                    <p className="text-[11px] text-gray-400">{review.location}</p>
                   </div>
                 </div>
 
-                {review.plantImage && (
-                  <SafeImage
-                    src={review.plantImage}
-                    alt={review.productMentioned}
-                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover border border-gray-200 shadow-2xs flex-shrink-0"
-                  />
+                {review.productMentioned && (
+                  <span className="hidden sm:inline-block text-[10px] bg-white/5 text-gold px-2 py-1 rounded-lg border border-gold/30">
+                    {review.productMentioned}
+                  </span>
                 )}
               </div>
 

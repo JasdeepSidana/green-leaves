@@ -98,31 +98,31 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
   };
 
   return (
-    <section id="products-catalog" className="py-12 sm:py-16 bg-warmWhite border-b border-gray-100 max-w-full overflow-hidden">
+    <section id="products-catalog" className="py-12 sm:py-16 bg-[#0B0F0E] text-white border-b border-gold/20 max-w-full overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold uppercase tracking-wider mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-emerald" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950 text-emerald-light border border-emerald-500/30 text-xs font-bold uppercase tracking-wider mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-gold" />
               Pure Botanical Catalog
             </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-charcoal tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
               Shop Organic Plant Nutrition & Care
             </h2>
-            <p className="mt-1 text-xs sm:text-sm text-gray-600">
+            <p className="mt-1 text-xs sm:text-sm text-gray-300">
               Formulated specifically for Indian balcony gardens, terrace pots, and festive green gifting.
             </p>
           </div>
 
           {/* Quick Sort Dropdown */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            <span className="text-xs font-bold text-gray-500 uppercase tracking-wider hidden sm:inline">Sort:</span>
+            <span className="text-xs font-bold text-gray-400 uppercase tracking-wider hidden sm:inline">Sort:</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="bg-white border border-gray-200 text-gray-700 text-xs sm:text-sm font-semibold rounded-xl px-3 py-2 sm:py-2.5 focus:outline-none focus:border-emerald shadow-2xs cursor-pointer"
+              className="bg-[#141F1A] border border-white/20 text-white text-xs sm:text-sm font-semibold rounded-xl px-3 py-2 sm:py-2.5 focus:outline-none focus:border-gold shadow-2xs cursor-pointer"
             >
               <option value="featured">Featured & Best Sellers</option>
               <option value="rating">Highest Customer Rating</option>
@@ -142,8 +142,8 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                 onClick={() => setSelectedCategory(cat.id as ProductCategory)}
                 className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all shadow-2xs cursor-pointer ${
                   isActive
-                    ? 'bg-charcoal-pure text-white border border-gold/50 shadow-md scale-102'
-                    : 'bg-white text-gray-700 border border-gray-200 hover:border-emerald hover:text-emerald hover:bg-botanical-50'
+                    ? 'bg-gold text-charcoal-pure border border-gold font-black shadow-gold-glow scale-102'
+                    : 'bg-[#141F1A] text-gray-300 border border-white/10 hover:border-gold hover:text-white'
                 }`}
               >
                 <span>{cat.icon}</span>
@@ -167,10 +167,10 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
             return (
               <div
                 key={product.id}
-                className="bg-white rounded-2xl border border-gray-100 shadow-xs hover:shadow-luxury transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1"
+                className="bg-[#121A16] rounded-2xl border border-emerald-500/20 hover:border-gold/50 shadow-luxury-dark transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1 text-white"
               >
                 {/* Product Card Image & Badges */}
-                <div className="relative aspect-square overflow-hidden bg-gray-50">
+                <div className="relative aspect-square overflow-hidden bg-black/60">
                   <SafeImage
                     src={product.image}
                     alt={product.name}
@@ -182,17 +182,17 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                   {/* Top Badges */}
                   <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
                     {product.isDiwaliSpecial && (
-                      <span className="bg-amber-500 text-charcoal-pure border border-amber-300 text-[10px] font-black uppercase px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+                      <span className="bg-gold text-charcoal-pure border border-gold text-[10px] font-black uppercase px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1">
                         <span>🪔</span> Diwali Special
                       </span>
                     )}
                     {product.isFlagship && !product.isDiwaliSpecial && (
-                      <span className="bg-charcoal-pure text-gold border border-gold/50 text-[10px] font-black uppercase px-2 py-0.5 rounded-full shadow-sm">
+                      <span className="bg-black text-gold border border-gold/50 text-[10px] font-black uppercase px-2 py-0.5 rounded-full shadow-sm">
                         Flagship
                       </span>
                     )}
                     {product.bestSeller && !product.isFlagship && !product.isDiwaliSpecial && (
-                      <span className="bg-amber-500 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded-full shadow-sm">
+                      <span className="bg-amber-500 text-charcoal-pure font-black text-[10px] uppercase px-2 py-0.5 rounded-full shadow-sm">
                         Best Seller
                       </span>
                     )}
@@ -213,7 +213,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                   {/* Quick View Hover Button */}
                   <button
                     onClick={() => openQuickView(product)}
-                    className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/95 hover:bg-white text-gray-900 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-1.5 hover:text-emerald cursor-pointer"
+                    className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/90 hover:bg-black text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-md border border-gold/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-1.5 hover:text-gold cursor-pointer"
                   >
                     <Eye className="w-3.5 h-3.5" />
                     <span>Quick View</span>
@@ -228,18 +228,18 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                       <div className="flex text-gold">
                         <Star className="w-3.5 h-3.5 fill-gold" />
                       </div>
-                      <span className="text-xs font-bold text-gray-800">{product.rating}</span>
+                      <span className="text-xs font-bold text-white">{product.rating}</span>
                       <span className="text-[10px] text-gray-400">({product.reviewCount})</span>
                     </div>
 
                     {/* Title & Subtitle */}
                     <h3 
                       onClick={() => openQuickView(product)}
-                      className="font-extrabold text-charcoal text-sm sm:text-base hover:text-emerald cursor-pointer transition line-clamp-1"
+                      className="font-extrabold text-white text-sm sm:text-base hover:text-gold cursor-pointer transition line-clamp-1"
                     >
                       {product.name}
                     </h3>
-                    <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">
+                    <p className="text-xs text-gray-400 mt-0.5 line-clamp-2">
                       {product.subtitle}
                     </p>
 
@@ -253,8 +253,8 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                               onClick={() => handlePackChange(product.id, idx)}
                               className={`text-[10px] px-2 py-0.5 rounded-md font-bold transition border cursor-pointer ${
                                 currentPackIndex === idx
-                                  ? 'bg-emerald-50 border-emerald text-emerald-900'
-                                  : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
+                                  ? 'bg-emerald-900/80 border-gold text-gold'
+                                  : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10'
                               }`}
                             >
                               {pack.size.split(' ')[0]}
@@ -266,26 +266,26 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                   </div>
 
                   {/* Price, Quantity & CTA Actions */}
-                  <div className="pt-3 mt-2 border-t border-gray-100">
+                  <div className="pt-3 mt-2 border-t border-white/10">
                     <div className="flex items-baseline justify-between mb-2.5">
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-base sm:text-lg font-black text-charcoal">₹{currentPack.price}</span>
-                        <span className="text-xs text-gray-400 line-through">₹{currentPack.mrp}</span>
+                        <span className="text-base sm:text-lg font-black text-gold">₹{currentPack.price}</span>
+                        <span className="text-xs text-gray-500 line-through">₹{currentPack.mrp}</span>
                       </div>
 
                       {/* Micro Quantity Selector */}
-                      <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-gray-50">
+                      <div className="flex items-center border border-white/20 rounded-lg overflow-hidden bg-black/40">
                         <button
                           onClick={() => handleQuantityChange(product.id, -1)}
-                          className="px-2 py-0.5 text-gray-600 hover:bg-gray-200 transition cursor-pointer"
+                          className="px-2 py-0.5 text-gray-300 hover:bg-white/10 transition cursor-pointer"
                           aria-label="Decrease quantity"
                         >
                           <Minus className="w-3 h-3" />
                         </button>
-                        <span className="px-1.5 text-xs font-bold text-gray-800">{currentQty}</span>
+                        <span className="px-1.5 text-xs font-bold text-white">{currentQty}</span>
                         <button
                           onClick={() => handleQuantityChange(product.id, 1)}
-                          className="px-2 py-0.5 text-gray-600 hover:bg-gray-200 transition cursor-pointer"
+                          className="px-2 py-0.5 text-gray-300 hover:bg-white/10 transition cursor-pointer"
                           aria-label="Increase quantity"
                         >
                           <Plus className="w-3 h-3" />
@@ -300,7 +300,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                         className={`w-full py-2 px-1.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1 shadow-2xs cursor-pointer ${
                           isAdded 
                             ? 'bg-emerald text-white' 
-                            : 'bg-charcoal-pure hover:bg-black text-white hover:shadow-xs'
+                            : 'bg-emerald hover:bg-emerald-600 text-white hover:shadow-xs'
                         }`}
                       >
                         {isAdded ? (
@@ -310,7 +310,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                           </>
                         ) : (
                           <>
-                            <ShoppingBag className="w-3.5 h-3.5 text-emerald-light" />
+                            <ShoppingBag className="w-3.5 h-3.5 text-gold" />
                             <span>Add</span>
                           </>
                         )}
@@ -320,15 +320,13 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                         href={whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-charcoal-pure font-bold py-2 px-1.5 rounded-xl text-xs transition flex items-center justify-center gap-1 shadow-2xs cursor-pointer"
-                        title="Order instantly on WhatsApp"
+                        className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-charcoal-pure font-black py-2 px-1.5 rounded-xl text-xs transition flex items-center justify-center gap-1 cursor-pointer shadow-sm"
                       >
                         <span>WhatsApp</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     </div>
                   </div>
-
                 </div>
               </div>
             );

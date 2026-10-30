@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-charcoal-pure text-white pt-16 pb-12 border-t-2 border-gold/30 relative overflow-hidden">
+    <footer className="bg-[#050807] text-white pt-16 pb-12 border-t-2 border-gold/30 relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-950/30 rounded-full blur-3xl pointer-events-none"></div>
 

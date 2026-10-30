@@ -35,7 +35,7 @@ export const TESTIMONIALS: Testimonial[] = [
     productMentioned: '6-in-1 Enriched Vermicompost (10kg Value Pack)',
     avatarText: 'PV',
     avatarBg: 'bg-emerald-800',
-    plantImage: 'https://images.unsplash.com/photo-1508873535684-277a3cbcc4e8?auto=format&fit=crop&w=400&q=80'
+    plantImage: 'https://images.unsplash.com/photo-1592417817098-8f3d6eb22513?auto=format&fit=crop&w=400&q=80'
   },
   {
     id: 't-4',

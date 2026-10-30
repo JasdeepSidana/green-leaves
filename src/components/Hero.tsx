@@ -18,7 +18,6 @@ import { getWhatsAppFlagshipOrderUrl } from '../utils/whatsapp';
 import { SafeImage } from './SafeImage';
 import vermicompostPouchImg from '../assets/images/vermicompost-pouch.jpg';
 import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-grass.jpg';
-import brandPosterImg from '../assets/images/brand-promotional-poster.jpg';
 
 export const Hero: React.FC = () => {
   const { addItem, openMaaliBooking } = useCart();
@@ -27,12 +26,38 @@ export const Hero: React.FC = () => {
   const selectedPack = flagship.packSizes ? flagship.packSizes[selectedPackIndex] : { size: '2kg Pack', price: 249, mrp: 399 };
   const [activeIngredientIndex, setActiveIngredientIndex] = useState<number | null>(null);
 
+  // Authentic showcase gallery matching the original app + authentic product stock
   const showcaseViews = [
-    { id: 'pouch', label: '2kg Official Pouch', img: vermicompostPouchImg, subtitle: 'Authentic 6-in-1 Soil Booster', caption: 'Green Leaves Organics 2kg Pouch' },
-    { id: 'grass', label: 'Real Garden Stock', img: vermicompostPouchesGrassImg, subtitle: 'Fresh Batches in the Garden', caption: 'Fresh Vermicompost Pouches In Garden' },
-    { id: 'poster', label: 'Festival Offer Stall', img: brandPosterImg, subtitle: 'Free Plant + Maali + Delivery Offer', caption: 'Official Promotional Poster' },
+    {
+      id: 'lush-garden',
+      label: 'Garden Result',
+      src: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80',
+      alt: 'Lush blooming garden nurtured with 6-in-1 Vermicompost Mix',
+      fitContain: false
+    },
+    {
+      id: 'official-pouch',
+      label: '2kg Official Pouch',
+      src: vermicompostPouchImg,
+      alt: 'Official Green Leaves Organics 2kg Enriched Vermicompost Mix Pouch',
+      fitContain: true
+    },
+    {
+      id: 'garden-stock',
+      label: 'Real Garden Stock',
+      src: vermicompostPouchesGrassImg,
+      alt: 'Green Leaves Organics Vermicompost pouches on outdoor lawn',
+      fitContain: false
+    },
+    {
+      id: 'pure-compost',
+      label: 'Dark Castings',
+      src: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80',
+      alt: 'Aged crumbly Eisenia foetida vermicompost earthworm castings',
+      fitContain: false
+    }
   ];
-  const [activeShowcaseView, setActiveShowcaseView] = useState(0);
+  const [activeViewIdx, setActiveViewIdx] = useState(0);
 
   const ingredientDetails = [
     { name: 'Pure Vermicompost', role: 'Aged 90-days Eisenia foetida earthworm castings for rich humus' },
@@ -60,10 +85,10 @@ export const Hero: React.FC = () => {
   const flagshipWhatsAppUrl = getWhatsAppFlagshipOrderUrl(selectedPack, 1, 'DIWALIGREEN');
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-warmWhite via-white to-softBg pt-4 sm:pt-8 pb-12 sm:pb-16 lg:pb-20 border-b border-gray-100 max-w-full">
-      {/* Soft clamped background foliage glow without negative viewport breach */}
-      <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-emerald-100/40 blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-amber-100/30 blur-3xl pointer-events-none"></div>
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#070B09] via-[#0B120E] to-[#070B09] pt-4 sm:pt-8 pb-12 sm:pb-16 lg:pb-20 border-b border-gold/20 max-w-full text-white">
+      {/* Clamped background foliage glow */}
+      <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-emerald-600/15 blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
@@ -74,60 +99,60 @@ export const Hero: React.FC = () => {
             {/* Festive Diwali Badge */}
             <div 
               onClick={scrollToDiwali}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-300 text-amber-950 text-xs sm:text-sm font-extrabold shadow-xs cursor-pointer hover:bg-amber-100 transition"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold/15 border border-gold/40 text-gold text-xs sm:text-sm font-extrabold shadow-gold-glow cursor-pointer hover:bg-gold/25 transition"
             >
               <span className="text-base animate-bounce">🪔</span>
               <span className="tracking-wide">Diwali Special: The Gift That Keeps Growing</span>
-              <span className="bg-amber-500 text-white text-[10px] px-2 py-0.2 rounded-full font-black uppercase">
+              <span className="bg-gold text-charcoal-pure text-[10px] px-2 py-0.2 rounded-full font-black uppercase">
                 40% OFF
               </span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-charcoal leading-[1.12]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
               Premium Organic <br className="hidden sm:inline" />
-              <span className="bg-gradient-to-r from-emerald-dark via-emerald to-emerald-light bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-emerald-400 via-emerald-light to-gold bg-clip-text text-transparent">
                 Plant Nutrition
               </span>{' '}
               & Urban Maali Services
             </h1>
 
             {/* Subtitle / Brand Promise */}
-            <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
               Say goodbye to sickly, root-rotted plants. Powered by our signature{' '}
-              <strong className="text-charcoal font-semibold">6-in-1 Enriched Vermicompost Mix</strong>{' '}
+              <strong className="text-gold font-bold">6-in-1 Enriched Vermicompost Mix</strong>{' '}
               and verified doorstep Maali care, we bring the healing vitality of virgin forest soil directly to your home.
             </p>
 
             {/* Benefit Checkmarks */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1 text-left">
-              <div className="flex items-center gap-2 bg-white/90 border border-gray-100 p-2.5 rounded-xl shadow-2xs">
-                <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald flex items-center justify-center flex-shrink-0">
+              <div className="flex items-center gap-2 bg-[#121B16] border border-emerald-500/20 p-2.5 rounded-xl shadow-luxury-dark">
+                <div className="w-8 h-8 rounded-lg bg-emerald-950/80 text-emerald-light flex items-center justify-center flex-shrink-0 border border-emerald-500/30">
                   <ShieldCheck className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-gray-900">100% Certified Organic</h4>
-                  <p className="text-[11px] text-gray-500">Zero synthetic chemical burns</p>
+                  <h4 className="text-xs font-bold text-white">100% Certified Organic</h4>
+                  <p className="text-[11px] text-gray-400">Zero synthetic chemical burns</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 bg-white/90 border border-gray-100 p-2.5 rounded-xl shadow-2xs">
-                <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald flex items-center justify-center flex-shrink-0">
+              <div className="flex items-center gap-2 bg-[#121B16] border border-emerald-500/20 p-2.5 rounded-xl shadow-luxury-dark">
+                <div className="w-8 h-8 rounded-lg bg-emerald-950/80 text-emerald-light flex items-center justify-center flex-shrink-0 border border-emerald-500/30">
                   <Truck className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-gray-900">Doorstep Delivery</h4>
-                  <p className="text-[11px] text-gray-500">Free delivery on orders ₹499+</p>
+                  <h4 className="text-xs font-bold text-white">Doorstep Delivery</h4>
+                  <p className="text-[11px] text-gray-400">Free delivery on orders ₹499+</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 bg-white/90 border border-gray-100 p-2.5 rounded-xl shadow-2xs">
-                <div className="w-8 h-8 rounded-lg bg-gold/15 text-gold-dark flex items-center justify-center flex-shrink-0">
+              <div className="flex items-center gap-2 bg-[#121B16] border border-emerald-500/20 p-2.5 rounded-xl shadow-luxury-dark">
+                <div className="w-8 h-8 rounded-lg bg-gold/15 text-gold flex items-center justify-center flex-shrink-0 border border-gold/30">
                   <Headphones className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-gray-900">Expert Agronomist Care</h4>
-                  <p className="text-[11px] text-gray-500">Direct WhatsApp support</p>
+                  <h4 className="text-xs font-bold text-white">Expert Agronomist Care</h4>
+                  <p className="text-[11px] text-gray-400">Direct WhatsApp support</p>
                 </div>
               </div>
             </div>
@@ -136,7 +161,7 @@ export const Hero: React.FC = () => {
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
               <button
                 onClick={() => scrollToCatalog()}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald hover:bg-emerald-700 text-white font-bold text-sm sm:text-base shadow-md shadow-emerald/20 transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-emerald hover:bg-emerald-600 text-white font-bold text-sm sm:text-base shadow-emerald-glow transition-all flex items-center justify-center gap-2 group cursor-pointer"
               >
                 <span>Explore Products</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -144,7 +169,7 @@ export const Hero: React.FC = () => {
 
               <button
                 onClick={() => openMaaliBooking()}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-charcoal-pure hover:bg-black text-white font-bold text-sm sm:text-base border border-gold/40 shadow-sm hover:shadow-luxury transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-black hover:bg-[#151D19] text-gold font-bold text-sm sm:text-base border-2 border-gold/50 shadow-gold-glow transition-all flex items-center justify-center gap-2 group cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-gold group-hover:rotate-12 transition-transform" />
                 <span>Book Maali Service</span>
@@ -152,11 +177,11 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* Social Trust Line */}
-            <div className="flex items-center justify-center lg:justify-start gap-3 pt-1 text-xs text-gray-500">
+            <div className="flex items-center justify-center lg:justify-start gap-3 pt-1 text-xs text-gray-400">
               <div className="flex -space-x-2">
-                <img className="inline-block h-6 w-6 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="User" />
-                <img className="inline-block h-6 w-6 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="User" />
-                <img className="inline-block h-6 w-6 rounded-full ring-2 ring-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="User" />
+                <img className="inline-block h-6 w-6 rounded-full ring-2 ring-[#0B0F0E] object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="User" />
+                <img className="inline-block h-6 w-6 rounded-full ring-2 ring-[#0B0F0E] object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="User" />
+                <img className="inline-block h-6 w-6 rounded-full ring-2 ring-[#0B0F0E] object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="User" />
               </div>
               <div className="flex items-center gap-1">
                 <div className="flex text-gold">
@@ -164,7 +189,7 @@ export const Hero: React.FC = () => {
                     <Star key={i} className="w-3 h-3 fill-gold" />
                   ))}
                 </div>
-                <span className="font-bold text-gray-800">4.9/5 Rating</span>
+                <span className="font-bold text-white">4.9/5 Rating</span>
                 <span>(1,250+ Urban Plant Parents)</span>
               </div>
             </div>
@@ -189,15 +214,15 @@ export const Hero: React.FC = () => {
                 </div>
               </div>
 
-              {/* View Switcher Pills */}
-              <div className="flex items-center gap-1.5 mb-2.5 bg-black/40 p-1 rounded-xl border border-white/10">
+              {/* Image Showcase View Switcher Tabs */}
+              <div className="flex items-center gap-1.5 mb-2.5 bg-black/60 p-1 rounded-xl border border-gold/20">
                 {showcaseViews.map((view, idx) => (
                   <button
                     key={view.id}
-                    onClick={() => setActiveShowcaseView(idx)}
+                    onClick={() => setActiveViewIdx(idx)}
                     className={`flex-1 py-1 px-1.5 text-[10px] sm:text-[11px] font-bold rounded-lg transition-all text-center cursor-pointer ${
-                      activeShowcaseView === idx
-                        ? 'bg-gold text-charcoal-pure shadow-gold-glow'
+                      activeViewIdx === idx
+                        ? 'bg-gold text-charcoal-pure shadow-gold-glow font-black'
                         : 'text-gray-300 hover:text-white hover:bg-white/10'
                     }`}
                   >
@@ -207,18 +232,20 @@ export const Hero: React.FC = () => {
               </div>
 
               {/* Product Packaging Image Showcase */}
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#121c17] via-charcoal to-[#080d0b] border border-gold/30 mb-3.5 p-2 sm:p-3 text-center">
-                <div className="relative mx-auto h-48 sm:h-56 w-full rounded-xl overflow-hidden flex items-center justify-center p-1">
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#121c17] via-charcoal to-[#080d0b] border border-gold/30 mb-3.5 p-2 sm:p-2.5 text-center">
+                <div className="relative mx-auto h-40 sm:h-48 w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/40">
                   <SafeImage
-                    src={showcaseViews[activeShowcaseView].img}
-                    alt={showcaseViews[activeShowcaseView].caption}
-                    className="max-h-full max-w-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.85)] group-hover:scale-102 transition-transform duration-300"
+                    src={showcaseViews[activeViewIdx].src}
+                    alt={showcaseViews[activeViewIdx].alt}
+                    className={`h-full w-full transition-transform duration-500 hover:scale-105 ${
+                      showcaseViews[activeViewIdx].fitContain ? 'object-contain p-1' : 'object-cover'
+                    }`}
                   />
                   
                   {/* Floating Black & Gold Packaging Label Overlay */}
                   <div className="absolute bottom-1.5 left-1.5 right-1.5 bg-black/90 backdrop-blur-md rounded-xl p-2 border border-gold/40 flex items-center justify-between">
                     <div className="text-left">
-                      <p className="text-[9px] text-gold font-bold uppercase tracking-wider">{showcaseViews[activeShowcaseView].subtitle}</p>
+                      <p className="text-[9px] text-gold font-bold uppercase tracking-wider">Signature 2kg Black Pouch</p>
                       <p className="text-xs font-black text-white">6-in-1 Enriched Vermicompost</p>
                     </div>
                     <span className="text-xs font-black bg-emerald text-white px-2 py-0.5 rounded-full">
