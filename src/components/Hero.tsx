@@ -18,6 +18,8 @@ import { getWhatsAppFlagshipOrderUrl } from '../utils/whatsapp';
 import { SafeImage } from './SafeImage';
 import vermicompostPouchImg from '../assets/images/vermicompost-pouch.jpg';
 import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-grass.jpg';
+import deodapVermicompostSoilImg from '../assets/images/deodap-vermicompost-soil.jpg';
+import deodapVermicompostPackImg from '../assets/images/deodap-vermicompost-pack.jpg';
 
 export const Hero: React.FC = () => {
   const { addItem, openMaaliBooking } = useCart();
@@ -26,14 +28,21 @@ export const Hero: React.FC = () => {
   const selectedPack = flagship.packSizes ? flagship.packSizes[selectedPackIndex] : { size: '2kg Pack', price: 249, mrp: 399 };
   const [activeIngredientIndex, setActiveIngredientIndex] = useState<number | null>(null);
 
-  // Authentic showcase gallery matching the original app + authentic product stock
+  // Authentic showcase gallery featuring the organic black soil vermicompost from deodap + signature stock
   const showcaseViews = [
     {
-      id: 'lush-garden',
-      label: 'Garden Result',
-      src: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80',
-      alt: 'Lush blooming garden nurtured with 6-in-1 Vermicompost Mix',
+      id: 'black-soil',
+      label: 'Black Soil Compost',
+      src: deodapVermicompostSoilImg,
+      alt: 'Organic Vermicompost rich black soil manure for plants',
       fitContain: false
+    },
+    {
+      id: 'vermicompost-pack',
+      label: 'Manure Pack',
+      src: deodapVermicompostPackImg,
+      alt: 'Organic Vermicompost Black Soil Manure Pack',
+      fitContain: true
     },
     {
       id: 'official-pouch',
@@ -44,16 +53,9 @@ export const Hero: React.FC = () => {
     },
     {
       id: 'garden-stock',
-      label: 'Real Garden Stock',
+      label: 'Stock on Grass',
       src: vermicompostPouchesGrassImg,
       alt: 'Green Leaves Organics Vermicompost pouches on outdoor lawn',
-      fitContain: false
-    },
-    {
-      id: 'pure-compost',
-      label: 'Dark Castings',
-      src: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80',
-      alt: 'Aged crumbly Eisenia foetida vermicompost earthworm castings',
       fitContain: false
     }
   ];
