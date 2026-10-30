@@ -15,7 +15,10 @@ import {
 import { useCart } from '../context/CartContext';
 import { PRODUCTS } from '../data/products';
 import { SafeImage } from './SafeImage';
-import { getWhatsAppProductOrderUrl } from '../utils/whatsapp';
+import { getWhatsAppProductOrderUrl, getWhatsAppInquiryUrl } from '../utils/whatsapp';
+import brandPosterImg from '../assets/images/brand-promotional-poster.jpg';
+import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-grass.jpg';
+import vermicompostPouchImg from '../assets/images/vermicompost-pouch.jpg';
 
 export const DiwaliCampaignSection: React.FC = () => {
   const { addItem, openQuickView, applyPromoCode, appliedPromoCode } = useCart();
@@ -209,6 +212,102 @@ export const DiwaliCampaignSection: React.FC = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+
+        {/* Authentic Stall Spotlight: Vermicompost 3-Free-Gifts Offer */}
+        <div className="mb-10 bg-gradient-to-r from-charcoal-pure via-[#15231c] to-charcoal-pure border-2 border-gold/50 rounded-3xl p-5 sm:p-7 shadow-luxury text-white relative overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            
+            {/* Visual: Authentic Bag & Garden Stock */}
+            <div className="lg:col-span-5 flex flex-col sm:flex-row gap-3 items-center justify-center">
+              <div className="w-full sm:w-1/2 rounded-2xl overflow-hidden bg-black/60 border border-gold/30 p-2 text-center group">
+                <div className="h-44 sm:h-52 w-full flex items-center justify-center">
+                  <img
+                    src={vermicompostPouchImg}
+                    alt="Authentic 2kg Vermicompost Packaging"
+                    className="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)] group-hover:scale-105 transition-transform"
+                  />
+                </div>
+                <span className="text-[10px] font-bold text-gold uppercase tracking-wider block mt-1">Official 2kg Pouch</span>
+              </div>
+
+              <div className="w-full sm:w-1/2 rounded-2xl overflow-hidden bg-black/60 border border-emerald-500/30 p-2 text-center group">
+                <div className="h-44 sm:h-52 w-full flex items-center justify-center">
+                  <img
+                    src={vermicompostPouchesGrassImg}
+                    alt="Fresh Stock Pouches Outdoors"
+                    className="h-full w-full object-cover rounded-xl group-hover:scale-105 transition-transform"
+                  />
+                </div>
+                <span className="text-[10px] font-bold text-emerald-300 uppercase tracking-wider block mt-1">Fresh Grassland Batch</span>
+              </div>
+            </div>
+
+            {/* Offer Content */}
+            <div className="lg:col-span-7 space-y-3">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold/20 text-gold border border-gold/40 text-[11px] font-black uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5" />
+                Special Stall & Online Mega Offer
+              </div>
+
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white leading-tight">
+                Buy Our Vermicompost Mixture &amp; Get <span className="text-gold">3 FREE Gifts!</span>
+              </h3>
+
+              <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                As featured at our festival exhibition stall: Celebrate with greener choices! Every order of our 6-in-1 Enriched Vermicompost Mix directly unlocks 3 festive gifts for your home garden:
+              </p>
+
+              {/* 3 Free Gifts Chips */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+                <div className="bg-white/5 border border-gold/30 rounded-xl p-2.5 flex items-center gap-2">
+                  <span className="text-xl">🪴</span>
+                  <div>
+                    <h5 className="text-xs font-bold text-white">FREE Plant</h5>
+                    <p className="text-[10px] text-gray-400">Live healthy sapling</p>
+                  </div>
+                </div>
+
+                <div className="bg-white/5 border border-gold/30 rounded-xl p-2.5 flex items-center gap-2">
+                  <span className="text-xl">👨‍🌾</span>
+                  <div>
+                    <h5 className="text-xs font-bold text-white">FREE Maali Service</h5>
+                    <p className="text-[10px] text-gray-400">Expert care consult</p>
+                  </div>
+                </div>
+
+                <div className="bg-white/5 border border-gold/30 rounded-xl p-2.5 flex items-center gap-2">
+                  <span className="text-xl">🚚</span>
+                  <div>
+                    <h5 className="text-xs font-bold text-white">FREE Home Delivery</h5>
+                    <p className="text-[10px] text-gray-400">Right to your door</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+                <a
+                  href="#flagship-showcase"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gold hover:bg-gold-light text-charcoal-pure font-black text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-gold-glow"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  <span>Claim 3-in-1 Offer (₹249)</span>
+                </a>
+
+                <a
+                  href={getWhatsAppInquiryUrl('Hello Green Leaves! I want to claim the Stall Offer: Buy Vermicompost Mixture and get FREE Plant + FREE Maali Service + FREE Delivery')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-charcoal-pure font-black text-xs sm:text-sm transition flex items-center justify-center gap-2"
+                >
+                  <span>WhatsApp Inquiry (8826078720)</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
 

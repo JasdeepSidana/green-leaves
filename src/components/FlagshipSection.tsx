@@ -13,12 +13,22 @@ import { useCart } from '../context/CartContext';
 import { PRODUCTS } from '../data/products';
 import { getWhatsAppFlagshipOrderUrl } from '../utils/whatsapp';
 import { SafeImage } from './SafeImage';
+import vermicompostPouchImg from '../assets/images/vermicompost-pouch.jpg';
+import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-grass.jpg';
+import brandPosterImg from '../assets/images/brand-promotional-poster.jpg';
 
 export const FlagshipSection: React.FC = () => {
   const { addItem } = useCart();
   const flagship = PRODUCTS.find(p => p.isFlagship) || PRODUCTS[0];
   const [selectedPackIndex, setSelectedPackIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+
+  const galleryPhotos = [
+    { img: vermicompostPouchImg, label: 'Official 2kg Pouch', tag: 'Original Packaging' },
+    { img: vermicompostPouchesGrassImg, label: 'Pouches on Grass', tag: 'Fresh Lawn Batch' },
+    { img: brandPosterImg, label: 'Festive Offer Poster', tag: 'Stall Free Gifts Offer' },
+  ];
+  const [activePhotoIdx, setActivePhotoIdx] = useState(0);
 
   const selectedPack = flagship.packSizes ? flagship.packSizes[selectedPackIndex] : { size: '2kg Pack', price: 249, mrp: 399 };
   const discountPct = Math.round(((selectedPack.mrp - selectedPack.price) / selectedPack.mrp) * 100);
@@ -121,18 +131,40 @@ export const FlagshipSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* High-res Image Presentation */}
-              <div className="relative rounded-2xl overflow-hidden bg-black/60 border border-white/10 my-3 p-3 text-center">
-                <SafeImage
-                  src="https://images.unsplash.com/photo-1508873535684-277a3cbcc4e8?auto=format&fit=crop&w=700&q=80"
-                  alt="Green Leaves Organics 6-in-1 Vermicompost Mix"
-                  className="w-full h-52 sm:h-60 object-cover rounded-xl shadow-xl hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-5 left-5 bg-gold text-charcoal-pure font-black text-xs px-2.5 py-0.5 rounded-full shadow-md">
-                  {discountPct}% OFF
+              {/* High-res Image Presentation with Authentic Pouch */}
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#14201a] via-[#0d1411] to-black border border-gold/30 my-3 p-3 text-center">
+                <div className="relative mx-auto h-60 sm:h-72 w-full flex items-center justify-center">
+                  <SafeImage
+                    src={galleryPhotos[activePhotoIdx].img}
+                    alt={galleryPhotos[activePhotoIdx].label}
+                    className="max-h-full max-w-full object-contain rounded-xl filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.85)] hover:scale-102 transition-transform duration-300"
+                  />
+                  <div className="absolute top-2 left-2 bg-gold text-charcoal-pure font-black text-xs px-2.5 py-0.5 rounded-full shadow-md">
+                    {discountPct}% OFF
+                  </div>
+                  <div className="absolute top-2 right-2 bg-emerald text-white font-bold text-xs px-2.5 py-0.5 rounded-full shadow-md flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5" /> 100% Bio-Organic
+                  </div>
+                  <div className="absolute bottom-2 left-2 right-2 bg-black/80 backdrop-blur-xs rounded-lg py-1 px-2 flex items-center justify-between text-[11px] text-gray-300 border border-white/10">
+                    <span className="font-bold text-gold">{galleryPhotos[activePhotoIdx].tag}</span>
+                    <span className="text-gray-400">{galleryPhotos[activePhotoIdx].label}</span>
+                  </div>
                 </div>
-                <div className="absolute bottom-5 right-5 bg-emerald text-white font-bold text-xs px-2.5 py-0.5 rounded-full shadow-md flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5" /> 100% Bio-Organic
+
+                {/* Real Photo Thumbnail Strip */}
+                <div className="flex items-center justify-center gap-2 mt-2.5 pt-2 border-t border-white/10">
+                  {galleryPhotos.map((photo, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActivePhotoIdx(idx)}
+                      className={`relative w-16 h-14 rounded-lg overflow-hidden border-2 transition-all p-0.5 bg-black/50 cursor-pointer ${
+                        activePhotoIdx === idx ? 'border-gold scale-105 shadow-gold-glow' : 'border-white/20 opacity-60 hover:opacity-100'
+                      }`}
+                      title={photo.label}
+                    >
+                      <img src={photo.img} alt={photo.label} className="w-full h-full object-cover rounded" />
+                    </button>
+                  ))}
                 </div>
               </div>
 

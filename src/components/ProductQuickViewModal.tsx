@@ -21,11 +21,15 @@ export const ProductQuickViewModal: React.FC = () => {
   const [selectedPackIndex, setSelectedPackIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState<'benefits' | 'ingredients' | 'usage'>('benefits');
+  const [selectedImage, setSelectedImage] = useState<string>('');
 
   useEffect(() => {
     setSelectedPackIndex(0);
     setQuantity(1);
     setActiveTab('benefits');
+    if (quickViewProduct) {
+      setSelectedImage(quickViewProduct.image);
+    }
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -69,11 +73,15 @@ export const ProductQuickViewModal: React.FC = () => {
 
         {/* Left Side: Product Imagery & Badges */}
         <div className="md:w-1/2 bg-gray-50 p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden">
-          <div className="relative h-48 sm:h-64 md:h-full md:aspect-square w-full rounded-2xl overflow-hidden bg-white shadow-inner border border-gray-100 flex items-center justify-center">
+          <div className={`relative h-56 sm:h-72 md:h-80 w-full rounded-2xl overflow-hidden shadow-inner border border-gray-100 flex items-center justify-center ${
+            product.isFlagship ? 'bg-gradient-to-b from-[#14201a] via-[#0d1411] to-black' : 'bg-white'
+          }`}>
             <SafeImage
-              src={product.image}
+              src={selectedImage || product.image}
               alt={product.name}
-              className="w-full h-full object-cover"
+              className={`max-h-full max-w-full transition-transform duration-300 ${
+                product.isFlagship ? 'object-contain p-3 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]' : 'w-full h-full object-cover'
+              }`}
             />
             {discount > 0 && (
               <span className="absolute top-3 left-3 bg-red-600 text-white font-extrabold text-[10px] sm:text-xs px-2.5 py-1 rounded-md shadow-sm">
@@ -86,6 +94,26 @@ export const ProductQuickViewModal: React.FC = () => {
               </span>
             )}
           </div>
+
+          {/* Gallery Thumbnails */}
+          {product.gallery && product.gallery.length > 1 && (
+            <div className="flex items-center gap-2 mt-2.5 overflow-x-auto pb-1">
+              {product.gallery.map((gImg, idx) => {
+                const isSelected = (selectedImage || product.image) === gImg;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedImage(gImg)}
+                    className={`relative w-14 h-14 rounded-xl overflow-hidden border-2 transition-all p-0.5 bg-black/50 cursor-pointer flex-shrink-0 ${
+                      isSelected ? 'border-gold shadow-gold-glow scale-105' : 'border-gray-200 opacity-60 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={gImg} alt={`View ${idx + 1}`} className="w-full h-full object-cover rounded-lg" />
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
           <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-gray-600">
             <div className="flex items-center gap-1.5 bg-white p-2 rounded-xl border border-gray-100 shadow-2xs">

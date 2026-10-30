@@ -174,7 +174,9 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                   <SafeImage
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className={`w-full h-full transition-transform duration-500 group-hover:scale-105 ${
+                      product.isFlagship ? 'object-contain p-2 bg-gradient-to-b from-[#111c16] to-[#070c0a]' : 'object-cover'
+                    }`}
                   />
 
                   {/* Top Badges */}

@@ -16,6 +16,9 @@ import { useCart } from '../context/CartContext';
 import { PRODUCTS } from '../data/products';
 import { getWhatsAppFlagshipOrderUrl } from '../utils/whatsapp';
 import { SafeImage } from './SafeImage';
+import vermicompostPouchImg from '../assets/images/vermicompost-pouch.jpg';
+import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-grass.jpg';
+import brandPosterImg from '../assets/images/brand-promotional-poster.jpg';
 
 export const Hero: React.FC = () => {
   const { addItem, openMaaliBooking } = useCart();
@@ -23,6 +26,13 @@ export const Hero: React.FC = () => {
   const [selectedPackIndex, setSelectedPackIndex] = useState(0);
   const selectedPack = flagship.packSizes ? flagship.packSizes[selectedPackIndex] : { size: '2kg Pack', price: 249, mrp: 399 };
   const [activeIngredientIndex, setActiveIngredientIndex] = useState<number | null>(null);
+
+  const showcaseViews = [
+    { id: 'pouch', label: '2kg Official Pouch', img: vermicompostPouchImg, subtitle: 'Authentic 6-in-1 Soil Booster', caption: 'Green Leaves Organics 2kg Pouch' },
+    { id: 'grass', label: 'Real Garden Stock', img: vermicompostPouchesGrassImg, subtitle: 'Fresh Batches in the Garden', caption: 'Fresh Vermicompost Pouches In Garden' },
+    { id: 'poster', label: 'Festival Offer Stall', img: brandPosterImg, subtitle: 'Free Plant + Maali + Delivery Offer', caption: 'Official Promotional Poster' },
+  ];
+  const [activeShowcaseView, setActiveShowcaseView] = useState(0);
 
   const ingredientDetails = [
     { name: 'Pure Vermicompost', role: 'Aged 90-days Eisenia foetida earthworm castings for rich humus' },
@@ -179,19 +189,36 @@ export const Hero: React.FC = () => {
                 </div>
               </div>
 
+              {/* View Switcher Pills */}
+              <div className="flex items-center gap-1.5 mb-2.5 bg-black/40 p-1 rounded-xl border border-white/10">
+                {showcaseViews.map((view, idx) => (
+                  <button
+                    key={view.id}
+                    onClick={() => setActiveShowcaseView(idx)}
+                    className={`flex-1 py-1 px-1.5 text-[10px] sm:text-[11px] font-bold rounded-lg transition-all text-center cursor-pointer ${
+                      activeShowcaseView === idx
+                        ? 'bg-gold text-charcoal-pure shadow-gold-glow'
+                        : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    {view.label}
+                  </button>
+                ))}
+              </div>
+
               {/* Product Packaging Image Showcase */}
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-charcoal to-[#0d1310] border border-white/10 mb-3.5 p-2 sm:p-3 text-center">
-                <div className="relative mx-auto h-36 sm:h-44 w-full rounded-xl overflow-hidden flex items-center justify-center">
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#121c17] via-charcoal to-[#080d0b] border border-gold/30 mb-3.5 p-2 sm:p-3 text-center">
+                <div className="relative mx-auto h-48 sm:h-56 w-full rounded-xl overflow-hidden flex items-center justify-center p-1">
                   <SafeImage
-                    src="https://images.unsplash.com/photo-1508873535684-277a3cbcc4e8?auto=format&fit=crop&w=700&q=80"
-                    alt="6-in-1 Enriched Vermicompost Mix Signature Black & Gold Pack"
-                    className="h-full w-full object-cover rounded-xl shadow-xl group-hover:scale-105 transition-transform duration-500"
+                    src={showcaseViews[activeShowcaseView].img}
+                    alt={showcaseViews[activeShowcaseView].caption}
+                    className="max-h-full max-w-full object-contain rounded-lg filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.85)] group-hover:scale-102 transition-transform duration-300"
                   />
                   
                   {/* Floating Black & Gold Packaging Label Overlay */}
                   <div className="absolute bottom-1.5 left-1.5 right-1.5 bg-black/90 backdrop-blur-md rounded-xl p-2 border border-gold/40 flex items-center justify-between">
                     <div className="text-left">
-                      <p className="text-[9px] text-gold font-bold uppercase tracking-wider">Signature 2kg Black Pouch</p>
+                      <p className="text-[9px] text-gold font-bold uppercase tracking-wider">{showcaseViews[activeShowcaseView].subtitle}</p>
                       <p className="text-xs font-black text-white">6-in-1 Enriched Vermicompost</p>
                     </div>
                     <span className="text-xs font-black bg-emerald text-white px-2 py-0.5 rounded-full">

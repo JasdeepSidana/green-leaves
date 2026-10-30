@@ -1,4 +1,7 @@
 import { Product } from '../types';
+import vermicompostPouchImg from '../assets/images/vermicompost-pouch.jpg';
+import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-grass.jpg';
+import brandPosterImg from '../assets/images/brand-promotional-poster.jpg';
 
 export const PRODUCTS: Product[] = [
   // =========================================================
@@ -143,10 +146,11 @@ export const PRODUCTS: Product[] = [
     fullDescription: 'Crafted specifically for urban Indian balconies, terrace gardens, and potted plants. Green Leaves Organics 6-in-1 Enriched Vermicompost Mix is aged for 90 days with Eisenia foetida earthworms and enriched with high microbial flora. It delivers slow-release nitrogen, soluble phosphorus, humic acid, and natural bio-fungicide protection that revitalizes tired pot soil and triggers lush vegetative growth and blooming.',
     price: 249,
     mrp: 399,
-    image: 'https://images.unsplash.com/photo-1508873535684-277a3cbcc4e8?auto=format&fit=crop&w=800&q=80',
+    image: vermicompostPouchImg,
     gallery: [
-      'https://images.unsplash.com/photo-1508873535684-277a3cbcc4e8?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80'
+      vermicompostPouchImg,
+      vermicompostPouchesGrassImg,
+      brandPosterImg,
     ],
     rating: 4.95,
     reviewCount: 348,
@@ -534,6 +538,11 @@ export const PRODUCTS: Product[] = [
     price: 1499,
     mrp: 2199,
     image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80',
+      vermicompostPouchesGrassImg,
+      vermicompostPouchImg
+    ],
     rating: 4.97,
     reviewCount: 156,
     badges: ['All-In-One Kit', 'Save ₹700', 'Free Delivery'],
