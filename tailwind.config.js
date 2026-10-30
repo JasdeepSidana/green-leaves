@@ -27,11 +27,13 @@ export default {
           deep: '#064E3B',
         },
         gold: {
-          DEFAULT: '#EAB308',
-          light: '#FDE047',
-          dark: '#CA8A04',
+          DEFAULT: '#FFC72C', // Dubai 24K pure radiant yellow gold
+          light: '#FFE57F',   // Luminous Dubai gold highlight
+          dark: '#C58F00',    // Burnished luxury Dubai gold
           amber: '#F59E0B',
-          glow: '#FEF08A',
+          glow: '#FFF3A8',
+          dubai: '#FFD700',   // Pure 24K Dubai Gold
+          metallic: '#F5C518',
         },
         charcoal: {
           DEFAULT: '#111827',
@@ -48,8 +50,9 @@ export default {
       },
       boxShadow: {
         'luxury': '0 20px 40px -15px rgba(22, 101, 52, 0.12), 0 0 20px 0 rgba(0, 0, 0, 0.04)',
-        'luxury-dark': '0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 0 30px rgba(234, 179, 8, 0.15)',
-        'gold-glow': '0 0 25px rgba(234, 179, 8, 0.35)',
+        'luxury-dark': '0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 0 30px rgba(255, 199, 44, 0.2)',
+        'gold-glow': '0 0 25px rgba(255, 199, 44, 0.45)',
+        'gold-dubai': '0 0 35px rgba(255, 199, 44, 0.55), 0 0 12px rgba(255, 215, 0, 0.35)',
         'emerald-glow': '0 0 25px rgba(34, 197, 94, 0.3)',
       },
       animation: {

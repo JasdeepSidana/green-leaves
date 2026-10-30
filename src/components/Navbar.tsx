@@ -115,15 +115,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
             onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             className="flex items-center gap-2 group flex-shrink-0"
           >
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-black flex items-center justify-center shadow-md border border-gold/50 group-hover:scale-105 transition-transform duration-300">
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-black flex items-center justify-center shadow-md border border-gold/60 group-hover:scale-105 group-hover:border-gold group-hover:shadow-gold-dubai-sm transition-all duration-300">
               <Leaf className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-light group-hover:rotate-12 transition-transform duration-300" />
             </div>
             <div className="flex flex-col">
               <span className="font-extrabold text-base sm:text-xl lg:text-2xl tracking-tight text-white group-hover:text-gold transition-colors leading-none flex items-center gap-0.5">
                 Green Leaves
-                <span className="text-emerald-light font-black">.</span>
+                <span className="text-gold font-black">.</span>
               </span>
-              <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-gold mt-0.5">
+              <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-gold-gradient mt-0.5">
                 Organics
               </span>
             </div>
@@ -167,10 +167,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
             </button>
             <button 
               onClick={() => handleNavClick('maali-services')}
-              className="text-white bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/40 px-2.5 py-1 rounded-full font-bold transition flex items-center gap-1 shadow-2xs cursor-pointer flex-shrink-0"
+              className="text-white bg-black hover:bg-emerald-950/60 border border-gold/40 hover:border-gold hover:shadow-gold-dubai-sm px-3 py-1 rounded-full font-bold transition flex items-center gap-1.5 cursor-pointer flex-shrink-0"
             >
               <Sparkles className="w-3.5 h-3.5 text-gold" />
-              Maali Services
+              <span>Maali Services</span>
             </button>
             <button 
               onClick={() => handleNavClick('gardeners-handbook')}
@@ -261,13 +261,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
             {/* Cart Button */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative flex items-center gap-1.5 sm:gap-2 bg-charcoal-pure hover:bg-black text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-full transition shadow-md border border-gold/40 hover:shadow-gold-glow group cursor-pointer"
+              className="relative flex items-center gap-1.5 sm:gap-2 bg-charcoal-pure hover:bg-black text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-full transition shadow-md border-2 border-gold/50 hover:border-gold hover:shadow-gold-dubai group cursor-pointer"
               aria-label="View shopping cart"
             >
               <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-light group-hover:scale-110 transition-transform" />
               <span className="hidden sm:inline text-xs font-bold tracking-wide">Cart</span>
               
-              <span className="flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-gold text-charcoal-pure text-[11px] font-black shadow-sm group-hover:bg-gold-light transition-colors">
+              <span className="flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-gold-gradient text-charcoal-pure text-[11px] font-black shadow-gold-dubai-sm group-hover:brightness-110 transition-all">
                 {totalItems}
               </span>
             </button>

@@ -57,25 +57,25 @@ export const DiwaliCampaignSection: React.FC = () => {
             This festive season, rethink traditional gifting. Replace perishable sweets (*mithai*) with living, air-purifying, prosperity-attracting plants that thrive for years.
           </p>
 
-          {/* Interactive Coupon Box */}
-          <div className="mt-6 inline-flex flex-col sm:flex-row items-center gap-3 bg-black/60 border border-gold/40 p-3 sm:p-4 rounded-2xl shadow-xl">
+          {/* Interactive Coupon Box with Dubai Yellow Gold Framing */}
+          <div className="mt-6 inline-flex flex-col sm:flex-row items-center gap-3 bg-black/80 border-2 border-gold p-3.5 sm:p-4 rounded-2xl shadow-gold-dubai">
             <div className="flex items-center gap-2 text-left">
-              <Gift className="w-5 h-5 text-gold flex-shrink-0" />
+              <Gift className="w-5 h-5 text-gold flex-shrink-0 animate-bounce" />
               <div>
                 <span className="text-[11px] text-gray-400 block font-semibold">Festive Coupon Code:</span>
-                <span className="text-sm sm:text-base font-black text-gold tracking-widest font-mono">DIWALIGREEN</span>
+                <span className="text-base sm:text-lg font-black text-gold-gradient tracking-widest font-mono">DIWALIGREEN</span>
               </div>
             </div>
 
-            <div className="h-6 w-px bg-white/20 hidden sm:block"></div>
+            <div className="h-6 w-px bg-gold/30 hidden sm:block"></div>
 
             <div className="flex items-center gap-2">
-              <span className="text-xs text-emerald-400 font-bold">Extra 15% OFF + Free Diya</span>
+              <span className="text-xs text-emerald-400 font-bold">Extra 15% OFF + Free Diya 🪔</span>
               <button
                 onClick={handleCopyCode}
-                className="bg-gold hover:bg-gold-light text-charcoal-pure font-black px-3.5 py-1.5 rounded-xl text-xs transition flex items-center gap-1 cursor-pointer shadow-md"
+                className="bg-gold-gradient hover:brightness-110 text-charcoal-pure font-black px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 cursor-pointer shadow-gold-dubai-sm"
               >
-                {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                {copied ? <Check className="w-4 h-4 text-charcoal-pure" /> : <Copy className="w-4 h-4 text-charcoal-pure" />}
                 <span>{copied ? 'Applied!' : 'Copy & Apply'}</span>
               </button>
             </div>

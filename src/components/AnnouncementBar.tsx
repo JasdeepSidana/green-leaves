@@ -65,19 +65,19 @@ export const AnnouncementBar: React.FC = () => {
           {/* Copy Coupon Badge */}
           <button
             onClick={copyCoupon}
-            className="hidden md:inline-flex items-center gap-1 bg-gold/20 hover:bg-gold/30 border border-gold/50 text-gold px-2 py-0.5 rounded-full text-[10px] font-mono font-bold transition ml-1 cursor-pointer"
+            className="hidden md:inline-flex items-center gap-1 bg-[#FFC72C]/15 hover:bg-[#FFC72C]/25 border border-[#FFC72C]/50 text-[#FFC72C] px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black transition ml-1 cursor-pointer shadow-gold-dubai-sm"
             title="Click to copy coupon"
           >
-            {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+            {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3 text-[#FFC72C]" />}
             <span>{copied ? 'APPLIED (15% OFF)!' : 'CODE: DIWALIGREEN'}</span>
           </button>
         </div>
 
         {/* Right Timer & Action */}
         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-          <div className="hidden xs:flex items-center gap-1.5 bg-black/50 border border-gold/30 px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs text-gold font-mono">
-            <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gold animate-pulse flex-shrink-0" />
-            <span>
+          <div className="hidden xs:flex items-center gap-1.5 bg-black/60 border border-[#FFC72C]/40 px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs text-[#FFC72C] font-mono shadow-xs">
+            <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#FFC72C] animate-pulse flex-shrink-0" />
+            <span className="font-bold">
               {String(timeLeft.hours).padStart(2, '0')}:
               {String(timeLeft.minutes).padStart(2, '0')}:
               {String(timeLeft.seconds).padStart(2, '0')}
@@ -86,10 +86,10 @@ export const AnnouncementBar: React.FC = () => {
 
           <button
             onClick={scrollToDiwali}
-            className="hidden sm:inline-flex items-center gap-1 text-xs font-black bg-gold hover:bg-gold-light text-charcoal-pure px-2.5 py-1 rounded-full transition shadow-sm cursor-pointer"
+            className="hidden sm:inline-flex items-center gap-1 text-xs font-black bg-gold-gradient hover:brightness-110 text-charcoal-pure px-3 py-1 rounded-full transition shadow-gold-dubai-sm cursor-pointer"
           >
             <span>Diwali Offers</span>
-            <ChevronRight className="w-3 h-3" />
+            <ChevronRight className="w-3 h-3 text-charcoal-pure" />
           </button>
 
           <button

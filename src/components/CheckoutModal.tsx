@@ -470,9 +470,9 @@ export const CheckoutModal: React.FC = () => {
                   <span>Shipping:</span>
                   <span className="font-semibold text-emerald-light">{shippingFee === 0 ? 'FREE' : `₹${shippingFee}`}</span>
                 </div>
-                <div className="flex justify-between text-sm font-black text-white border-t border-white/10 pt-2">
+                <div className="flex justify-between text-sm font-black text-white border-t border-white/10 pt-2 items-baseline">
                   <span>Total Amount Payable:</span>
-                  <span className="text-gold text-base">₹{grandTotal}</span>
+                  <span className="text-gold-metallic-shiny text-lg font-black">₹{grandTotal}</span>
                 </div>
               </div>
 

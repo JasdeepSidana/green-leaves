@@ -129,10 +129,10 @@ export const CartDrawer: React.FC = () => {
               <span className="font-bold text-gold">{progressPercent}%</span>
             </div>
 
-            {/* Progress Bar */}
-            <div className="w-full h-2 bg-black/60 rounded-full overflow-hidden border border-white/10">
+            {/* Progress Bar with Shiny Dubai Gold */}
+            <div className="w-full h-2.5 bg-black/70 rounded-full overflow-hidden border border-gold/30">
               <div 
-                className="h-full bg-gradient-to-r from-emerald-500 to-gold rounded-full transition-all duration-500"
+                className="h-full bg-dubai-gold-metallic rounded-full transition-all duration-500 shadow-gold-dubai-sm"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -317,9 +317,9 @@ export const CartDrawer: React.FC = () => {
                     <span className="font-semibold text-white">₹{shippingFee}</span>
                   )}
                 </div>
-                <div className="flex justify-between text-sm font-black text-white pt-1.5 border-t border-white/10">
+                <div className="flex justify-between text-sm font-black text-white pt-1.5 border-t border-white/10 items-baseline">
                   <span>Total Amount:</span>
-                  <span className="text-gold text-base">₹{grandTotal}</span>
+                  <span className="text-gold-metallic-shiny text-lg font-black">₹{grandTotal}</span>
                 </div>
               </div>
 

@@ -48,9 +48,9 @@ export const TestimonialsTrust: React.FC = () => {
 
         {/* Testimonials Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-950 border border-emerald-500/30 text-emerald-light text-xs font-bold uppercase tracking-wider mb-2">
-            <Star className="w-3.5 h-3.5 fill-gold text-gold" />
-            Loved By 1,250+ Urban Plant Parents
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black border border-gold/50 text-gold text-xs font-bold uppercase tracking-wider mb-2 shadow-gold-dubai-sm">
+            <Star className="w-3.5 h-3.5 fill-[#FFD700] text-[#FFD700]" />
+            <span className="text-gold-metallic-shiny font-black">Loved By 1,250+ Urban Plant Parents</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
             Real Stories, Thriving Balconies
@@ -70,9 +70,9 @@ export const TestimonialsTrust: React.FC = () => {
               <div>
                 {/* Stars & Verified Badge */}
                 <div className="flex items-center justify-between mb-3">
-                  <div className="flex text-gold">
+                  <div className="flex text-[#FFD700]">
                     {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-gold" />
+                      <Star key={i} className="w-3.5 h-3.5 fill-[#FFD700] drop-shadow-[0_0_5px_rgba(255,215,0,0.5)]" />
                     ))}
                   </div>
 

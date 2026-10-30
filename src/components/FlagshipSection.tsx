@@ -103,9 +103,9 @@ export const FlagshipSection: React.FC = () => {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-black text-gold border border-gold/40 text-xs font-black uppercase tracking-wider mb-3 shadow-gold-glow">
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-black text-gold border-2 border-gold text-xs font-black uppercase tracking-wider mb-3 shadow-gold-dubai">
             <Sparkles className="w-3.5 h-3.5 fill-gold text-gold" />
-            Signature Flagship Innovation
+            <span className="text-gold-gradient">Signature Flagship Innovation</span>
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             6-in-1 Enriched Vermicompost Mix
@@ -116,11 +116,11 @@ export const FlagshipSection: React.FC = () => {
         </div>
 
         {/* Bundle Perk Promo Banner */}
-        <div className="mb-10 bg-gradient-to-r from-emerald-950 via-charcoal-pure to-emerald-950 rounded-2xl p-4 sm:p-5 border-2 border-gold/50 shadow-luxury-dark text-white relative overflow-hidden">
+        <div className="mb-10 bg-gradient-to-r from-emerald-950 via-charcoal-pure to-emerald-950 rounded-2xl p-4 sm:p-5 border-2 border-gold/60 shadow-gold-dubai text-white relative overflow-hidden">
           <div className="flex flex-col md:flex-row items-center justify-between gap-3 relative z-10">
             <div className="flex items-center gap-3 text-center md:text-left">
-              <div className="w-11 h-11 rounded-2xl bg-gold text-charcoal-pure flex items-center justify-center flex-shrink-0 font-black shadow-gold-glow">
-                <Gift className="w-5 h-5" />
+              <div className="w-11 h-11 rounded-2xl bg-gold-gradient text-charcoal-pure flex items-center justify-center flex-shrink-0 font-black shadow-gold-dubai-sm">
+                <Gift className="w-5 h-5 text-charcoal-pure" />
               </div>
               <div>
                 <span className="text-[10px] sm:text-xs font-bold text-gold uppercase tracking-wider">🪔 Diwali Special Celebration Bundle</span>
@@ -144,27 +144,27 @@ export const FlagshipSection: React.FC = () => {
           {/* Left Column: Visual Showcase & Pack Selector */}
           <div className="lg:col-span-6 space-y-5">
             
-            <div className="bg-gradient-to-b from-charcoal-pure to-[#17201c] rounded-3xl p-5 sm:p-7 text-white border-2 border-gold/40 shadow-luxury-dark relative overflow-hidden">
+            <div className="rounded-3xl frame-dubai-gold p-5 sm:p-7 text-white relative overflow-hidden">
               <div className="flex justify-between items-start mb-3">
                 <div>
-                  <span className="text-[10px] font-black uppercase tracking-wider text-gold">2kg Signature Pouch</span>
+                  <span className="text-[10px] font-black uppercase tracking-wider text-gold-metallic-shiny">2kg Signature Pouch</span>
                   <h3 className="text-lg sm:text-xl font-black text-white mt-0.5">Enriched Vermi Compost Mix</h3>
                 </div>
-                <div className="flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded-full text-xs font-bold text-gold">
-                  <Star className="w-3.5 h-3.5 fill-gold text-gold" />
-                  <span>4.95 (348 Reviews)</span>
+                <div className="flex items-center gap-1 bg-black/60 border border-gold/40 px-2.5 py-1 rounded-full text-xs font-bold text-gold shadow-gold-dubai-sm">
+                  <Star className="w-3.5 h-3.5 fill-[#FFD700] text-[#FFD700]" />
+                  <span className="font-mono text-gold-metallic-shiny">4.95 (348 Reviews)</span>
                 </div>
               </div>
 
               {/* Image Switcher Tabs */}
-              <div className="flex items-center gap-1.5 mb-2.5 bg-black/60 p-1 rounded-xl border border-gold/20">
+              <div className="flex items-center gap-1.5 mb-2.5 bg-black/70 p-1 rounded-xl border border-gold/30">
                 {showcaseViews.map((view, idx) => (
                   <button
                     key={view.id}
                     onClick={() => setActiveViewIdx(idx)}
                     className={`flex-1 py-1 px-1.5 text-[10px] sm:text-[11px] font-bold rounded-lg transition-all text-center cursor-pointer ${
                       activeViewIdx === idx
-                        ? 'bg-gold text-charcoal-pure shadow-gold-glow font-black'
+                        ? 'badge-dubai-gold font-black shadow-gold-dubai-sm'
                         : 'text-gray-300 hover:text-white hover:bg-white/10'
                     }`}
                   >
@@ -174,8 +174,8 @@ export const FlagshipSection: React.FC = () => {
               </div>
 
               {/* High-res Image Presentation */}
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#121c17] via-charcoal to-[#080d0b] border border-gold/30 my-3 p-2 sm:p-2.5 text-center">
-                <div className="relative mx-auto h-52 sm:h-60 w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/40">
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#121c17] via-charcoal to-[#080d0b] border-2 border-gold/40 my-3 p-2 sm:p-2.5 text-center shadow-gold-dubai-sm">
+                <div className="relative mx-auto h-52 sm:h-60 w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/50">
                   <SafeImage
                     src={showcaseViews[activeViewIdx].src}
                     alt={showcaseViews[activeViewIdx].alt}
@@ -183,10 +183,10 @@ export const FlagshipSection: React.FC = () => {
                       showcaseViews[activeViewIdx].fitContain ? 'object-contain p-2' : 'object-cover'
                     }`}
                   />
-                  <div className="absolute top-3 left-3 bg-gold text-charcoal-pure font-black text-xs px-2.5 py-0.5 rounded-full shadow-md">
+                  <div className="absolute top-3 left-3 badge-dubai-gold font-black text-xs px-2.5 py-0.5 rounded-full shadow-md">
                     {discountPct}% OFF
                   </div>
-                  <div className="absolute bottom-3 right-3 bg-emerald text-white font-bold text-xs px-2.5 py-0.5 rounded-full shadow-md flex items-center gap-1">
+                  <div className="absolute bottom-3 right-3 bg-emerald text-white font-bold text-xs px-2.5 py-0.5 rounded-full shadow-md flex items-center gap-1 border border-emerald-400/40">
                     <ShieldCheck className="w-3.5 h-3.5" /> 100% Bio-Organic
                   </div>
                 </div>

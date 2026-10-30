@@ -142,7 +142,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                 onClick={() => setSelectedCategory(cat.id as ProductCategory)}
                 className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all shadow-2xs cursor-pointer ${
                   isActive
-                    ? 'bg-gold text-charcoal-pure border border-gold font-black shadow-gold-glow scale-102'
+                    ? 'badge-dubai-gold font-black shadow-gold-dubai-sm scale-102'
                     : 'bg-[#141F1A] text-gray-300 border border-white/10 hover:border-gold hover:text-white'
                 }`}
               >
@@ -167,7 +167,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
             return (
               <div
                 key={product.id}
-                className="bg-[#121A16] rounded-2xl border border-emerald-500/20 hover:border-gold/50 shadow-luxury-dark transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1 text-white"
+                className="bg-[#121A16] rounded-2xl border border-emerald-500/20 hover:border-gold/60 shadow-luxury-dark hover:shadow-gold-dubai-sm transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1 text-white"
               >
                 {/* Product Card Image & Badges */}
                 <div className="relative aspect-square overflow-hidden bg-black/60">
@@ -182,22 +182,22 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                   {/* Top Badges */}
                   <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
                     {product.isDiwaliSpecial && (
-                      <span className="bg-gold text-charcoal-pure border border-gold text-[10px] font-black uppercase px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+                      <span className="badge-dubai-gold text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1">
                         <span>🪔</span> Diwali Special
                       </span>
                     )}
                     {product.isFlagship && !product.isDiwaliSpecial && (
-                      <span className="bg-black text-gold border border-gold/50 text-[10px] font-black uppercase px-2 py-0.5 rounded-full shadow-sm">
+                      <span className="badge-dubai-gold text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full shadow-sm">
                         Flagship
                       </span>
                     )}
                     {product.bestSeller && !product.isFlagship && !product.isDiwaliSpecial && (
-                      <span className="bg-amber-500 text-charcoal-pure font-black text-[10px] uppercase px-2 py-0.5 rounded-full shadow-sm">
+                      <span className="badge-dubai-gold text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full shadow-sm">
                         Best Seller
                       </span>
                     )}
                     {product.organicCertified && (
-                      <span className="bg-emerald text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1">
+                      <span className="bg-emerald text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1 border border-emerald-400/30">
                         <ShieldCheck className="w-3 h-3" /> 100% Organic
                       </span>
                     )}
@@ -225,8 +225,8 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                   <div>
                     {/* Rating & Reviews */}
                     <div className="flex items-center gap-1 mb-1">
-                      <div className="flex text-gold">
-                        <Star className="w-3.5 h-3.5 fill-gold" />
+                      <div className="flex text-[#FFD700]">
+                        <Star className="w-3.5 h-3.5 fill-[#FFD700] drop-shadow-[0_0_4px_rgba(255,215,0,0.5)]" />
                       </div>
                       <span className="text-xs font-bold text-white">{product.rating}</span>
                       <span className="text-[10px] text-gray-400">({product.reviewCount})</span>
@@ -253,7 +253,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                               onClick={() => handlePackChange(product.id, idx)}
                               className={`text-[10px] px-2 py-0.5 rounded-md font-bold transition border cursor-pointer ${
                                 currentPackIndex === idx
-                                  ? 'bg-emerald-900/80 border-gold text-gold'
+                                  ? 'bg-emerald-900/80 border-gold text-gold font-black shadow-xs'
                                   : 'bg-white/5 border-white/10 text-gray-300 hover:bg-white/10'
                               }`}
                             >
@@ -269,7 +269,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                   <div className="pt-3 mt-2 border-t border-white/10">
                     <div className="flex items-baseline justify-between mb-2.5">
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-base sm:text-lg font-black text-gold">₹{currentPack.price}</span>
+                        <span className="text-base sm:text-lg font-black text-gold-metallic-shiny">₹{currentPack.price}</span>
                         <span className="text-xs text-gray-500 line-through">₹{currentPack.mrp}</span>
                       </div>
 

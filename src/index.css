@@ -19,13 +19,12 @@
     position: relative;
   }
 
-  /* Prevent iOS momentum bounce from revealing horizontal white gutters */
   * {
     box-sizing: border-box;
   }
 }
 
-/* Custom smooth scrollbar */
+/* Custom smooth scrollbar with Dubai Gold accents */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
@@ -41,7 +40,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #EAB308;
+  background: #FFD700;
 }
 
 /* Glassmorphism helpers */
@@ -52,9 +51,9 @@
 }
 
 .glass-dark {
-  background: rgba(17, 24, 39, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(11, 15, 14, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 /* Shimmer animation for badges */
@@ -67,16 +66,192 @@
   animation: shimmer 2.5s infinite;
 }
 
+/* Moving specular glint across shiny surfaces */
+@keyframes metallic-gleam {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes light-sweep {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+  }
+  35%, 100% {
+    transform: translateX(250%) skewX(-25deg);
+  }
+}
+
 /* Festive Diwali Diya Glow */
 @keyframes festive-glow {
   0%, 100% {
-    filter: drop-shadow(0 0 8px rgba(234, 179, 8, 0.45));
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.55));
   }
   50% {
-    filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.75));
+    filter: drop-shadow(0 0 24px rgba(255, 215, 0, 0.95));
   }
 }
 
 .animate-diya-glow {
   animation: festive-glow 3s ease-in-out infinite;
+}
+
+/* ========================================================
+   DUBAI 24K METALLIC LUSTRE & SHINY GOLD LUXURY SUITE
+   ======================================================== */
+
+/* 1. Shiny Metallic Gold Text (multi-stop specular reflection) */
+.text-gold-metallic-shiny {
+  background: linear-gradient(
+    135deg, 
+    #FFFCE6 0%, 
+    #FFD700 20%, 
+    #FFF8C4 40%, 
+    #E5A800 60%, 
+    #FFF59D 80%, 
+    #B8860B 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 8px rgba(255, 215, 0, 0.45));
+}
+
+.text-gold-dubai {
+  color: #FFD700;
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFFCE6 0%, #FFD700 30%, #FFF2A1 55%, #E5A800 80%, #A06800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 2. Shiny Dubai Gold Bullion / Plaque Background */
+.bg-dubai-gold-metallic {
+  background: linear-gradient(
+    135deg,
+    #FFFDE4 0%,
+    #FFD700 22%,
+    #FFF2A1 45%,
+    #DA9E00 68%,
+    #FFE875 85%,
+    #A06800 100%
+  );
+  box-shadow: 
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.9),
+    inset 0 -1.5px 2px rgba(138, 92, 0, 0.75),
+    0 4px 18px rgba(255, 215, 0, 0.4);
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #FFFCE6 0%, #FFD700 35%, #FFF2A1 60%, #DA9E00 85%, #9E6F00 100%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), inset 0 -1px 2px rgba(110, 70, 0, 0.7);
+}
+
+.bg-gold-metallic {
+  background: linear-gradient(135deg, #FFF59D 0%, #FFD700 35%, #FFF2A1 55%, #E6AC00 75%, #996D00 100%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.85);
+}
+
+/* 3. Interactive Shiny Gold Button with Moving Lustre Sheen */
+.btn-dubai-gold-shiny {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #FFFDE4 0%,
+    #FFD700 25%,
+    #FFF2A1 48%,
+    #DA9E00 70%,
+    #FFE875 88%,
+    #A06800 100%
+  );
+  color: #070B09;
+  font-weight: 900;
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 3px rgba(120, 78, 0, 0.85),
+    0 0 25px rgba(255, 215, 0, 0.55),
+    0 8px 20px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-dubai-gold-shiny:hover {
+  filter: brightness(1.12);
+  box-shadow: 
+    inset 0 1px 3px rgba(255, 255, 255, 1),
+    inset 0 -2px 4px rgba(120, 78, 0, 0.9),
+    0 0 35px rgba(255, 215, 0, 0.75),
+    0 10px 25px rgba(0, 0, 0, 0.7);
+  transform: translateY(-1px);
+}
+
+.btn-dubai-gold-shiny::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    transparent 100%
+  );
+  animation: light-sweep 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+/* 4. Beveled Metallic Gold Frame / Rim */
+.frame-dubai-gold {
+  border: 2px solid transparent;
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  background-image: 
+    linear-gradient(to bottom, #111a15, #080d0b),
+    linear-gradient(135deg, #FFFCE6 0%, #FFD700 25%, #FFF8C4 50%, #B8860B 75%, #FFFCE6 100%);
+  box-shadow: 
+    0 0 35px rgba(255, 215, 0, 0.35),
+    inset 0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+.border-gold-dubai {
+  border-color: #FFD700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.35);
+}
+
+/* 5. Metallic Gold Badge (Plaque / Bullion Stamp) */
+.badge-dubai-gold {
+  background: linear-gradient(
+    135deg,
+    #FFFCE6 0%,
+    #FFD700 28%,
+    #FFF8C4 52%,
+    #DA9E00 78%,
+    #9E6F00 100%
+  );
+  color: #070B09;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px rgba(100, 65, 0, 0.75),
+    0 0 18px rgba(255, 215, 0, 0.45);
+}
+
+.shadow-gold-dubai {
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.5), 0 0 12px rgba(255, 215, 0, 0.3);
+}
+
+.shadow-gold-dubai-sm {
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.45);
 }

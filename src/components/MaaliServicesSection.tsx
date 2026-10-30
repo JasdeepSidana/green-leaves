@@ -56,14 +56,14 @@ export const MaaliServicesSection: React.FC = () => {
           {MAALI_SERVICES.map((service) => (
             <div
               key={service.id}
-              className={`rounded-3xl border transition-all duration-300 p-6 sm:p-7 flex flex-col justify-between relative group ${
+              className={`rounded-3xl transition-all duration-300 p-6 sm:p-7 flex flex-col justify-between relative group ${
                 service.popular
-                  ? 'bg-gradient-to-b from-[#14231b] via-[#0e1713] to-charcoal-pure text-white border-2 border-gold shadow-gold-glow'
-                  : 'bg-[#121A16] border-emerald-500/20 hover:border-gold/50 text-white shadow-luxury-dark'
+                  ? 'frame-dubai-gold shadow-gold-dubai sm:-translate-y-2'
+                  : 'bg-[#121A16] border border-emerald-500/20 hover:border-gold/50 text-white shadow-luxury-dark'
               }`}
             >
               {service.popular && (
-                <div className="absolute -top-3 right-6 bg-gold text-charcoal-pure text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-md">
+                <div className="absolute -top-3.5 right-6 badge-dubai-gold text-[10px] font-black uppercase px-3.5 py-1 rounded-full shadow-gold-dubai-sm">
                   Most Popular
                 </div>
               )}
@@ -71,7 +71,7 @@ export const MaaliServicesSection: React.FC = () => {
               <div>
                 {/* Header Icon & Duration */}
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white/10 border border-white/10">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-black/60 border border-gold/40 shadow-xs">
                     {getIcon(service.iconName)}
                   </div>
                   <div className="flex items-center gap-1 text-xs font-medium text-gray-400">
@@ -90,7 +90,7 @@ export const MaaliServicesSection: React.FC = () => {
 
                 {/* Price Tag */}
                 <div className="mb-5 pb-4 border-b border-white/10">
-                  <span className="text-2xl font-black text-gold">
+                  <span className="text-2xl font-black text-gold-metallic-shiny">
                     {service.priceDisplay}
                   </span>
                   <span className="text-[11px] block text-gray-400 mt-0.5">
@@ -115,9 +115,9 @@ export const MaaliServicesSection: React.FC = () => {
               <div className="pt-2">
                 <button
                   onClick={() => openMaaliBooking(service.id)}
-                  className={`w-full py-3 px-4 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer shadow-md ${
+                  className={`w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer shadow-md ${
                     service.popular
-                      ? 'bg-gold hover:bg-gold-light text-charcoal-pure font-black shadow-gold-glow'
+                      ? 'btn-dubai-gold-shiny shadow-gold-dubai font-black'
                       : 'bg-emerald hover:bg-emerald-600 text-white font-bold'
                   }`}
                 >

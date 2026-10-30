@@ -169,9 +169,9 @@ export const Hero: React.FC = () => {
 
               <button
                 onClick={() => openMaaliBooking()}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-black hover:bg-[#151D19] text-gold font-bold text-sm sm:text-base border-2 border-gold/50 shadow-gold-glow transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl btn-dubai-gold-shiny text-sm sm:text-base transition-all flex items-center justify-center gap-2 group cursor-pointer shadow-gold-dubai"
               >
-                <Sparkles className="w-4 h-4 text-gold group-hover:rotate-12 transition-transform" />
+                <Sparkles className="w-4 h-4 text-charcoal-pure group-hover:rotate-12 transition-transform" />
                 <span>Book Maali Service</span>
               </button>
             </div>
@@ -199,30 +199,30 @@ export const Hero: React.FC = () => {
           {/* Right Column: Proportioned Flagship Showcase Card */}
           <div className="lg:col-span-5 relative w-full">
             
-            {/* Signature Matte-Black & Gold Packaging Card */}
-            <div className="relative rounded-3xl bg-gradient-to-b from-charcoal-pure via-[#141b18] to-charcoal-pure text-white p-4 sm:p-5 lg:p-6 shadow-luxury-dark border-2 border-gold/40 transition-all duration-300 hover:border-gold group">
+            {/* Signature Matte-Black & Gold Packaging Card with Dubai Gold Frame */}
+            <div className="relative rounded-3xl frame-dubai-gold text-white p-4 sm:p-5 lg:p-6 transition-all duration-300 group">
               
               {/* Top Banner & Badge */}
               <div className="flex items-center justify-between gap-2 mb-3">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gold/20 border border-gold/50 text-gold text-[11px] font-black uppercase tracking-wider">
-                  <Flame className="w-3 h-3 fill-gold text-gold" />
-                  Flagship Innovation
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full badge-dubai-gold text-[11px] font-black uppercase tracking-wider">
+                  <Flame className="w-3.5 h-3.5 fill-charcoal-pure text-charcoal-pure" />
+                  <span>Flagship Innovation</span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] text-gray-400 block uppercase tracking-wider">Verified Formula</span>
-                  <span className="text-xs font-bold text-emerald-light">6-in-1 Soil Supercharger</span>
+                  <span className="text-[10px] text-gray-400 block uppercase tracking-wider font-semibold">Verified Formula</span>
+                  <span className="text-xs font-black text-gold-metallic-shiny">6-in-1 Soil Supercharger</span>
                 </div>
               </div>
 
               {/* Image Showcase View Switcher Tabs */}
-              <div className="flex items-center gap-1.5 mb-2.5 bg-black/60 p-1 rounded-xl border border-gold/20">
+              <div className="flex items-center gap-1.5 mb-2.5 bg-black/70 p-1 rounded-xl border border-gold/30">
                 {showcaseViews.map((view, idx) => (
                   <button
                     key={view.id}
                     onClick={() => setActiveViewIdx(idx)}
                     className={`flex-1 py-1 px-1.5 text-[10px] sm:text-[11px] font-bold rounded-lg transition-all text-center cursor-pointer ${
                       activeViewIdx === idx
-                        ? 'bg-gold text-charcoal-pure shadow-gold-glow font-black'
+                        ? 'badge-dubai-gold font-black shadow-gold-dubai-sm'
                         : 'text-gray-300 hover:text-white hover:bg-white/10'
                     }`}
                   >
@@ -232,8 +232,8 @@ export const Hero: React.FC = () => {
               </div>
 
               {/* Product Packaging Image Showcase */}
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#121c17] via-charcoal to-[#080d0b] border border-gold/30 mb-3.5 p-2 sm:p-2.5 text-center">
-                <div className="relative mx-auto h-40 sm:h-48 w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/40">
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#121c17] via-charcoal to-[#080d0b] border-2 border-gold/40 mb-3.5 p-2 sm:p-2.5 text-center shadow-gold-dubai-sm">
+                <div className="relative mx-auto h-40 sm:h-48 w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/50">
                   <SafeImage
                     src={showcaseViews[activeViewIdx].src}
                     alt={showcaseViews[activeViewIdx].alt}
@@ -243,12 +243,12 @@ export const Hero: React.FC = () => {
                   />
                   
                   {/* Floating Black & Gold Packaging Label Overlay */}
-                  <div className="absolute bottom-1.5 left-1.5 right-1.5 bg-black/90 backdrop-blur-md rounded-xl p-2 border border-gold/40 flex items-center justify-between">
+                  <div className="absolute bottom-1.5 left-1.5 right-1.5 bg-black/95 backdrop-blur-md rounded-xl p-2 border border-gold/50 flex items-center justify-between shadow-gold-dubai-sm">
                     <div className="text-left">
-                      <p className="text-[9px] text-gold font-bold uppercase tracking-wider">Signature 2kg Black Pouch</p>
+                      <p className="text-[9px] text-gold-metallic-shiny font-black uppercase tracking-wider">Signature 2kg Black Pouch</p>
                       <p className="text-xs font-black text-white">6-in-1 Enriched Vermicompost</p>
                     </div>
-                    <span className="text-xs font-black bg-emerald text-white px-2 py-0.5 rounded-full">
+                    <span className="text-xs font-black badge-dubai-gold px-2.5 py-0.5 rounded-full shadow-xs">
                       ₹{selectedPack.price}
                     </span>
                   </div>

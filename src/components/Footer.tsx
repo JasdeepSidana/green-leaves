@@ -54,14 +54,14 @@ export const Footer: React.FC = () => {
           {/* Brand & Mission (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-charcoal flex items-center justify-center shadow-md border border-gold/50">
+              <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center shadow-md border border-gold/60 shadow-gold-dubai-sm">
                 <Leaf className="w-5 h-5 text-emerald-light" />
               </div>
               <div className="flex flex-col">
                 <span className="font-extrabold text-2xl tracking-tight text-white leading-none">
                   Green Leaves<span className="text-emerald font-black">.</span>
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-gold mt-0.5">
+                <span className="text-[10px] font-black uppercase tracking-widest text-gold-metallic-shiny mt-0.5">
                   Organics
                 </span>
               </div>
