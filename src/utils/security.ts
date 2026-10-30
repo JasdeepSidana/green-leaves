@@ -77,9 +77,10 @@ export function safeGetStorage<T>(key: string, fallback: T): T {
     
     // Prototype pollution defense
     if (parsed && typeof parsed === 'object') {
-      delete (parsed as Record<string, unknown>).__proto__;
-      delete (parsed as Record<string, unknown>).constructor;
-      delete (parsed as Record<string, unknown>).prototype;
+      const obj = parsed as Record<string, unknown | undefined>;
+      delete obj['__proto__'];
+      delete obj['constructor'];
+      delete obj['prototype'];
     }
     return parsed as T;
   } catch (error) {
