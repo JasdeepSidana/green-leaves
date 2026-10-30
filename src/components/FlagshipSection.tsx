@@ -65,12 +65,12 @@ export const FlagshipSection: React.FC = () => {
     },
     {
       id: 'garden-results',
-      label: 'Garden pic after using compost',
+      label: 'Garden Results',
       src: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80',
       alt: 'Lush blooming garden nurtured with 6-in-1 Vermicompost Mix',
       packIdx: 1,
       title: 'Lush Garden Results',
-      subtitle: 'Results After Using Compost',
+      subtitle: 'Visible Blooms After Compost',
       price: 249,
       mrp: 399,
       fitContain: false
