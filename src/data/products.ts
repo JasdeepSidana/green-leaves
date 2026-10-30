@@ -2,6 +2,7 @@ import { Product } from '../types';
 import vermicompostHandsPouchImg from '../assets/images/vermicompost-showcase-hands-pouch.jpg';
 import vermicompostSquareImg from '../assets/images/vermicompost-organic-square.jpg';
 import vermicompost5kgImg from '../assets/images/vermicompost-5kg-showcase.jpg';
+import vermicompost10kgImg from '../assets/images/vermicompost-10kg-showcase.jpg';
 import vermicompost1kgStarterImg from '../assets/images/vermicompost-1kg-starter.jpg';
 import vermicompostPouchImg from '../assets/images/vermicompost-pouch.jpg';
 import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-grass.jpg';
@@ -154,11 +155,12 @@ export const PRODUCTS: Product[] = [
     mrp: 249,
     image: vermicompostSquareImg,
     gallery: [
-      vermicompostSquareImg,
-      vermicompostHandsPouchImg,
       vermicompost1kgStarterImg,
+      vermicompostHandsPouchImg,
       vermicompost5kgImg,
+      vermicompost10kgImg,
       'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80',
+      vermicompostSquareImg,
       deodapVermicompostSoilImg,
     ],
     rating: 4.95,

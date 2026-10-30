@@ -20,6 +20,7 @@ import vermicompost1kgStarterImg from '../assets/images/vermicompost-1kg-starter
 import vermicompostHandsPouchImg from '../assets/images/vermicompost-showcase-hands-pouch.jpg';
 import vermicompostSquareImg from '../assets/images/vermicompost-organic-square.jpg';
 import vermicompost5kgImg from '../assets/images/vermicompost-5kg-showcase.jpg';
+import vermicompost10kgImg from '../assets/images/vermicompost-10kg-showcase.jpg';
 import deodapVermicompostSoilImg from '../assets/images/deodap-vermicompost-soil.jpg';
 
 export const Hero: React.FC = () => {
@@ -273,8 +274,8 @@ export const Hero: React.FC = () => {
               <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#121c17] via-charcoal to-[#080d0b] border-2 border-gold/40 mb-3.5 p-2 sm:p-2.5 text-center shadow-gold-dubai-sm">
                 <div className="relative mx-auto h-44 sm:h-52 w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/50">
                   <SafeImage
-                    src={showcaseViews[activeViewIdx].src}
-                    alt={showcaseViews[activeViewIdx].alt}
+                    src={selectedPackIndex === 3 && activeViewIdx !== 3 ? vermicompost10kgImg : showcaseViews[activeViewIdx].src}
+                    alt={selectedPackIndex === 3 && activeViewIdx !== 3 ? 'Green Leaves Organics 10 KG Terrace Pack Vermicompost' : showcaseViews[activeViewIdx].alt}
                     className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                   
@@ -282,7 +283,7 @@ export const Hero: React.FC = () => {
                   <div className="absolute bottom-1.5 left-1.5 right-1.5 bg-black/95 backdrop-blur-md rounded-xl p-2 border border-gold/50 flex items-center justify-between shadow-gold-dubai-sm">
                     <div className="text-left truncate mr-2">
                       <p className="text-[9px] text-gold-metallic-shiny font-black uppercase tracking-wider truncate">
-                        {showcaseViews[activeViewIdx].subtitle || selectedPack.size}
+                        {selectedPackIndex === 3 && activeViewIdx !== 3 ? '10kg Terrace Pack' : (showcaseViews[activeViewIdx].subtitle || selectedPack.size)}
                       </p>
                       <p className="text-xs font-black text-white truncate">
                         {showcaseViews[activeViewIdx].title || '6-in-1 Enriched Vermicompost'}
@@ -290,10 +291,10 @@ export const Hero: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-1.5 flex-shrink-0">
                       <span className="text-[10px] text-gray-400 line-through">
-                        ₹{showcaseViews[activeViewIdx].mrp ?? selectedPack.mrp}
+                        ₹{selectedPackIndex === 3 && activeViewIdx !== 3 ? selectedPack.mrp : (showcaseViews[activeViewIdx].mrp ?? selectedPack.mrp)}
                       </span>
                       <span className="text-xs font-black badge-dubai-gold px-2.5 py-0.5 rounded-full shadow-xs">
-                        ₹{showcaseViews[activeViewIdx].price ?? selectedPack.price}
+                        ₹{selectedPackIndex === 3 && activeViewIdx !== 3 ? selectedPack.price : (showcaseViews[activeViewIdx].price ?? selectedPack.price)}
                       </span>
                     </div>
                   </div>
