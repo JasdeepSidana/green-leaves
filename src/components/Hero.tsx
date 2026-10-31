@@ -17,6 +17,7 @@ import { PRODUCTS } from '../data/products';
 import { getWhatsAppFlagshipOrderUrl } from '../utils/whatsapp';
 import { SafeImage } from './SafeImage';
 import vermicompost1kgStarterImg from '../assets/images/vermicompost-1kg-starter.jpg';
+import vermicompost2kgOfficialImg from '../assets/images/vermicompost-2kg-official.jpg';
 import vermicompostHandsPouchImg from '../assets/images/vermicompost-showcase-hands-pouch.jpg';
 import vermicompostSquareImg from '../assets/images/vermicompost-organic-square.jpg';
 import vermicompost5kgImg from '../assets/images/vermicompost-5kg-showcase.jpg';
@@ -47,14 +48,14 @@ export const Hero: React.FC = () => {
     {
       id: '2kg-garden',
       label: '2kg Pack in Garden',
-      src: vermicompostHandsPouchImg,
-      alt: 'Green Leaves Organics 2kg Pack in Garden with rich soil and seedling',
+      src: vermicompost2kgOfficialImg,
+      alt: 'Green Leaves Organics Official 2kg Vermicompost Pouch in Garden',
       packIdx: 1,
       title: '6-in-1 Enriched Vermicompost',
-      subtitle: '2kg Pack in Garden',
+      subtitle: 'Official 2kg Pack',
       price: 249,
       mrp: 399,
-      fitContain: false
+      fitContain: true
     },
     {
       id: '5kg-value',
@@ -285,31 +286,26 @@ export const Hero: React.FC = () => {
 
               {/* Product Packaging Image Showcase */}
               <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#101914] via-[#0B100D] to-[#070B09] border-2 border-gold/40 mb-3.5 p-2 sm:p-2.5 text-center shadow-gold-dubai-sm">
-                <div className="relative mx-auto h-64 sm:h-76 md:h-84 w-full rounded-xl overflow-hidden flex flex-col items-center justify-between bg-black/60 backdrop-blur-xs p-2">
+                <div className="relative mx-auto h-80 sm:h-96 md:h-[400px] w-full rounded-xl overflow-hidden bg-black/85 flex items-center justify-center p-3">
                   
-                  {/* Top Off Tag */}
-                  <div className="w-full flex items-center justify-between z-10 px-1 pt-1">
-                    <span className="badge-dubai-gold font-black text-[10px] px-2 py-0.5 rounded-full shadow-md">
-                      {Math.round(((selectedPack.mrp - selectedPack.price) / selectedPack.mrp) * 100)}% OFF
-                    </span>
-                    <span className="bg-emerald text-white font-bold text-[10px] px-2 py-0.5 rounded-full shadow-md flex items-center gap-1 border border-emerald-400/40">
-                      <ShieldCheck className="w-3 h-3" /> 100% Bio-Organic
-                    </span>
+                  {/* Top Badges */}
+                  <div className="absolute top-2.5 left-2.5 z-20 badge-dubai-gold font-black text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full shadow-md">
+                    {Math.round(((selectedPack.mrp - selectedPack.price) / selectedPack.mrp) * 100)}% OFF
+                  </div>
+                  <div className="absolute top-2.5 right-2.5 z-20 bg-emerald text-white font-bold text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full shadow-md flex items-center gap-1 border border-emerald-400/40">
+                    <ShieldCheck className="w-3 h-3" /> 100% Bio-Organic
                   </div>
 
-                  {/* Centered Proportional Image */}
-                  <div className="flex-1 w-full flex items-center justify-center overflow-hidden my-1">
-                    <SafeImage
-                      src={showcaseViews[activeViewIdx].src}
-                      alt={showcaseViews[activeViewIdx].alt}
-                      className={`max-h-full max-w-full ${
-                        showcaseViews[activeViewIdx].fitContain ? 'object-contain' : 'object-cover w-full h-full'
-                      } transition-transform duration-500 hover:scale-105 filter drop-shadow-[0_10px_25px_rgba(0,0,0,0.85)]`}
-                    />
-                  </div>
+                  {/* Proportional Full-View Image - 100% visible, zero cropping */}
+                  <SafeImage
+                    src={showcaseViews[activeViewIdx].src}
+                    alt={showcaseViews[activeViewIdx].alt}
+                    className="w-full h-full object-contain"
+                    imgClassName="object-contain filter drop-shadow-[0_12px_28px_rgba(0,0,0,0.9)] transition-transform duration-500 hover:scale-105"
+                  />
                   
-                  {/* Floating Black & Gold Packaging Label Overlay */}
-                  <div className="w-full bg-black/95 backdrop-blur-md rounded-xl p-2 border border-gold/50 flex items-center justify-between shadow-gold-dubai-sm z-10">
+                  {/* Floating Black & Gold Packaging Label Overlay at bottom */}
+                  <div className="absolute bottom-2 left-2 right-2 bg-black/95 backdrop-blur-md rounded-xl px-3 py-2 border border-gold/40 flex items-center justify-between shadow-lg z-20">
                     <div className="text-left truncate mr-2">
                       <p className="text-[9px] text-gold-metallic-shiny font-black uppercase tracking-wider truncate">
                         {showcaseViews[activeViewIdx].subtitle || selectedPack.size}

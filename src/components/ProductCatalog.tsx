@@ -174,7 +174,8 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                   <SafeImage
                     src={currentPack.image || product.image}
                     alt={`${product.name} - ${currentPack.size}`}
-                    className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.7)]"
+                    className="w-full h-full object-contain"
+                    imgClassName="object-contain filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.7)] transition-transform duration-500 group-hover:scale-105"
                   />
 
                   {/* Top Badges */}

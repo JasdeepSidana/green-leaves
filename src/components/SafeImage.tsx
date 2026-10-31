@@ -4,6 +4,7 @@ import { Leaf } from 'lucide-react';
 interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackSrc?: string;
   fallbackText?: string;
+  imgClassName?: string;
 }
 
 // Fallback high-reliability images
@@ -13,6 +14,7 @@ export const SafeImage: React.FC<SafeImageProps> = ({
   src,
   alt,
   className = '',
+  imgClassName = '',
   fallbackSrc = DEFAULT_PLANT_FALLBACK,
   fallbackText,
   ...props
@@ -40,11 +42,15 @@ export const SafeImage: React.FC<SafeImageProps> = ({
     );
   }
 
+  // Determine object-fit behavior from passed class names
+  const isContain = className.includes('object-contain') || imgClassName.includes('object-contain');
+  const objectFitClass = isContain ? 'object-contain' : 'object-cover';
+
   return (
     <div className={`relative overflow-hidden ${className}`}>
       {isLoading && (
-        <div className="absolute inset-0 bg-gray-100 animate-pulse flex items-center justify-center">
-          <Leaf className="w-6 h-6 text-emerald-300 animate-spin" />
+        <div className="absolute inset-0 bg-black/40 animate-pulse flex items-center justify-center">
+          <Leaf className="w-6 h-6 text-emerald-400 animate-spin" />
         </div>
       )}
       <img
@@ -52,7 +58,7 @@ export const SafeImage: React.FC<SafeImageProps> = ({
         alt={alt}
         onError={handleError}
         onLoad={handleLoad}
-        className={`w-full h-full object-cover transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        className={`w-full h-full ${objectFitClass} transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'} ${imgClassName}`}
         {...props}
       />
     </div>

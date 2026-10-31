@@ -14,6 +14,7 @@ import { PRODUCTS } from '../data/products';
 import { getWhatsAppFlagshipOrderUrl } from '../utils/whatsapp';
 import { SafeImage } from './SafeImage';
 import vermicompost1kgStarterImg from '../assets/images/vermicompost-1kg-starter.jpg';
+import vermicompost2kgOfficialImg from '../assets/images/vermicompost-2kg-official.jpg';
 import vermicompostHandsPouchImg from '../assets/images/vermicompost-showcase-hands-pouch.jpg';
 import vermicompostSquareImg from '../assets/images/vermicompost-organic-square.jpg';
 import vermicompost5kgImg from '../assets/images/vermicompost-5kg-showcase.jpg';
@@ -43,14 +44,14 @@ export const FlagshipSection: React.FC = () => {
     {
       id: '2kg-garden',
       label: '2kg Pack in Garden',
-      src: vermicompostHandsPouchImg,
-      alt: 'Green Leaves Organics 2kg Pack in Garden with rich soil and seedling',
+      src: vermicompost2kgOfficialImg,
+      alt: 'Green Leaves Organics Official 2kg Vermicompost Pouch in Garden',
       packIdx: 1,
       title: '6-in-1 Enriched Vermicompost',
-      subtitle: '2kg Pack in Garden',
+      subtitle: 'Official 2kg Pack',
       price: 249,
       mrp: 399,
-      fitContain: false
+      fitContain: true
     },
     {
       id: '5kg-value',
@@ -231,18 +232,17 @@ export const FlagshipSection: React.FC = () => {
 
               {/* High-res Image Presentation */}
               <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#101914] via-[#0B100D] to-[#070B09] border-2 border-gold/40 my-3 p-2 sm:p-3 text-center shadow-gold-dubai-sm">
-                <div className="relative mx-auto h-72 sm:h-84 md:h-96 w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/60 backdrop-blur-xs p-2">
+                <div className="relative mx-auto h-80 sm:h-96 md:h-[420px] w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/85 backdrop-blur-xs p-3">
                   <SafeImage
                     src={showcaseViews[activeViewIdx].src}
                     alt={showcaseViews[activeViewIdx].alt}
-                    className={`max-h-full max-w-full ${
-                      showcaseViews[activeViewIdx].fitContain ? 'object-contain' : 'object-cover w-full h-full'
-                    } transition-transform duration-500 hover:scale-105 filter drop-shadow-[0_10px_25px_rgba(0,0,0,0.85)]`}
+                    className="w-full h-full object-contain"
+                    imgClassName="object-contain filter drop-shadow-[0_12px_28px_rgba(0,0,0,0.9)] transition-transform duration-500 hover:scale-105"
                   />
-                  <div className="absolute top-3 left-3 badge-dubai-gold font-black text-xs px-2.5 py-0.5 rounded-full shadow-md">
+                  <div className="absolute top-3 left-3 badge-dubai-gold font-black text-xs px-2.5 py-0.5 rounded-full shadow-md z-10">
                     {discountPct}% OFF
                   </div>
-                  <div className="absolute top-3 right-3 bg-emerald text-white font-bold text-xs px-2.5 py-0.5 rounded-full shadow-md flex items-center gap-1 border border-emerald-400/40">
+                  <div className="absolute top-3 right-3 bg-emerald text-white font-bold text-xs px-2.5 py-0.5 rounded-full shadow-md flex items-center gap-1 border border-emerald-400/40 z-10">
                     <ShieldCheck className="w-3.5 h-3.5" /> 100% Bio-Organic
                   </div>
                 </div>

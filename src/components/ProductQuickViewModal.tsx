@@ -77,7 +77,8 @@ export const ProductQuickViewModal: React.FC = () => {
             <SafeImage
               src={selectedImage || currentPack.image || product.image}
               alt={product.name}
-              className="max-w-full max-h-full object-contain transition-transform duration-300 filter drop-shadow-[0_10px_25px_rgba(0,0,0,0.85)]"
+              className="w-full h-full object-contain"
+              imgClassName="object-contain filter drop-shadow-[0_12px_28px_rgba(0,0,0,0.9)] transition-transform duration-300"
             />
             {discount > 0 && (
               <span className="absolute top-3 left-3 bg-red-600 text-white font-extrabold text-[10px] sm:text-xs px-2.5 py-1 rounded-md shadow-sm">
