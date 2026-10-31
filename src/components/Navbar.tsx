@@ -7,9 +7,13 @@ import {
   PhoneCall, 
   Sparkles, 
   Leaf, 
-  ShieldCheck
+  ShieldCheck,
+  User,
+  LogOut,
+  Package
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { PRODUCTS } from '../data/products';
 import { Product } from '../types';
 import { PRIMARY_DISPLAY_PHONE, PRIMARY_WHATSAPP_NUMBER } from '../utils/whatsapp';
@@ -21,12 +25,15 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
   const { totalItems, setIsCartOpen, openQuickView, openMaaliBooking } = useCart();
+  const { currentUser, isAuthenticated, openAuthModal, signOut, orders } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchContainerRef = useRef<HTMLDivElement>(null);
+  const accountMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +47,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
         setIsSearchOpen(false);
+      }
+      if (accountMenuRef.current && !accountMenuRef.current.contains(event.target as Node)) {
+        setAccountMenuOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -249,6 +259,85 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
               )}
             </div>
 
+            {/* Member Sign In / Account Dropdown */}
+            <div className="relative" ref={accountMenuRef}>
+              {!isAuthenticated ? (
+                <button
+                  onClick={() => openAuthModal('signin')}
+                  className="flex items-center gap-1.5 bg-black/60 hover:bg-black text-gray-200 hover:text-white px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full border border-gold/40 hover:border-gold hover:shadow-gold-dubai-sm text-xs font-bold transition cursor-pointer flex-shrink-0"
+                  aria-label="Member Sign In"
+                >
+                  <User className="w-3.5 h-3.5 text-gold" />
+                  <span className="hidden sm:inline">Sign In</span>
+                </button>
+              ) : (
+                <>
+                  <button
+                    onClick={() => setAccountMenuOpen(!accountMenuOpen)}
+                    className="flex items-center gap-1.5 bg-black/80 hover:bg-black text-white px-2 sm:px-3 py-1.5 sm:py-2 rounded-full border border-gold text-xs font-bold transition shadow-gold-dubai-sm cursor-pointer flex-shrink-0"
+                    aria-label="Account Menu"
+                  >
+                    <div className="w-5 h-5 rounded-full bg-gold-gradient text-charcoal-pure font-black text-[10px] flex items-center justify-center flex-shrink-0">
+                      {currentUser?.fullName.charAt(0) || 'U'}
+                    </div>
+                    <span className="hidden md:inline max-w-[85px] truncate font-extrabold text-gold-metallic-shiny">
+                      {currentUser?.fullName.split(' ')[0]}
+                    </span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {accountMenuOpen && (
+                    <div className="absolute right-0 mt-2 w-56 bg-[#121A16] rounded-2xl shadow-luxury-dark border border-gold/50 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                      <div className="p-3 border-b border-white/10 bg-black/60">
+                        <p className="text-xs font-black text-white truncate">{currentUser?.fullName}</p>
+                        <p className="text-[10px] text-gray-400 truncate">{currentUser?.email || currentUser?.phone}</p>
+                      </div>
+                      <div className="p-1 divide-y divide-white/5 text-xs">
+                        <button
+                          onClick={() => {
+                            setAccountMenuOpen(false);
+                            openAuthModal('orders');
+                          }}
+                          className="w-full text-left p-2 hover:bg-emerald-950/60 rounded-lg text-gray-200 hover:text-white flex items-center justify-between transition cursor-pointer"
+                        >
+                          <span className="flex items-center gap-2">
+                            <Package className="w-3.5 h-3.5 text-gold" />
+                            <span>My Orders</span>
+                          </span>
+                          <span className="badge-dubai-gold font-mono text-[9px] px-1.5 py-0.2 rounded-full font-bold">
+                            {orders.length}
+                          </span>
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setAccountMenuOpen(false);
+                            openAuthModal('profile');
+                          }}
+                          className="w-full text-left p-2 hover:bg-emerald-950/60 rounded-lg text-gray-200 hover:text-white flex items-center gap-2 transition cursor-pointer"
+                        >
+                          <User className="w-3.5 h-3.5 text-emerald-light" />
+                          <span>Delivery Profile</span>
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setAccountMenuOpen(false);
+                            signOut();
+                          }}
+                          className="w-full text-left p-2 hover:bg-red-950/40 rounded-lg text-red-400 hover:text-red-300 flex items-center gap-2 transition cursor-pointer"
+                        >
+                          <LogOut className="w-3.5 h-3.5" />
+                          <span>Sign Out</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
             {/* Cart Button (Strictly Anchored Within Boundary) */}
             <button
               onClick={() => setIsCartOpen(true)}
@@ -280,6 +369,64 @@ export const Navbar: React.FC<NavbarProps> = ({ onSelectCategory }) => {
         <div className="xl:hidden border-t border-gold/20 bg-[#0B0F0E] shadow-2xl animate-in slide-in-from-top-4 duration-200 max-h-[80vh] overflow-y-auto">
           <div className="px-4 pt-3 pb-6 space-y-3">
             
+            {/* Mobile Member Status Card */}
+            <div className="bg-black/60 border border-gold/40 rounded-2xl p-3 flex items-center justify-between">
+              {!isAuthenticated ? (
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold">
+                      <User className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-white block">Member Club</span>
+                      <span className="text-[10px] text-gray-400 block">Sign in for order tracking</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      openAuthModal('signin');
+                    }}
+                    className="btn-dubai-gold-shiny text-[10px] py-1.5 px-3 rounded-lg font-bold"
+                  >
+                    Sign In
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gold-gradient text-charcoal-pure font-black text-xs flex items-center justify-center shadow-gold-dubai-sm">
+                      {currentUser?.fullName.charAt(0) || 'U'}
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-white block">{currentUser?.fullName}</span>
+                      <span className="text-[10px] text-gold font-mono">{orders.length} Orders Placed</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        openAuthModal('orders');
+                      }}
+                      className="bg-emerald-950 text-emerald-light border border-emerald-500/40 text-[10px] py-1.5 px-2.5 rounded-lg font-bold"
+                    >
+                      Orders
+                    </button>
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        signOut();
+                      }}
+                      className="text-red-400 p-1"
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* Mobile Search Input */}
             <div className="relative mb-2">
               <input

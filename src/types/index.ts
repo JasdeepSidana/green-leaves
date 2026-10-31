@@ -82,9 +82,47 @@ export interface CheckoutFormData {
   city: string;
   state: string;
   pincode: string;
-  paymentMethod: 'upi' | 'cod' | 'card';
+  paymentMethod: 'upi' | 'cod' | 'card' | 'netbanking';
   orderNotes?: string;
   promoCode?: string;
+  // Card specific fields
+  cardNumber?: string;
+  cardExpiry?: string;
+  cardCvv?: string;
+  cardHolder?: string;
+  // UPI specific fields
+  upiId?: string;
+  upiApp?: string;
+  // Netbanking specific
+  bankCode?: string;
+}
+
+export interface UserProfile {
+  id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  addressLine?: string;
+  landmark?: string;
+  city?: string;
+  state?: string;
+  pincode?: string;
+  createdAt: string;
+}
+
+export interface PlacedOrder {
+  orderId: string;
+  paymentId?: string;
+  customer: CheckoutFormData;
+  items: CartItem[];
+  subtotal: number;
+  shippingFee: number;
+  discount: number;
+  total: number;
+  paymentMethod: 'upi' | 'card' | 'netbanking' | 'cod';
+  createdAt: string;
+  status: 'Confirmed' | 'Dispatched' | 'Delivered';
+  estimatedDelivery: string;
 }
 
 export interface Testimonial {

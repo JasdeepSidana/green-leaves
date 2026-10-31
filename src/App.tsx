@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 import { AnnouncementBar } from './components/AnnouncementBar';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -14,6 +15,7 @@ import { CartDrawer } from './components/CartDrawer';
 import { ProductQuickViewModal } from './components/ProductQuickViewModal';
 import { MaaliBookingModal } from './components/MaaliBookingModal';
 import { CheckoutModal } from './components/CheckoutModal';
+import { AuthModal } from './components/AuthModal';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { ProductCategory } from './types';
 
@@ -64,6 +66,7 @@ const MainApp: React.FC = () => {
       <ProductQuickViewModal />
       <MaaliBookingModal />
       <CheckoutModal />
+      <AuthModal />
 
       {/* Floating Action WhatsApp Widget */}
       <FloatingWhatsApp />
@@ -73,9 +76,11 @@ const MainApp: React.FC = () => {
 
 export function App() {
   return (
-    <CartProvider>
-      <MainApp />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <MainApp />
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
