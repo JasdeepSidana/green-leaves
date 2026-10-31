@@ -18,11 +18,45 @@ import { SafeImage } from './SafeImage';
 import { getWhatsAppProductOrderUrl, getWhatsAppInquiryUrl } from '../utils/whatsapp';
 import brandPosterImg from '../assets/images/brand-promotional-poster.jpg';
 import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-grass.jpg';
-import vermicompostPouchImg from '../assets/images/vermicompost-pouch.jpg';
+import vermicompostLivingSoilDuoImg from '../assets/images/vermicompost-living-soil-duo.jpg';
+import vermicompostGardenDuoImg from '../assets/images/vermicompost-garden-duo.jpg';
 
 export const DiwaliCampaignSection: React.FC = () => {
   const { addItem, openQuickView, applyPromoCode, appliedPromoCode } = useCart();
   const [copied, setCopied] = useState(false);
+  const [activeStallView, setActiveStallView] = useState<'living-soil' | 'garden-duo' | 'grassland'>('living-soil');
+
+  const stallViews = [
+    {
+      id: 'living-soil',
+      label: 'Living Soil & Sapling',
+      icon: '🌱',
+      src: vermicompostLivingSoilDuoImg,
+      alt: 'Hands holding living organic vermicompost and fresh green sapling alongside 1kg and 10kg packs',
+      badge: 'Living Bio-Compost & Sprout',
+      caption: 'Hand-harvested rich earthworm castings with live healthy seedling'
+    },
+    {
+      id: 'garden-duo',
+      label: 'Flagship Garden Duo',
+      icon: '🌼',
+      src: vermicompostGardenDuoImg,
+      alt: '1kg Starter Pouch & 10kg Terrace Sack standing in rich soil surrounded by blooming daisies',
+      badge: 'Official 1kg & 10kg Duo',
+      caption: '1kg Starter Pouch & 10kg Terrace Sack standing in garden soil'
+    },
+    {
+      id: 'grassland',
+      label: 'Exhibition Stall Batch',
+      icon: '🏕️',
+      src: vermicompostPouchesGrassImg,
+      alt: 'Fresh Vermicompost Pouches on Grassland at Festival Exhibition Stall',
+      badge: 'Festival Stall Batch',
+      caption: 'Live stock displayed at our festival garden exhibition'
+    }
+  ];
+
+  const currentStallView = stallViews.find(v => v.id === activeStallView) || stallViews[0];
 
   // Filter the diwali festive products
   const diwaliProducts = PRODUCTS.filter(p => p.category === 'diwali' || p.isDiwaliSpecial).slice(0, 4);
@@ -219,28 +253,62 @@ export const DiwaliCampaignSection: React.FC = () => {
         <div className="mb-10 bg-gradient-to-r from-charcoal-pure via-[#15231c] to-charcoal-pure border-2 border-gold/50 rounded-3xl p-5 sm:p-7 shadow-luxury text-white relative overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             
-            {/* Visual: Authentic Bag & Garden Stock */}
-            <div className="lg:col-span-5 flex flex-col sm:flex-row gap-3 items-center justify-center">
-              <div className="w-full sm:w-1/2 rounded-2xl overflow-hidden bg-black/60 border border-gold/30 p-2 text-center group">
-                <div className="h-44 sm:h-52 w-full flex items-center justify-center">
-                  <img
-                    src={vermicompostPouchImg}
-                    alt="Authentic 2kg Vermicompost Packaging"
-                    className="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)] group-hover:scale-105 transition-transform"
-                  />
+            {/* Visual: Authentic Stall & Living Soil Showcase */}
+            <div className="lg:col-span-5 flex flex-col gap-2.5">
+              {/* Big Main Screen Image with Dubai Gold Frame */}
+              <div className="relative w-full h-52 sm:h-60 rounded-2xl overflow-hidden bg-black/85 border-2 border-gold/40 shadow-gold-dubai-sm group">
+                <img
+                  src={currentStallView.src}
+                  alt={currentStallView.alt}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+
+                {/* Top Badge Overlay */}
+                <div className="absolute top-2.5 left-2.5 z-10 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full badge-dubai-gold text-[10px] font-black uppercase tracking-wider shadow-md">
+                  <span>{currentStallView.icon}</span>
+                  <span>{currentStallView.badge}</span>
                 </div>
-                <span className="text-[10px] font-bold text-gold uppercase tracking-wider block mt-1">Official 2kg Pouch</span>
+
+                {/* Bottom Caption Overlay */}
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/95 via-black/80 to-transparent p-3 pt-6 text-left">
+                  <p className="text-xs font-black text-white leading-tight">
+                    {currentStallView.label}
+                  </p>
+                  <p className="text-[10px] text-gray-300 mt-0.5 line-clamp-1">
+                    {currentStallView.caption}
+                  </p>
+                </div>
               </div>
 
-              <div className="w-full sm:w-1/2 rounded-2xl overflow-hidden bg-black/60 border border-emerald-500/30 p-2 text-center group">
-                <div className="h-44 sm:h-52 w-full flex items-center justify-center">
-                  <img
-                    src={vermicompostPouchesGrassImg}
-                    alt="Fresh Stock Pouches Outdoors"
-                    className="h-full w-full object-cover rounded-xl group-hover:scale-105 transition-transform"
-                  />
-                </div>
-                <span className="text-[10px] font-bold text-emerald-300 uppercase tracking-wider block mt-1">Fresh Grassland Batch</span>
+              {/* Interactive Thumbnail Selector Tabs */}
+              <div className="grid grid-cols-3 gap-2">
+                {stallViews.map((view) => {
+                  const isSelected = activeStallView === view.id;
+                  return (
+                    <button
+                      key={view.id}
+                      onClick={() => setActiveStallView(view.id as any)}
+                      className={`relative rounded-xl overflow-hidden p-1 border transition-all text-left flex flex-col items-center justify-center cursor-pointer ${
+                        isSelected
+                          ? 'border-gold bg-gold/15 shadow-gold-dubai-sm'
+                          : 'border-white/10 bg-black/50 hover:border-gold/40 hover:bg-white/5 opacity-75 hover:opacity-100'
+                      }`}
+                    >
+                      <div className="w-full h-11 sm:h-12 rounded-lg overflow-hidden mb-1 bg-black/60">
+                        <img
+                          src={view.src}
+                          alt={view.label}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <span className={`text-[9px] font-bold tracking-tight text-center truncate w-full px-0.5 ${
+                        isSelected ? 'text-gold' : 'text-gray-300'
+                      }`}>
+                        {view.icon} {view.label}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 

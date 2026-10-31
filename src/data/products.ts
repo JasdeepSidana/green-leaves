@@ -5,7 +5,8 @@ import vermicompostSquareImg from '../assets/images/vermicompost-organic-square.
 import vermicompost5kgImg from '../assets/images/vermicompost-5kg-showcase.jpg';
 import vermicompost10kgImg from '../assets/images/vermicompost-10kg-showcase.jpg';
 import vermicompost1kgStarterImg from '../assets/images/vermicompost-1kg-starter.jpg';
-import vermicompostPouchImg from '../assets/images/vermicompost-pouch.jpg';
+import vermicompostLivingSoilDuoImg from '../assets/images/vermicompost-living-soil-duo.jpg';
+import vermicompostGardenDuoImg from '../assets/images/vermicompost-garden-duo.jpg';
 import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-grass.jpg';
 import brandPosterImg from '../assets/images/brand-promotional-poster.jpg';
 import deodapVermicompostSoilImg from '../assets/images/deodap-vermicompost-soil.jpg';
@@ -160,6 +161,8 @@ export const PRODUCTS: Product[] = [
       vermicompost2kgOfficialImg,
       vermicompost5kgImg,
       vermicompost10kgImg,
+      vermicompostLivingSoilDuoImg,
+      vermicompostGardenDuoImg,
       vermicompostHandsPouchImg,
       'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80',
       deodapVermicompostSoilImg,
@@ -554,7 +557,8 @@ export const PRODUCTS: Product[] = [
     gallery: [
       'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80',
       vermicompostPouchesGrassImg,
-      vermicompostPouchImg
+      vermicompostLivingSoilDuoImg,
+      vermicompostGardenDuoImg
     ],
     rating: 4.97,
     reviewCount: 156,

@@ -23,6 +23,8 @@ import vermicompostSquareImg from '../assets/images/vermicompost-organic-square.
 import vermicompost5kgImg from '../assets/images/vermicompost-5kg-showcase.jpg';
 import vermicompost10kgImg from '../assets/images/vermicompost-10kg-showcase.jpg';
 import deodapVermicompostSoilImg from '../assets/images/deodap-vermicompost-soil.jpg';
+import vermicompostGardenDuoImg from '../assets/images/vermicompost-garden-duo.jpg';
+import vermicompostLivingSoilDuoImg from '../assets/images/vermicompost-living-soil-duo.jpg';
 
 export const Hero: React.FC = () => {
   const { addItem, openMaaliBooking } = useCart();
@@ -84,8 +86,8 @@ export const Hero: React.FC = () => {
     {
       id: 'garden-results',
       label: 'Garden Results',
-      src: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=800&q=80',
-      alt: 'Lush blooming garden nurtured with 6-in-1 Vermicompost Mix',
+      src: vermicompostGardenDuoImg,
+      alt: 'Green Leaves Organics 1kg & 10kg Packs in blooming garden soil',
       packIdx: 1,
       title: 'Lush Garden Results',
       subtitle: 'Visible Blooms After Compost',
