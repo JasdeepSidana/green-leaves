@@ -11,6 +11,8 @@ import vermicompostPouchesGrassImg from '../assets/images/vermicompost-pouches-g
 import brandPosterImg from '../assets/images/brand-promotional-poster.jpg';
 import deodapVermicompostSoilImg from '../assets/images/deodap-vermicompost-soil.jpg';
 import deodapVermicompostPackImg from '../assets/images/deodap-vermicompost-pack.jpg';
+import kitchenHerbTrioImg from '../assets/images/kitchen-herb-trio.jpg';
+import trichodermaBioFungicideImg from '../assets/images/trichoderma-bio-fungicide.jpg';
 
 export const PRODUCTS: Product[] = [
   // =========================================================
@@ -397,7 +399,12 @@ export const PRODUCTS: Product[] = [
     fullDescription: 'Kickstart your edible urban garden with our triple herb bundle. Grown without synthetic pesticides, fertilized purely with our aged compost and neem extracts.',
     price: 399,
     mrp: 599,
-    image: 'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=800&q=80',
+    image: kitchenHerbTrioImg,
+    gallery: [
+      kitchenHerbTrioImg,
+      'https://images.unsplash.com/photo-1669131080043-f69be198e64f?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1534944645004-bf75556ce377?auto=format&fit=crop&w=800&q=80'
+    ],
     rating: 4.88,
     reviewCount: 95,
     badges: ['Edible & Fresh', 'Immunity Trio', '100% Organic'],
@@ -458,7 +465,13 @@ export const PRODUCTS: Product[] = [
     fullDescription: 'The single most critical natural medicine for urban potted plants in India, especially during monsoon and high humidity. Trichoderma viride colonizes root hairs, creating a biological shield against Phytophthora, Pythium, and Rhizoctonia.',
     price: 299,
     mrp: 420,
-    image: 'https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=800&q=80',
+    image: trichodermaBioFungicideImg,
+    gallery: [
+      trichodermaBioFungicideImg,
+      'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1777554886285-391eab7f4260?auto=format&fit=crop&w=800&q=80',
+      deodapVermicompostSoilImg
+    ],
     rating: 4.96,
     reviewCount: 167,
     badges: ['Essential Bio-Shield', 'Anti-Root Rot', '100% Bio-Organic'],
@@ -588,6 +601,11 @@ export const PRODUCTS: Product[] = [
     price: 899,
     mrp: 1299,
     image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80',
+      trichodermaBioFungicideImg,
+      vermicompost5kgImg
+    ],
     rating: 4.92,
     reviewCount: 128,
     badges: ['Plant Doctor Pick', 'Visible Result in 14 Days'],
