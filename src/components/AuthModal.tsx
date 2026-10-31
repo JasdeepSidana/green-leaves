@@ -208,7 +208,7 @@ export const AuthModal: React.FC = () => {
                   <span className="text-xl">🪴</span>
                   <div>
                     <h5 className="font-bold text-white text-[11px]">Quick 1-Click Testing</h5>
-                    <p className="text-[10px] text-emerald-300">Sign in instantly as Jasdeep Sidana</p>
+                    <p className="text-[10px] text-emerald-300">Sign in instantly as Club Member</p>
                   </div>
                 </div>
                 <button
@@ -318,7 +318,7 @@ export const AuthModal: React.FC = () => {
                   </div>
                   <input
                     type="text"
-                    placeholder="Jasdeep Sidana"
+                    placeholder="e.g. Rahul Verma"
                     value={signUpData.fullName}
                     onChange={(e) => setSignUpData({ ...signUpData, fullName: e.target.value })}
                     className="w-full bg-black/60 border border-white/20 rounded-xl py-2 pl-9 pr-3 text-xs text-white placeholder-gray-500 focus:border-gold focus:ring-1 focus:ring-gold outline-none transition"

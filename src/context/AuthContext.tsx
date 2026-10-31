@@ -1,18 +1,19 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { UserProfile, PlacedOrder } from '../types';
 import { safeGetStorage, safeSetStorage, sanitizeInput } from '../utils/security';
+import { db } from '../utils/db';
 
 const USER_STORAGE_KEY = 'green_leaves_auth_user_v1';
 const USERS_LIST_STORAGE_KEY = 'green_leaves_registered_users_v1';
 const ORDERS_STORAGE_KEY = 'green_leaves_orders_history_v1';
 
-// Seed demo user so user can test immediately with 1 click
+// Generic sample demo account with zero personal identity references
 const DEMO_USER: UserProfile = {
   id: 'usr_demo_101',
-  fullName: 'Jasdeep Sidana',
-  email: 'jasdeep@greenleavesorganics.in',
-  phone: '8826078720',
-  addressLine: 'House #42, Sector 14, Urban Estate',
+  fullName: 'Green Leaves Club Member',
+  email: 'member@greenleavesorganics.in',
+  phone: '9876543210',
+  addressLine: 'Flat 402, Green Avenue, Sector 14',
   landmark: 'Near Central Park',
   city: 'Gurugram',
   state: 'Haryana',
@@ -65,10 +66,37 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalTab, setAuthModalTab] = useState<'signin' | 'signup' | 'orders' | 'profile'>('signin');
 
+  // Load from IndexedDB on startup
+  useEffect(() => {
+    let isMounted = true;
+    (async () => {
+      try {
+        const [dbOrders, dbSession] = await Promise.all([
+          db.getAllOrders(),
+          db.getCurrentSession()
+        ]);
+        if (isMounted) {
+          if (dbOrders && dbOrders.length > 0) {
+            setOrders(dbOrders);
+          }
+          if (dbSession) {
+            setCurrentUser(dbSession);
+          }
+        }
+      } catch {
+        // Fallback already loaded from localStorage in state initializer
+      }
+    })();
+    return () => { isMounted = false; };
+  }, []);
+
+  // Sync session state to IndexedDB + localStorage
   useEffect(() => {
     safeSetStorage(USER_STORAGE_KEY, currentUser);
+    db.setCurrentSession(currentUser);
   }, [currentUser]);
 
+  // Sync orders to localStorage
   useEffect(() => {
     safeSetStorage(ORDERS_STORAGE_KEY, orders);
   }, [orders]);
@@ -85,7 +113,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const signIn = async (emailOrPhone: string, _password?: string): Promise<{ success: boolean; message: string }> => {
     const cleanIdentifier = sanitizeInput(emailOrPhone.trim().toLowerCase());
     if (!cleanIdentifier) {
-      return { success: false, message: 'Please enter your email or 10-digit mobile number' };
+      return { success: false, message: 'Please enter your registered mobile number or email' };
     }
 
     // Check demo match
@@ -98,7 +126,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return { success: true, message: `Welcome back, ${DEMO_USER.fullName}!` };
     }
 
-    // Check registered accounts
+    // Check IndexedDB
+    try {
+      const indexedUser = await db.findUserByIdentifier(cleanIdentifier);
+      if (indexedUser) {
+        setCurrentUser(indexedUser);
+        return { success: true, message: `Welcome back, ${indexedUser.fullName}!` };
+      }
+    } catch {
+      // ignore
+    }
+
+    // Check registered accounts in localStorage
     const allUsers = safeGetStorage<StoredUserAccount[]>(USERS_LIST_STORAGE_KEY, [DEMO_USER]);
     const found = allUsers.find(
       u => u.email.toLowerCase() === cleanIdentifier || u.phone === cleanIdentifier
@@ -106,10 +145,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     if (found) {
       setCurrentUser(found);
+      db.saveUser(found);
       return { success: true, message: `Welcome back, ${found.fullName}!` };
     }
 
-    // For effortless UX, create instant account if valid format
+    // Instant registration for valid Indian phone or email
     const isPhone = /^[6-9]\d{9}$/.test(cleanIdentifier);
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanIdentifier);
 
@@ -125,11 +165,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       };
       const updatedList = [...allUsers, newUser];
       safeSetStorage(USERS_LIST_STORAGE_KEY, updatedList);
+      db.saveUser(newUser);
       setCurrentUser(newUser);
       return { success: true, message: `Account created successfully! Welcome, ${newUser.fullName}!` };
     }
 
-    return { success: false, message: 'Invalid credentials. Enter your 10-digit phone or registered email.' };
+    return { success: false, message: 'Invalid credentials. Enter your 10-digit mobile number or registered email.' };
   };
 
   const signUp = async (userData: {
@@ -152,6 +193,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const cleanEmail = sanitizeInput(userData.email.trim().toLowerCase());
     const cleanPhone = sanitizeInput(userData.phone.trim());
+
+    // Check IndexedDB
+    try {
+      const existingDb = await db.findUserByIdentifier(cleanPhone);
+      if (existingDb) {
+        setCurrentUser(existingDb);
+        return { success: true, message: `Account already exists. Signed in as ${existingDb.fullName}!` };
+      }
+    } catch {
+      // ignore
+    }
 
     const allUsers = safeGetStorage<StoredUserAccount[]>(USERS_LIST_STORAGE_KEY, [DEMO_USER]);
     const existing = allUsers.find(u => u.email.toLowerCase() === cleanEmail || u.phone === cleanPhone);
@@ -176,6 +228,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const updatedList = [...allUsers, newUser];
     safeSetStorage(USERS_LIST_STORAGE_KEY, updatedList);
+    db.saveUser(newUser);
     setCurrentUser(newUser);
 
     return { success: true, message: `Registration successful! Welcome to Green Leaves, ${newUser.fullName}!` };
@@ -197,6 +250,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       ...updates
     };
     setCurrentUser(updated);
+    db.saveUser(updated);
 
     // Also persist in users list
     const allUsers = safeGetStorage<StoredUserAccount[]>(USERS_LIST_STORAGE_KEY, []);
@@ -209,6 +263,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const addOrder = (order: PlacedOrder) => {
     setOrders(prev => [order, ...prev]);
+    db.saveOrder(order);
   };
 
   return (

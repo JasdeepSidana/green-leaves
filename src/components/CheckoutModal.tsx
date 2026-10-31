@@ -756,7 +756,7 @@ export const CheckoutModal: React.FC = () => {
                             <input
                               type="text"
                               name="upiId"
-                              placeholder="e.g. 9811223344@paytm or jasdeep@okaxis"
+                              placeholder="e.g. 9811223344@paytm or yourname@okaxis"
                               value={formData.upiId}
                               onChange={handleInputChange}
                               className={`w-full bg-[#141F1A] border rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none ${
