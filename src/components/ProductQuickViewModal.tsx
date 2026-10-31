@@ -73,11 +73,11 @@ export const ProductQuickViewModal: React.FC = () => {
 
         {/* Left Side: Product Imagery & Badges */}
         <div className="md:w-1/2 bg-black/40 p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden border-b md:border-b-0 md:border-r border-white/10">
-          <div className="relative h-56 sm:h-72 md:h-80 w-full rounded-2xl overflow-hidden shadow-inner border border-white/10 flex items-center justify-center bg-black/60">
+          <div className="relative h-64 sm:h-76 md:h-88 w-full rounded-2xl overflow-hidden shadow-inner border border-white/10 flex items-center justify-center bg-gradient-to-b from-[#141F1A] to-[#0A0F0D] p-3">
             <SafeImage
-              src={selectedImage || product.image}
+              src={selectedImage || currentPack.image || product.image}
               alt={product.name}
-              className="w-full h-full object-cover transition-transform duration-300"
+              className="max-w-full max-h-full object-contain transition-transform duration-300 filter drop-shadow-[0_10px_25px_rgba(0,0,0,0.85)]"
             />
             {discount > 0 && (
               <span className="absolute top-3 left-3 bg-red-600 text-white font-extrabold text-[10px] sm:text-xs px-2.5 py-1 rounded-md shadow-sm">
@@ -165,7 +165,10 @@ export const ProductQuickViewModal: React.FC = () => {
                   {product.packSizes.map((pack, idx) => (
                     <button
                       key={idx}
-                      onClick={() => setSelectedPackIndex(idx)}
+                      onClick={() => {
+                        setSelectedPackIndex(idx);
+                        if (pack.image) setSelectedImage(pack.image);
+                      }}
                       className={`p-2 sm:p-2.5 rounded-xl text-left border transition text-xs cursor-pointer ${
                         selectedPackIndex === idx
                           ? 'bg-emerald-900/80 border-gold text-gold font-bold shadow-xs'

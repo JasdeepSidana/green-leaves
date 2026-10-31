@@ -12,6 +12,7 @@ export interface PackSize {
   price: number;
   mrp: number;
   perks?: string;
+  image?: string;
 }
 
 export interface Product {

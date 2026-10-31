@@ -30,7 +30,7 @@ export const Hero: React.FC = () => {
   const selectedPack = flagship.packSizes ? flagship.packSizes[selectedPackIndex] : { size: '1 kg Starter Pack', price: 149, mrp: 249 };
   const [activeIngredientIndex, setActiveIngredientIndex] = useState<number | null>(null);
 
-  // Exact 4 showcase views requested by user with synchronized pricing
+  // All 5 showcase views synchronized with pack sizes & garden results
   const showcaseViews = [
     {
       id: '1kg-starter',
@@ -42,7 +42,7 @@ export const Hero: React.FC = () => {
       subtitle: '1 kg Starter Pack',
       price: 149,
       mrp: 249,
-      fitContain: false
+      fitContain: true
     },
     {
       id: '2kg-garden',
@@ -67,6 +67,18 @@ export const Hero: React.FC = () => {
       price: 549,
       mrp: 850,
       fitContain: false
+    },
+    {
+      id: '10kg-terrace',
+      label: '10kg Terrace Pack',
+      src: vermicompost10kgImg,
+      alt: 'Green Leaves Organics 10 KG Terrace Pack Vermicompost',
+      packIdx: 3,
+      title: '6-in-1 Enriched Vermicompost',
+      subtitle: '10kg Terrace Pack',
+      price: 999,
+      mrp: 1600,
+      fitContain: true
     },
     {
       id: 'garden-results',
@@ -96,6 +108,7 @@ export const Hero: React.FC = () => {
     if (idx === 0) setActiveViewIdx(0);
     else if (idx === 1) setActiveViewIdx(1);
     else if (idx === 2) setActiveViewIdx(2);
+    else if (idx === 3) setActiveViewIdx(3);
   };
 
   const ingredientDetails = [
@@ -254,7 +267,7 @@ export const Hero: React.FC = () => {
               </div>
 
               {/* Image Showcase View Switcher Tabs */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mb-2.5 bg-black/70 p-1.5 rounded-xl border border-gold/30">
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5 mb-2.5 bg-black/70 p-1.5 rounded-xl border border-gold/30">
                 {showcaseViews.map((view, idx) => (
                   <button
                     key={view.id}
@@ -271,19 +284,35 @@ export const Hero: React.FC = () => {
               </div>
 
               {/* Product Packaging Image Showcase */}
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#121c17] via-charcoal to-[#080d0b] border-2 border-gold/40 mb-3.5 p-2 sm:p-2.5 text-center shadow-gold-dubai-sm">
-                <div className="relative mx-auto h-44 sm:h-52 w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/50">
-                  <SafeImage
-                    src={selectedPackIndex === 3 && activeViewIdx !== 3 ? vermicompost10kgImg : showcaseViews[activeViewIdx].src}
-                    alt={selectedPackIndex === 3 && activeViewIdx !== 3 ? 'Green Leaves Organics 10 KG Terrace Pack Vermicompost' : showcaseViews[activeViewIdx].alt}
-                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#101914] via-[#0B100D] to-[#070B09] border-2 border-gold/40 mb-3.5 p-2 sm:p-2.5 text-center shadow-gold-dubai-sm">
+                <div className="relative mx-auto h-64 sm:h-76 md:h-84 w-full rounded-xl overflow-hidden flex flex-col items-center justify-between bg-black/60 backdrop-blur-xs p-2">
+                  
+                  {/* Top Off Tag */}
+                  <div className="w-full flex items-center justify-between z-10 px-1 pt-1">
+                    <span className="badge-dubai-gold font-black text-[10px] px-2 py-0.5 rounded-full shadow-md">
+                      {Math.round(((selectedPack.mrp - selectedPack.price) / selectedPack.mrp) * 100)}% OFF
+                    </span>
+                    <span className="bg-emerald text-white font-bold text-[10px] px-2 py-0.5 rounded-full shadow-md flex items-center gap-1 border border-emerald-400/40">
+                      <ShieldCheck className="w-3 h-3" /> 100% Bio-Organic
+                    </span>
+                  </div>
+
+                  {/* Centered Proportional Image */}
+                  <div className="flex-1 w-full flex items-center justify-center overflow-hidden my-1">
+                    <SafeImage
+                      src={showcaseViews[activeViewIdx].src}
+                      alt={showcaseViews[activeViewIdx].alt}
+                      className={`max-h-full max-w-full ${
+                        showcaseViews[activeViewIdx].fitContain ? 'object-contain' : 'object-cover w-full h-full'
+                      } transition-transform duration-500 hover:scale-105 filter drop-shadow-[0_10px_25px_rgba(0,0,0,0.85)]`}
+                    />
+                  </div>
                   
                   {/* Floating Black & Gold Packaging Label Overlay */}
-                  <div className="absolute bottom-1.5 left-1.5 right-1.5 bg-black/95 backdrop-blur-md rounded-xl p-2 border border-gold/50 flex items-center justify-between shadow-gold-dubai-sm">
+                  <div className="w-full bg-black/95 backdrop-blur-md rounded-xl p-2 border border-gold/50 flex items-center justify-between shadow-gold-dubai-sm z-10">
                     <div className="text-left truncate mr-2">
                       <p className="text-[9px] text-gold-metallic-shiny font-black uppercase tracking-wider truncate">
-                        {selectedPackIndex === 3 && activeViewIdx !== 3 ? '10kg Terrace Pack' : (showcaseViews[activeViewIdx].subtitle || selectedPack.size)}
+                        {showcaseViews[activeViewIdx].subtitle || selectedPack.size}
                       </p>
                       <p className="text-xs font-black text-white truncate">
                         {showcaseViews[activeViewIdx].title || '6-in-1 Enriched Vermicompost'}
@@ -291,10 +320,10 @@ export const Hero: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-1.5 flex-shrink-0">
                       <span className="text-[10px] text-gray-400 line-through">
-                        ₹{selectedPackIndex === 3 && activeViewIdx !== 3 ? selectedPack.mrp : (showcaseViews[activeViewIdx].mrp ?? selectedPack.mrp)}
+                        ₹{showcaseViews[activeViewIdx].mrp ?? selectedPack.mrp}
                       </span>
                       <span className="text-xs font-black badge-dubai-gold px-2.5 py-0.5 rounded-full shadow-xs">
-                        ₹{selectedPackIndex === 3 && activeViewIdx !== 3 ? selectedPack.price : (showcaseViews[activeViewIdx].price ?? selectedPack.price)}
+                        ₹{showcaseViews[activeViewIdx].price ?? selectedPack.price}
                       </span>
                     </div>
                   </div>

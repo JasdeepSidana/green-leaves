@@ -170,11 +170,11 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({ initialCategory 
                 className="bg-[#121A16] rounded-2xl border border-emerald-500/20 hover:border-gold/60 shadow-luxury-dark hover:shadow-gold-dubai-sm transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1 text-white"
               >
                 {/* Product Card Image & Badges */}
-                <div className="relative aspect-square overflow-hidden bg-black/60">
+                <div className="relative aspect-square overflow-hidden bg-gradient-to-b from-[#141F1A] to-[#0A0F0D] flex items-center justify-center p-2.5">
                   <SafeImage
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    src={currentPack.image || product.image}
+                    alt={`${product.name} - ${currentPack.size}`}
+                    className="max-w-full max-h-full object-contain transition-transform duration-500 group-hover:scale-105 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.7)]"
                   />
 
                   {/* Top Badges */}

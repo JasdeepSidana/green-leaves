@@ -26,7 +26,7 @@ export const FlagshipSection: React.FC = () => {
   const [selectedPackIndex, setSelectedPackIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  // Exact 4 showcase views requested by user with synchronized pricing
+  // All 5 showcase views synchronized with pack sizes & garden results
   const showcaseViews = [
     {
       id: '1kg-starter',
@@ -38,7 +38,7 @@ export const FlagshipSection: React.FC = () => {
       subtitle: '1 kg Starter Pack',
       price: 149,
       mrp: 249,
-      fitContain: false
+      fitContain: true
     },
     {
       id: '2kg-garden',
@@ -63,6 +63,18 @@ export const FlagshipSection: React.FC = () => {
       price: 549,
       mrp: 850,
       fitContain: false
+    },
+    {
+      id: '10kg-terrace',
+      label: '10kg Terrace Pack',
+      src: vermicompost10kgImg,
+      alt: 'Green Leaves Organics 10 KG Terrace Pack Vermicompost',
+      packIdx: 3,
+      title: '6-in-1 Enriched Vermicompost',
+      subtitle: '10kg Terrace Pack',
+      price: 999,
+      mrp: 1600,
+      fitContain: true
     },
     {
       id: 'garden-results',
@@ -95,6 +107,7 @@ export const FlagshipSection: React.FC = () => {
     if (idx === 0) setActiveViewIdx(0);
     else if (idx === 1) setActiveViewIdx(1);
     else if (idx === 2) setActiveViewIdx(2);
+    else if (idx === 3) setActiveViewIdx(3);
   };
 
   const formulaItems = [
@@ -200,7 +213,7 @@ export const FlagshipSection: React.FC = () => {
               </div>
 
               {/* Image Switcher Tabs */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mb-2.5 bg-black/70 p-1.5 rounded-xl border border-gold/30">
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5 mb-2.5 bg-black/70 p-1.5 rounded-xl border border-gold/30">
                 {showcaseViews.map((view, idx) => (
                   <button
                     key={view.id}
@@ -217,17 +230,19 @@ export const FlagshipSection: React.FC = () => {
               </div>
 
               {/* High-res Image Presentation */}
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#121c17] via-charcoal to-[#080d0b] border-2 border-gold/40 my-3 p-2 sm:p-2.5 text-center shadow-gold-dubai-sm">
-                <div className="relative mx-auto h-52 sm:h-60 w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/50">
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#101914] via-[#0B100D] to-[#070B09] border-2 border-gold/40 my-3 p-2 sm:p-3 text-center shadow-gold-dubai-sm">
+                <div className="relative mx-auto h-72 sm:h-84 md:h-96 w-full rounded-xl overflow-hidden flex items-center justify-center bg-black/60 backdrop-blur-xs p-2">
                   <SafeImage
-                    src={selectedPackIndex === 3 && activeViewIdx !== 3 ? vermicompost10kgImg : showcaseViews[activeViewIdx].src}
-                    alt={selectedPackIndex === 3 && activeViewIdx !== 3 ? 'Green Leaves Organics 10 KG Terrace Pack Vermicompost' : showcaseViews[activeViewIdx].alt}
-                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                    src={showcaseViews[activeViewIdx].src}
+                    alt={showcaseViews[activeViewIdx].alt}
+                    className={`max-h-full max-w-full ${
+                      showcaseViews[activeViewIdx].fitContain ? 'object-contain' : 'object-cover w-full h-full'
+                    } transition-transform duration-500 hover:scale-105 filter drop-shadow-[0_10px_25px_rgba(0,0,0,0.85)]`}
                   />
                   <div className="absolute top-3 left-3 badge-dubai-gold font-black text-xs px-2.5 py-0.5 rounded-full shadow-md">
                     {discountPct}% OFF
                   </div>
-                  <div className="absolute bottom-3 right-3 bg-emerald text-white font-bold text-xs px-2.5 py-0.5 rounded-full shadow-md flex items-center gap-1 border border-emerald-400/40">
+                  <div className="absolute top-3 right-3 bg-emerald text-white font-bold text-xs px-2.5 py-0.5 rounded-full shadow-md flex items-center gap-1 border border-emerald-400/40">
                     <ShieldCheck className="w-3.5 h-3.5" /> 100% Bio-Organic
                   </div>
                 </div>

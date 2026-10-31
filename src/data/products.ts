@@ -171,10 +171,10 @@ export const PRODUCTS: Product[] = [
     organicCertified: true,
     inStock: true,
     packSizes: [
-      { size: '1 kg Starter Pack', weightKg: 1, price: 149, mrp: 249, perks: 'Organic Trial Pack' },
-      { size: '2kg Pack in Garden', weightKg: 2, price: 249, mrp: 399, perks: 'Free Plant + Maali Advice' },
-      { size: '5kg Value Pack', weightKg: 5, price: 549, mrp: 850, perks: 'Save ₹301 + Free Delivery' },
-      { size: '10kg Terrace Pack', weightKg: 10, price: 999, mrp: 1600, perks: 'Mega Saver + Free 250ml Neem Spray' },
+      { size: '1 kg Starter Pack', weightKg: 1, price: 149, mrp: 249, perks: 'Organic Trial Pack', image: vermicompost1kgStarterImg },
+      { size: '2kg Pack in Garden', weightKg: 2, price: 249, mrp: 399, perks: 'Free Plant + Maali Advice', image: vermicompostHandsPouchImg },
+      { size: '5kg Value Pack', weightKg: 5, price: 549, mrp: 850, perks: 'Save ₹301 + Free Delivery', image: vermicompost5kgImg },
+      { size: '10kg Terrace Pack', weightKg: 10, price: 999, mrp: 1600, perks: 'Mega Saver + Free 250ml Neem Spray', image: vermicompost10kgImg },
     ],
     ingredients: [
       'Pure Eisenia Foetida Vermicompost (Aged 90 Days)',

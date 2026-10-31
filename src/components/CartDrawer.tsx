@@ -166,9 +166,9 @@ export const CartDrawer: React.FC = () => {
                   className="flex gap-3.5 p-3 rounded-2xl bg-[#121A16] border border-white/10 hover:border-gold/40 transition"
                 >
                   <SafeImage
-                    src={item.product.image}
-                    alt={item.product.name}
-                    className="w-16 h-16 rounded-xl object-cover flex-shrink-0 border border-white/10"
+                    src={item.selectedPack.image || item.product.image}
+                    alt={`${item.product.name} - ${item.selectedPack.size}`}
+                    className="w-16 h-16 rounded-xl object-contain p-1 bg-black/60 flex-shrink-0 border border-white/10"
                   />
 
                   <div className="flex-1 min-w-0 flex flex-col justify-between">
