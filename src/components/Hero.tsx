@@ -16,8 +16,9 @@ import { useCart } from '../context/CartContext';
 import { PRODUCTS } from '../data/products';
 import { getWhatsAppFlagshipOrderUrl } from '../utils/whatsapp';
 import { SafeImage } from './SafeImage';
+import vermicompostHeroFlagshipHandsImg from '../assets/images/vermicompost-hero-flagship-hands.jpg';
+import vermicompostDuoGardenDaisiesImg from '../assets/images/vermicompost-duo-garden-daisies.jpg';
 import vermicompost1kgStarterImg from '../assets/images/vermicompost-1kg-starter.jpg';
-import vermicompost2kgOfficialImg from '../assets/images/vermicompost-2kg-official.jpg';
 import vermicompostHandsPouchImg from '../assets/images/vermicompost-showcase-hands-pouch.jpg';
 import vermicompostSquareImg from '../assets/images/vermicompost-organic-square.jpg';
 import vermicompost5kgImg from '../assets/images/vermicompost-5kg-showcase.jpg';
@@ -34,28 +35,28 @@ export const Hero: React.FC = () => {
   // All 5 showcase views synchronized with pack sizes & garden results
   const showcaseViews = [
     {
-      id: '1kg-starter',
-      label: '1 kg Starter Pack',
-      src: vermicompost1kgStarterImg,
-      alt: 'Green Leaves Organics 1 kg Starter Pack Vermicompost',
-      packIdx: 0,
-      title: '6-in-1 Enriched Vermicompost',
-      subtitle: '1 kg Starter Pack',
-      price: 149,
-      mrp: 249,
-      fitContain: true
-    },
-    {
-      id: '2kg-garden',
-      label: '2kg Pack in Garden',
-      src: vermicompost2kgOfficialImg,
-      alt: 'Green Leaves Organics Official 2kg Vermicompost Pouch in Garden',
+      id: 'flagship-hands',
+      label: 'Main Showcase',
+      src: vermicompostHeroFlagshipHandsImg,
+      alt: 'Green Leaves Organics 6-in-1 Vermicompost with Seedling & Living Soil',
       packIdx: 1,
       title: '6-in-1 Enriched Vermicompost',
-      subtitle: 'Official 2kg Pack',
+      subtitle: 'Official Flagship Range & Living Soil',
       price: 249,
       mrp: 399,
-      fitContain: true
+      fitContain: false
+    },
+    {
+      id: 'duo-daisies',
+      label: '1kg & 10kg Packs',
+      src: vermicompostDuoGardenDaisiesImg,
+      alt: 'Green Leaves Organics 1kg and 10kg Vermicompost Packs in Garden with Daisies',
+      packIdx: 0,
+      title: 'Packaging Range',
+      subtitle: '1kg Starter & 10kg Terrace Duo',
+      price: 149,
+      mrp: 249,
+      fitContain: false
     },
     {
       id: '5kg-value',
@@ -64,7 +65,7 @@ export const Hero: React.FC = () => {
       alt: 'Green Leaves Organics 5 KG Enriched Vermicompost Value Pack with sapling',
       packIdx: 2,
       title: '6-in-1 Enriched Vermicompost',
-      subtitle: '5kg Value Pack',
+      subtitle: '5kg Value Pack with Sapling',
       price: 549,
       mrp: 850,
       fitContain: false
@@ -72,14 +73,14 @@ export const Hero: React.FC = () => {
     {
       id: '10kg-terrace',
       label: '10kg Terrace Pack',
-      src: vermicompost10kgImg,
+      src: vermicompostDuoGardenDaisiesImg,
       alt: 'Green Leaves Organics 10 KG Terrace Pack Vermicompost',
       packIdx: 3,
       title: '6-in-1 Enriched Vermicompost',
-      subtitle: '10kg Terrace Pack',
+      subtitle: '10kg Terrace Pack with Chamomile',
       price: 999,
       mrp: 1600,
-      fitContain: true
+      fitContain: false
     },
     {
       id: 'garden-results',
@@ -106,10 +107,10 @@ export const Hero: React.FC = () => {
 
   const handlePackSizeSelect = (idx: number) => {
     setSelectedPackIndex(idx);
-    if (idx === 0) setActiveViewIdx(0);
-    else if (idx === 1) setActiveViewIdx(1);
-    else if (idx === 2) setActiveViewIdx(2);
-    else if (idx === 3) setActiveViewIdx(3);
+    if (idx === 0) setActiveViewIdx(1); // 1kg & 10kg duo view
+    else if (idx === 1) setActiveViewIdx(0); // Main showcase view
+    else if (idx === 2) setActiveViewIdx(2); // 5kg view
+    else if (idx === 3) setActiveViewIdx(3); // 10kg view
   };
 
   const ingredientDetails = [
@@ -285,8 +286,8 @@ export const Hero: React.FC = () => {
               </div>
 
               {/* Product Packaging Image Showcase */}
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#101914] via-[#0B100D] to-[#070B09] border-2 border-gold/40 mb-3.5 p-2 sm:p-2.5 text-center shadow-gold-dubai-sm">
-                <div className="relative mx-auto h-80 sm:h-96 md:h-[400px] w-full rounded-xl overflow-hidden bg-black/85 flex items-center justify-center p-3">
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#101914] via-[#0B100D] to-[#070B09] border-2 border-gold/40 mb-3.5 p-1.5 sm:p-2 shadow-gold-dubai-sm">
+                <div className="relative mx-auto aspect-[16/9] w-full rounded-xl overflow-hidden bg-black/90 flex items-center justify-center">
                   
                   {/* Top Badges */}
                   <div className="absolute top-2.5 left-2.5 z-20 badge-dubai-gold font-black text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full shadow-md">
@@ -296,12 +297,12 @@ export const Hero: React.FC = () => {
                     <ShieldCheck className="w-3 h-3" /> 100% Bio-Organic
                   </div>
 
-                  {/* Proportional Full-View Image - 100% visible, zero cropping */}
+                  {/* Big Main Screen 16:9 Image */}
                   <SafeImage
                     src={showcaseViews[activeViewIdx].src}
                     alt={showcaseViews[activeViewIdx].alt}
-                    className="w-full h-full object-contain"
-                    imgClassName="object-contain filter drop-shadow-[0_12px_28px_rgba(0,0,0,0.9)] transition-transform duration-500 hover:scale-105"
+                    className="w-full h-full object-cover"
+                    imgClassName="object-cover transition-transform duration-700 hover:scale-105"
                   />
                   
                   {/* Floating Black & Gold Packaging Label Overlay at bottom */}
